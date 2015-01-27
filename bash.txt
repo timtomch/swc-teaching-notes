@@ -62,6 +62,194 @@ HOW TO USE A SHELL
 - slashes separate folders and subfolders
 - first slash tells it's the root
 
-- LS to list what's in a directory
+
 
 - CD to CHANGE DIRECTORY
+
+- LS to list what's in a directory
+	- filename conventions
+	- extensions (can be hidden in the Finder but should always be here)
+	- spaces and accented characters are bad news (but there are ways to get around)
+	
+- Examples use of CD to navigate up and down, relative vs absolute paths
+- cd .. to go "up"
+- cd to home dir
+- cd / to root
+- pwd to see where you are
+
+
+AUTOCOMPLETE
+- very useful trick, use the tab key to autocomplete!!
+
+
+CHALLENGE
+- Please download the nelle directory if not already done so
+- Preferably save it into somewhere in your files where you will be able to find it - DESKTOP NOT ALWAYS A GOOD IDEA
+- navigate to this folder and list its contents
+- try using autocomplete
+should be
+Desktop			molecules		pizza.cfg
+creatures		north-pacific-gyre	solar.pdf
+data			notes.txt		writing
+
+
+ARGUMENTS
+- I can run programms either with or without arguments
+
+	- cd nelles
+			^ this is an argument
+	- no arguments: some sort of default
+		- ls : lists the current dir, but you can specify e.g. ls data
+		- cd : home dir
+	
+- More than one arguments
+	- e.g. ls data molecules
+
+- Special arguments that change the way the program behaves: FLAGS
+
+	- ls -a (list ALL)
+	- ls -F (identifies directories)
+		 -r (reverse order)
+
+- mention MANPAGES
+
+
+
+CREATING FILES
+
+- create new directory: mkdir
+
+mkdir thesis
+
+- new directories start empty
+
+- create a new text file - using a TEXT EDITOR
+
+nano draft.txt
+
+---> WHAT'S GOING ON HERE?
+	- interactive mode
+	- we're in an editor
+	- nano is a bare bones text editor
+	- you can type your thesis in nano
+	- in practice, better to use a good one
+	- nano always there, can be used for small changes
+	
+	- can't use the mouse
+	- arrow keys
+	
+	- Bottom row: list of possible actions. ^ means CONTROL KEY
+	
+	Write some text, then CTRL-O, confirm filename then CTLR-X to exit.
+	
+check that the file is there using ls
+
+
+DELETING FILES
+
+- rm
+- NO TRASH CAN!!! - be careful
+
+- rm only works on files
+
+some examples using draft, recreate, try to delete entire thesis dir
+
+- rmdir only works on empty directories
+
+SAFETY NETS
+
+- rm -r allows to delete recursively ---> DANGER
+
+
+
+RENAME AND MOVE
+
+- mv
+	- rename
+	- move
+
+
+COPY
+
+- cp
+
+- how to copy a directory?
+	- use -r
+	
+	WHAT'S THE DIFFERENCE OF
+	- cp -r data/ thesis
+	and
+	- cp -r data thesis
+	
+	I like to write
+	- cp -r data thesis/.
+	WHY?
+	
+
+. - this dir
+.. - parent dir
+/ - root
+
+* wildcard
+
+
+CHALLENGE
+- move the molecules folder under data
+- create a folder called backup under nelles
+- create a subdirectory with today's date under backup
+- copy the contents of the data folder there
+
+
+
+
+BREAK ?
+
+
+
+
+PIPES
+
+Process results into a file with >
+Read a file instead of keyboard input
+
+
+GENERALLY
+- small pieces
+- joined by pipes
+- good way to "grow" a program
+
+
+SHELL SCRIPTS
+- objective: we don't want to be typing that whole pipe again next time
+- make it into a shell script
+
+
+
+LOOPS
+
+$ for filename in basilisk.dat unicorn.dat
+> do
+>    head -3 $filename
+> done
+
+
+GREP and FIND
+
+- cd writing
+- less haiku.txt
+
+Find the lines that contain "not"
+- grep "not" haiku.txt
+not necessary to put quotes
+
+- grep day haiku.txt
+also returns Yesterday
+
+-w to restrict matches to word boundaries
+
+-n prints line numbers
+
+Pattern is in form of REGULAR EXPRESSIONS   <-- very powerful, also rather complex
+
+
+Grow into shell script?
