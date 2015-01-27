@@ -1,0 +1,68 @@
+IF REQ'D - WHO I AM
+HOW STICKIES WORK
+CONFIRM SCHEDULE
+
+Have people download the nelle folder https://timtomch.github.io/files/filesystem.zip
+
+
+WHAT IS THE SHELL AND WHY IT IS IMPORTANT
+- take over intro from training?
+- keyboard, mouse & GUI great way to interact with computer, very intuitive
+- not great for repetitive stuff -> takes time, causes (human) errors
+
+- CLI still very much used to do exactly that, tell computers to do stuff over and over again. 
+- Work on a bunch of files. Be able to do the very same thing on other files 6 months from now.
+	-> repetitive
+	-> reproducible
+
+	---> PROGRAM
+
+- a "shell" is a computer programm that interprets what we type, tells the computer what to do in computer-speak, then prints the result of the action:
+R ead
+E xecute
+P print
+L oop
+
+- there are different shells, although they share a large set of commands. The most common nowadays is bash.
+- by default, the Mac Terminal uses bash
+- most Linux distros do too
+ 	how to be sure? type echo $SHELL
+					  or ps
+- the command prompt in Windows is also a shell, although it doesn't share the same command base as most UNIX shells
+	to get a proper shell in Windows, use a 3rd-party like git-bash (comes with git)
+	
+	
+	
+HOW TO USE A SHELL
+- shell prompt ($ in bash)
+- we type in commands
+	- e.g. whoami
+
+	- what the shell does is
+		- it finds the whoami program
+		- runs it
+		- prints its output
+		- displays a new prompt -> we can type new stuff
+
+
+- files are organised in folders on your computer (or at least they should be)
+- we can navigate those folders using Windows Explorer or the Finder
+	- example to sample data
+
+- now if I want to act on those files, I need to open the folder they're in in the Finder
+	- example
+- if I want to act on them using CLI, I also need to navigate to that folder
+- how do I know?
+- we can try whereami
+- doesn't work
+- most commands are shortcuts - PROGRAMMERS ARE LAZY PEOPLE
+
+- we use pwd instead - PRINT WORKING DIRECTORY
+- prints the whole path, from the root of the filesystem
+- on a Mac, it's often something like /User/yourname/Documents etc.
+- slashes separate folders and subfolders
+- first slash tells it's the root
+
+- LS to list what's in a directory
+
+- CD to CHANGE DIRECTORY
