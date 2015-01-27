@@ -6,7 +6,6 @@ Have people download the nelle folder https://timtomch.github.io/files/filesyste
 
 
 WHAT IS THE SHELL AND WHY IT IS IMPORTANT
-- take over intro from training?
 - keyboard, mouse & GUI great way to interact with computer, very intuitive
 - not great for repetitive stuff -> takes time, causes (human) errors
 

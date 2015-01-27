@@ -1,0 +1,197 @@
+Prep
+- download db file - http://files.software-carpentry.org/
+- make sure sqlite3 started
+- .schema
+- stickies
+
+Database introduction
+- like spreadsheets
+- more efficient with large amounts of money
+- built to be accessed by multiple clients (collaborative editing)
+- form relationships -> RELATIONAL DATABASE
+
+SQL
+- language, not software
+- STRUCTURED QUERY LANGUAGE -> database queries
+- spoken by many database managers
+	- MySQL
+	- Oracle
+	- MS Access
+	- SQLite
+		- we're using it today because simple installation and packed with python
+- usually not interact directly with dbs, today is about showing how they work internally
+- important to know this to properly structure databases
+	- usually think about structure first, then put data
+	- changing structure after the fact is not trivial (but possible), not like adding a column in excel
+- functions in programming languages that abstract dbs
+- in Access, query builder actually writes SQL in the background, can be edited, some queries can only be done this way
+- SQL very powerful, can describe entire db structure and data
+	- example survey.sql
+	- easy migration
+	- human-readable, can be reverse-engineered
+
+
+Introduce example
+- test data, short tables
+- TABLES
+- ROWS/RECORDS
+- COLUMNS/FIELDS
+
+Sqlite setup
+- .mode column
+- .headers on
+
+
+SELECT
+- SELECT family FROM person;
+separate using comma
+- SELECT family, personal FROM person;
+
+wildcard:
+- SELECT * FROM Visited;
+
+- case-insensitivity
+
+- Short challenge: Write a query that selects only site names from the Site table.
+
+
+
+ORDER BY
+- SELECT * FROM Visited ORDER BY dated ASC;
+- ignore NULL from the time being
+- note on date formatting
+	- ISO is better because order always work
+	- if other format, there are functions, however not part of core SQL, depends on the DB manager
+- ASC default
+- SELECT * FROM Visited ORDER BY dated DESC;
+can specify multiple ORDER BY clauses
+- SELECT * FROM Visited ORDER BY site ASC, dated DESC;
+
+- challenge: Write a query that displays the full names of the scientists in the Person table, ordered by family name.
+
+
+
+
+WHERE
+- limit output
+- SELECT * FROM Visited WHERE site='DR-1';
+
+Do not have to filter by displayed fields. DB manager filters first, then displays
+- SELECT ident FROM Visited WHERE site='DR-1';
+
+Boolean ops:
+- SELECT * FROM Visited WHERE site='DR-1' AND dated<"1927-03-22";
+- SELECT * FROM Visited WHERE site='DR-1' OR dated<"1932";
+- combination possible, don't forget precedence
+
+Fuzzy logic, specially useful for text
+- SELECT * FROM person WHERE family LIKE "D%";
+
+- SELECT * FROM person WHERE family NOT LIKE "D%";
+
+- SELECT * FROM Visited WHERE site!='DR-1';
+
+
+- challenge: Write a query that selects all records from Survey with salinity values outside of the 0.0-1.0 range.
+
+
+
+
+NULL
+- How many lines in Visited?
+- SELECT * FROM Visited;
+- SELECT count(*) FROM Visited;   -> 8
+- SELECT count(*) FROM Visited WHERE dated>"1932";  -> 3
+- SELECT count(*) FROM Visited WHERE dated>"1932"; -> 4
+What is missing?
+- NULL values in operations always return NULL
+- it means "I don't know"
+- protection to avoid taking wrong conclusions
+so this won't work
+- SELECT * FROM Visited WHERE dated=NULL;
+- SELECT * FROM Visited WHERE dated!=NULL;
+Instead
+- SELECT * FROM Visited WHERE dated IS NULL;
+- SELECT * FROM Visited WHERE dated IS NOT NULL;
+This is very important
+- better than using placeholders or negative numbers or zero
+
+ALWAYS TEST FOR NULL in production!
+- Greg's story about healhcare?
+another illustration
+- SELECT * FROM Survey;
+we're interested in salinity reading that were not taken by dyer
+- SELECT reading FROM Survey WHERE quant="sal" AND person!="dyer";
+is that all? what about the cases where we don't know?
+- SELECT reading FROM Survey WHERE quant="sal" AND (person!="dyer" OR person IS NULL);
+What happens if I forget the brackets?
+
+
+- challenge: Write a query that sorts the records in Visited by date, omitting entries for which the date is not known (i.e., is null).
+
+
+
+JOIN
+- get back to slide 1
+- primary key / foreign key
+- used to join tables together
+- SELECT * FROM survey JOIN person;
+we have to specify how the tables are joined
+- SELECT * FROM survey JOIN person ON survey.person=person.ident;
+note the dot notation
+select only what's needed
+dot notation can be used to distinguish if columns has same name in different tables
+- SELECT quant, personal FROM survey JOIN person ON survey.person=person.ident;
+
+
+
+
+
+- challenge: Write a query that lists all radiation readings from the DR-1 site.
+- challenge: Write a query that lists all salinity readings taken north of the 49th parallel (lat > -49)
+
+
+
+
+
+Other stuff if we have time
+
+
+remove duplicates
+GROUP BY
+- SELECT quant, personal FROM survey JOIN person ON survey.person=person.ident GROUP BY quant;
+	what's going on here?
+- SELECT quant, personal FROM survey JOIN person ON survey.person=person.ident GROUP BY quant, personal;
+- SELECT DISTINCT quant, personal FROM survey JOIN person ON survey.person=person.ident;
+
+
+
+Aggregation, count(), max(), avg(), sum()
+- SELECT min(dated) FROM visited;
+- SELECT avg(reading) FROM survey WHERE quant="rad";
+- SELECT sum(reading) FROM survey WHERE quant="sal";
+- SELECT count(reading) FROM survey WHERE quant="sal";
+	can count anything
+multiple aggregations possible:
+- SELECT min(reading), max(reading) FROM survey WHERE quant="rad";
+
+What happens if I combine aggregate functions with regular column names?
+Say I want to see who took the most rad readings?
+- SELECT count(reading), person FROM survey WHERE quant="rad";
+not what I had expected
+this is because if we don't tell the db what to aggregate on, it will return something random
+this works better:
+- SELECT count(reading), person FROM survey WHERE quant="rad" GROUP BY person;
+- SELECT count(reading), avg(reading), person FROM survey WHERE quant="rad" GROUP BY person;
+
+
+
+- challenge: How many temperature readings did Frank Pabodie record, and what was their average value?
+
+
+Calculating values
+- SELECT 0.1*reading FROM Survey WHERE quant="rad";
+- 
+
+
+
