@@ -2,7 +2,7 @@ IF REQ'D - WHO I AM
 HOW STICKIES WORK
 CONFIRM SCHEDULE
 
-Have people download the nelle folder https://timtomch.github.io/files/filesystem.zip
+Have people download the nelle folder https://timtomch.github.io/files/nelle.zip
 
 
 WHAT IS THE SHELL AND WHY IT IS IMPORTANT
@@ -78,8 +78,11 @@ HOW TO USE A SHELL
 - pwd to see where you are
 
 
-AUTOCOMPLETE
+AUTOCOMPLETE & HISTORY
 - very useful trick, use the tab key to autocomplete!!
+- up arrow: history
+- CTRL-A and CTRL-E to jump to start and end of line in the shell
+
 
 
 CHALLENGE
@@ -212,25 +215,262 @@ PIPES
 Process results into a file with >
 Read a file instead of keyboard input
 
+Join them directly with PIPES
 
-GENERALLY
+Let's switch to the molecules folder
+
+- ls
+- less cubane.pdb
+- wc -> word count (lines, words, characters)
+	- wc cubane.pdb
+	- HOW do I get the word count of all files in this directory?
+		- wildcard
+		- what does wc *.pdb mean?
+	- wc -l -> only lines
+
+- save into a file
+- wc -l *.pdb > lengths.txt
+	- what will happen?
+	- does it matter if the file lengths.txt already exists or not?
+		- create file
+		- overwrites it
+- cat lengths.txt
+
+- sort -n lengths.txt
+	- n -> numerical sort instead of alphabetic
+
+- save this into a file
+- sort -n lengths > sorted-lengths
+
+- how would I get shortest and longest molecule?
+- get first and last line of that file
+	- head -1 sorted-lengths (-1 just first line)
+	
+Do we need to create files for every step?
+We can use pipes instead
+
+- sort -n lengths | head -1
+
+- wc -l *.pdb | sort -n | head -1
+
+
+Explanation of standard in stdin and standard out stdout
+
+RECAP/GENERALLY
 - small pieces
 - joined by pipes
 - good way to "grow" a program
 
 
-SHELL SCRIPTS
-- objective: we don't want to be typing that whole pipe again next time
-- make it into a shell script
+CHALLENGES
+I've shown you how to get the shortest molecule. How would you go about to get the longest?
+- two options:
+	- tail instead of head
+	- sort -r -> problem, it gives the total as well. How do we solve that?
+	- add a step in the pipe
+		wc -l *.pdb | sort -r | head -2 | tail -1
+		doesn't make a lot of sense
+		but say that I wanted the 3rd largest ?
+			wc -l *.pdb | sort | tail -4 | head -1
+
+What if I want to remove the name of the file and only get the word count?
+- use tr & cut
+e.g. wc -l *.pdb | sort | tr -s ' ' | cut -d ' ' -f2
+
+What if instead of the number of lines I was interested in the number of bytes in every molecule file?
+- hint: use man wc
+- wc -c ...
+
+
 
 
 
 LOOPS
 
+
+Let's change into the creatures directory
+Imagine there were more than two files there. How would you create a duplicate of each of those files, say backup-nameoffile?
+
+Can you do?
+cp *.dat backup-*.dat ?
+
+Why not?
+try using echo
+That expands into
+	cp basilisk.dat unicorn.dat backup-basilisk.dat backup-unicorn.dat
+	-> error, cp doesn't know what to do with more than two files
+	Depending on your shell, it might even try to copy basilisk into unicorn...
+
+Instead, we have to use loops.
+
+For example, we want to display the first 3 lines of each files. Remember head?
+
 $ for filename in basilisk.dat unicorn.dat
-> do
+> do     <---------------- notice how the prompt changes? we're inside the for loop
 >    head -3 $filename
 > done
+
+What happened here?
+
+for
+
+variable filename
+recall variable $filename
+
+
+What if I wanted to add the name of the file to the above loop?
+I can add several lines inside the for loop
+
+$ for filename in *.dat
+> do
+> echo $filename
+> head -3 $filename
+> done
+
+Try to do an arrow up - for filename in *.dat; do head -3 $filename; done
+
+
+CHALLENGES
+- Now try to solve the initial problem
+
+$ for filename in *.dat
+> do
+> cp $filename backup-$filename
+> done
+
+- What would happen if we had a file with a space in its name?
+
+It actually depends on the shell. Modern versions of bash escape spaces. If you want to make sure, use quotes.
+
+cp "$filename" "backup-$filename"
+
+- MEASURE TWICE, CUT ONCE - how could you test the result of your for loop?
+	- use echo
+	
+$ for filename in *.dat
+> do
+> echo cp $filename backup-$filename
+> done
+
+Other challenges if time allows on lesson material.
+
+
+
+
+
+
+
+
+SHELL SCRIPTS
+- objective: we don't want to be typing that whole thing again next time
+- make it into a shell script
+
+
+OK, so let's start by cleaning up our mess
+- rm backup-*
+
+WARNING!
+If you're not sure, remeber the echo trick
+or use -i when using rm (interactive, asks for confirmation)
+
+
+
+Let's go back to the molecules folder
+
+Refresh our memories about content
+less cubane.pdb
+
+Say I'm interested in getting only the line with the author's name, how would I do that?
+
+I can start with
+- head -2 cubane.pdb
+
+Then
+- head -2 cubane.pdb | tail -1
+
+
+Hurray. And then what if I want to run it on another molecule?
+I replace the filename.
+
+What if I want to do that again in three months and the pipe is no longer in the history?
+I create a shell script
+
+
+Create shell script using nano
+	-> a-parte on text editors
+
+nano getauthor.sh
+
+
+echo "yeah!"
+
+
+bash getauthor.sh  <- we tell bash to run this script
+
+
+Then we can try
+head -2 cubane.pdb | tail -1
+
+
+OK, so what do I do now if I want to run it on another molecule?
+
+Remember variables?
+There are special variables that give us arguments passed when running a script
+
+head -2 $1 | tail -1
+
+$1 -> first argument
+$2 -> second argument
+etc.
+
+Let's try to run it on two different files. Yeah!
+
+
+
+CHALLENGE
+OK, now what if I want to run it on all the molecules?
+Let's try
+bash getauthor.sh *.pdb
+
+uh oh, what's happening here?
+
+we can try putting echo in front
+
+passing all the filenames at once
+but our script only looks at the first argument -> $1
+so how do we get our script to work recursively on all arguments?
+
+Hint: the variable $* returns all arguments
+
+
+Are we happy with our script? Is that your first computer program? Good job!
+Now imagine someone else has to use your script in a few years. Or it can be you in a few years. How do you determine how it works?
+
+ADD COMMENTS!
+
+# takes one or more files as arguments and outputs the 2nd line of each of those files
+# Usage: getauthor.sh file1 file2...
+
+
+NEAT TRICK
+Use history to save your workin into a shell script!
+
+
+
+CHALLENGE
+Write a script that takes two arguments
+- the name of a directory
+- a file extension
+and outputs the longest file (the one with the most lines) in that directory with that extension.
+
+
+wc -l $1*$2 | sort | tail -2 | head -1
+
+
+
+
+
+
 
 
 GREP and FIND
@@ -249,7 +489,97 @@ also returns Yesterday
 
 -n prints line numbers
 
+
+-i case insensitive
+-v inverts
+
+
 Pattern is in form of REGULAR EXPRESSIONS   <-- very powerful, also rather complex
 
+G lobal
+R egular
+E xpression
+P rint
 
-Grow into shell script?
+
+Old joke: You have a problem that you want to solve with regular expressions. You now have two problems.
+
+
+
+Simple examples
+o as second character
+grep '^.o' haiku.txt 
+
+g as last character
+grep 'g$' haiku.txt
+
+second word is "it"
+grep -E '^(.)* it' haiku.txt
+
+-E and quotes prevents bash from treating * as wildcard
+
+
+
+
+GREP finds stuff inside files
+FIND finds files
+
+
+find works recursively through directories
+you specfiy where to start and what to look for
+e.g.
+
+find . -type d
+
+	 start in current dir (.)
+	 find -type d directories
+
+find . -type f to look for files
+
+-maxdepth
+-mindepth
+
+find . -name one.txt
+
+What if I try to look for all .txt files
+find . -name *.txt
+
+What happens?
+Remember, bash expands * before running command
+Instead
+find . -name '*.txt'
+
+What if we're interested in the lenght of all those files?
+
+can we do?
+find . -name '*.txt' | wc -l
+no, because find returns a list of files separated by newline, wc acts on that list...
+
+instead, do
+wc -l $(find . -name '*.txt')
+
+whatever is in $() gets executed first
+
+
+CHALLENGE
+cd back to the root of the nelle directory
+
+There are .pdb files in multiple places under nelles' home directory
+Find the one .pdb that describes a compound that includes an iron atom
+(it will have FE in it)
+Do so by combining GREP and FIND
+
+grep FE $(find . -name '*.pdb')
+
+
+
+
+
+
+
+NEAT STUFF
+- history
+- history | tail
+- !123 to rerun command on line 123
+- history | tail | colrm 1 7 > some-script.sh
+
