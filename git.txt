@@ -340,6 +340,10 @@ $ git push origin master
 QQQ	- Create GitHub account.
 	- Create repository there.
 	- Push your local data there
+	- Look at results on GitHub
+		- Can you see commit number?
+		- How many commits? More than one? Why?
+		- Notice timestamps?
 
 
 
@@ -351,8 +355,120 @@ In this case, nothing changes because up to date.
 
 
 
+6 - COLLABORATING (if enough time)
+OBJECTIVES:	- Collaborate by pushing to a common repository.
 
-EXTRAS
+We’re going to use two different versions of same repo as example.
+Same user, different copies. Case of syncing between computers.
+Works the same if there were two different people.
+
+CLONING a repo
+ = creating a local copy of a remote
+
+- Open another terminal window
+- Create new directory and cd to it
+- Look for clone URL on GitHub
+$ git clone https://github.com/vlad/planets.git
+
+Let’s make some changes in that copy
+
+$ cd planets
+$ nano pluto.txt
+
+$ git add pluto.txt
+$ git commit -m "Some notes about Pluto"
+
+$ git status
+
+Oh, and do we need to setup the remote?
+$ git remote -v
+-> already there! Taking over info when cloning, creating “origin” by default.
+
+$ git push origin master
+
+QQQ	- Which version is now the latest on the server?
+	- On the right terminal? (other collaborator)
+	- How do I get the new version on the right terminal?
+
+
+		$ git pull origin master
+
+
+
+7 - RESOLVING CONFLICTS
+OBJECTIVES:	- What are conflicts? When do they occur?
+		- How to resolve conflicts. MERGE
+
+
+
+Previous example no conflict since 2nd collaborator created new file that wasn’t there in previous copy.
+
+Let’s make a conflict by editing the mars.txt file
+
+$ nano mars.txt
+Make some changes.
+
+Display mars.txt in both terminals to show difference.
+
+Then push to GitHub:
+$ git add mars.txt
+$ git commit -m "Adding a line in LEFT copy”
+$ git push origin master
+
+
+Now let’s have the other partner make a change AT THE SAME TIME (without first pulling)
+
+
+$ nano mars.txt
+Make some changes.
+
+Display mars.txt in both terminals to show difference.
+
+Then push to GitHub:
+$ git add mars.txt
+$ git commit -m "Adding a line in RIGHT copy”
+$ git push origin master
+
+
+UH OH
+What’s happening?
+Git detects conflict. Not letting us overwrite previous version on server.
+
+What we have to do is pull the changes from GitHub, MERGE and then push:
+
+$ git pull origin master
+
+Git warns us that there is a conflict. See what it has done to mars.txt:
+
+$ nano mars.txt
+
+Look for the special markers. It’s up to us to remove markers and fix changes.
+
+
+$ git add mars.txt
+$ git status
+
+-> Git says conflicts are resolved but still need to MERGE.
+
+$ git commit -m "Merging changes from GitHub"
+$ git push origin master
+
+Try doing 
+$ git pull origin master
+from other terminal window
+
+We get the updated, corrected file. We don’t need to merge again, git knows someone’s already done it.
+
+QQQ	- When working collaboratively, why is it a good idea to start pulling
+	  before starting a new work session?
+	- Try resolving conflicts using 2 copies. If enough time.
+	- What happens if you have a conflict on an image file? How can we resolve?
+
+
+
+
+
+8 - EXTRAS
 
 - GUI tools. Show GitHub for Mac
 	- List of repositories
@@ -363,4 +479,42 @@ EXTRAS
 
 	To be used with GitHub (not really for local only)
 	Can be used to create forks, branches, and pull requests
+
+- Version control and GitHub as TOOLS FOR OPEN SCIENCE
+	- Get feedback on code and data
+	- Documents work, can resolve paternity issues
+	- Other scientists can use same work
+		(esp if paper also published in Open Access)
+	- Others can check if results are reproducible
+	- Code can be cited. GitHub can create DOIs for code.
+	- Studies show, the more open work is, the more widely it is cited and reused.
+
+- Good practices for sharing code
+	- Include good README file
+		Displayed prominently on GitHub
+	- Add licensing and citation information to a project
+		Include LICENSE file
+		Include CITATION file
+	- Choose proper license
+		Code qualifies as intellectual property. 
+		Shared code does not waive copyright protection.
+		If no clear license, ppl who want to reuse don’t know what
+			they can do. Could be illegal.
+		Examples include
+			- GNU General Public License GPL
+				“infective”: any variation MUST be open as well
+			- MIT
+			- BSD
+	- Licenses created for software are usually not usable for other stuff
+		- Data. E.g. CC0 for public domain waiver
+		- Creative works. Look at Creative Commons, eg. CC-BY and CC-BY-SA
+	- Software Carpentry uses CC-BY for lessons and MIT for code.
+	- REMEMBER: making data/code open does not mean waiving copyright. You still
+	  own your stuff, you are still its creator. You just grant users the right
+	  to use it in a certain way.
+	- Hosting on public GitHub might not be a good idea depending on your research
+		CHECK WITH INSTITUTION
+
+- Mention branches
+	See advanced Git lesson on Software Carpentry
 
