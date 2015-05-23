@@ -1,0 +1,232 @@
+GIT
+
+WHY use version control? PHDcomics image
+
+Single user
+- nothing is lost, can get back to earlier stage - e.g. useful to get back to previously working version of code.
+- what version of code was used on day x to generate those results?
+- sync multiple copies over different machines
+
+Multiple users
+- share latest version on a server - YOU decide on which version you want to work. Possible to work on a particular version while others work on other version, then merge.
+- record of who made what change when
+- conflict resolution
+
+
+- mostly used for coding, but not only. Works with every kind of file, although things like file comparison works better with TEXT. LaTeX other good example. Data (small sets), etc.
+EVERYTHING THAT CHANGES OVER TIME or NEEDS TO BE SHARED.
+
+
+On its own, DOES NOT REPLACE BACKUP (unless 2nd copy)
+
+It doesn’t require a server, unless sync and share are desired. Free GitHub provides server, no need to set one up. Community. Features for collaborative projects. Sharing.
+
+
+
+FEATURES
+- changes are saved sequentially
+- forking: different versions can be saved separately
+- merging: different versions can be merged - conflict resolution
+
+TERMINOLOGY
+- COMMIT -> user decides what changes make next version. NOT AUTOMATED
+- REPOSITORY -> complete history of commits for particular project
+
+
+1 - SETTING UP
+Objectives:	- Configure git for the first time on a computer
+		- Create a new repository
+
+
+
+$ git config --global user.name “Thomas Guignard”
+$ git config --global user.email “tom”@timtom.ch”   <- email will likt to GitHub
+$ git config --global color.ui "auto"
+$ git config --global core.editor "nano -w"
+
+Explain what each of these are doing.
+--global flag --> for every project on this computer. Also possible to have different settings for each directory (--local flag), etc. Type git config to get list of possible arguments.
+
+
+Check
+
+$ git config -l
+
+
+Create a repository
+
+We’re going to start a project about planets.
+
+$ mkdir planets
+$ cd planets
+
+planets is going to be the root dir of our project. Let’s make it into a REPOSITORY
+
+$ git init
+
+See what’s been added with
+
+$ ls -a
+
+.git subdirectory contains everything git. Deleting it deletes all git data for that repo. Makes it easy to copy, replace, etc. or revert to simple directory.
+
+Check status:
+$ git status
+
+
+2 - TRACKING CHANGES
+Objectives:	- Go through modify-add-commit cycle for files
+		- Explain commit workflow. Where is information stored.
+
+
+
+Let’s create a file inside our repository:
+
+$ nano mars.txt
+
+Write some text
+
+$ ls
+
+What the status now?
+$ git status
+
+--> untracked file.
+
+$ git add mars.txt  -> add to staging area
+$ git status
+
+--> new file
+
+Now git know it’s supposed to keep track of mars.txt but HASN’T RECORDED CHANGES YET.
+
+$ git commit -m "Start notes on Mars"
+
+--> messages are REQUIRED. If omitted, editor will be launched.
+
+Note unique idenfier.
+
+$ git status
+
+--> all is up to date
+
+To get list of what we did so far:
+$ git log
+
+Now edit mars.txt some more.
+
+$ git status
+
+--> Git tells us there are changes but warns that nothing will happen. Messages usually helpful.
+
+$ git diff
+to get summary of changes
+
+So now if I do
+$ git commit -m “More notes on Mars.”
+
+QQQ - 	All is set, right?
+	How can I check?
+	$ git status
+	What’s wrong?
+	How do I fix this?
+
+	$git add mars.txt
+		first
+
+Why does git insist we add files manually all the time? We have complete control. We decide what to keep track? E.g. we don’t want to keep track of some doodles in another document.
+
+We can use
+$ git commit -a
+To add AND commit at the same time.
+
+Up to you.
+
+STAGING AREA -> use git add to put stuff in the staging area - equiv. who goes on a group picture
+COMMIT 	     -> use git commit to actually take a snapshot   - equiv. taking the picture
+COMMIT -A    -> take snapshot of everything		     - equiv. take picture with other ppl
+
+
+To illustrate differences
+Use git diff
+	- before staging
+	- after staging
+		Nothing because checks for differences between directory and what’s been asked to saved
+		$ git diff --staged
+			to check
+	- after committing
+
+
+$ git add mars.txt
+$ git commit -m “More changes”
+
+$ git log
+
+QQQ -	Try to do some changes on your file, stage, and commit.
+		Display changes
+	Create a second file in the same repository, and include it as a tracked file.
+
+
+
+
+3 - WORKING WITH HISTORY
+Objectives:	- Use those commit numbers we’ve seen
+		- Compare various versions
+		- Restore old versions
+
+
+Remember commit numbers?
+$ git log
+
+How can we see difference between current version of mars.txt and a previous one?
+
+$ git diff f22b25e mars.txt
+--> we can use whole 40 character hash but super annoying. So we can use first characters too. Enough so that it is unique.
+
+Or get all differences if we have multiple files
+$ git diff f22b25e
+
+
+Annoying to type identifier. If we want to check the LATEST commit we can use HEAD~1 instead:
+$ git diff HEAD~1 mars.txt
+
+HEAD points to current commit. HEAD~1 is “head minus one”. HEAD~2 is “head minus two” etc.
+
+So to compare the last two changes we can use
+$ git diff HEAD~1 HEAD~2
+
+
+OK so now we can see changes. How can we revert.
+
+Say we make a mistake and overwrite one of our files:
+$ nano mars.txt
+	Replace current text.
+
+If I use
+$ git status
+
+It tells us the file has been changed, but changes have not been staged yet.
+
+To put things back how they were at last commit:
+$ git checkout HEAD mars.txt
+
+We can use commit identifiers instead of HEAD to go even further back.
+
+$ git checkout f22b25e mars.txt
+
+WARNING - we must use identifier of state BEFORE we made the change we’re trying to undo.
+
+
+
+EXTRAS
+
+- GUI tools. Show GitHub for Mac
+	- List of repositories
+	- Checkboxes --> staging
+	- Commit and Sync at the same time
+	- Editor shows changes
+	- History tab --> equiv. git status
+
+	To be used with GitHub (not really for local only)
+	Can be used to create forks, branches, and pull requests
+
