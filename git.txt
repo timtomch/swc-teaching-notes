@@ -229,6 +229,125 @@ QQQ -	Make some changes.
 		$ git checkout HEAD mars.txt
 		$ git checkout HEAD~1 mars.txt
 		$ git checkout 2ddbf mars.txt
+	(answer 2 and 4)
+
+	Delete your file. Get it back.
+	Get back to your first version.
+	Get back to latest version.
+
+
+
+4 - IGNORING THINGS
+OBJECTIVES	- Configure git to ignore specific files
+		- Why ignore files?
+
+Your project will typically contain code AND data. Eg. results of your code. You typically don’t want to keep that -> waste of disk space (want to keep a copy every time you run your code??)
+
+Let’s create some dummy results:
+$ mkdir results
+$ touch a.dat b.dat c.dat results/a.out results/b.out
+
+$ git status
+
+We can see all those new files. Other danger of keeping track of results files. Say you have large list of data files. Easy to overlook some other more important changes in git status.
+So good practice not to keep track of them.
+
+We can specify what stuff git should ignore by using special file:
+$ nano .gitignore
+
+In it, every line is something that needs to be ignored.
+- Can be file names
+- Or directories (trailing slash)
+- Or patterns, e.g. *.dat
+
+Now, let’s try again
+$ git status
+
+Cleaner. Note that, of course, git notifies us that there is a new file.
+
+QQQ	- What shall we do?
+	- Ignore it? How can we do it?
+		- add .gitignore to .gitignore
+	- Good idea? Why?
+		Not necessarily. Usually a good thing to keep track of .gitignore.
+		Useful when creating new copies of repository.
+
+So:
+$ git add .gitignore
+$ git commit -m "Add the ignore file"
+$ git status
+
+.gitignore will prevent us from adding files we don’t want to track:
+$ git add a.dat
+
+-> we get a warning
+
+We can still force git to override .gitignore:
+$ git add -f
+
+Or see status of ignored files:
+$ git status --ignored
+
+QQQ	- If not done already, add data files and ignore them.
+
+
+
+5 - Adding a remote repo / GitHub
+OBJECTIVES:	- What’s a remote repo? Why is it useful?
+		- Clone remote repo
+		- Push and Pull
+
+How can we collaborate with others on repo? We could technically email each other files and add them to our own repos, etc. Much easier to have a central copy, keep it on the web, and sync with it. Useful for 1 person (backup, multiple computers, sharing) or for a team (collaboration).
+
+Several services exist. You can even setup your own server. We will use GitHub here.
+
+- Login to GitHub
+- Create new repo
+- Name repo --> CAN BE A DIFFERENT NAME than local
+
+Now we have an empty repo on GitHub. Same situation as if we did
+	$ mkdir planets
+	$ cd planets
+	$ git init
+		on GitHub server.
+
+
+To connect the two repositories:
+
+$ git remote add origin https://github.com/vlad/planets
+
+	- Switch from SSH to HTTPS
+		SSH more secure but requires some more config.
+	- Use copy button
+
+Check:
+$ git remote -v
+
+‘origin’ is a nickname for your remote repo. Can use another, but this is most common. Can have multiple (useful when dealing with local forks).
+
+We haven’t uploaded any files yet. To put the local changes on server: PUSH
+
+$ git push origin master
+		    ^-- this is the name of the branch. We’ll get to that.
+
+	Most systems now use password managers. 
+	Should have recognised your email address and password. 
+	Otherwise will ask password. Can be unset:
+	$ unset SSH_ASKPASS
+
+
+
+QQQ	- Create GitHub account.
+	- Create repository there.
+	- Push your local data there
+
+
+
+What if I want to get data from remote to local, e.g. I’m syncing with work done by my team in the morning:
+$ git pull origin master
+
+In this case, nothing changes because up to date.
+
 
 
 
