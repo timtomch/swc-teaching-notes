@@ -216,6 +216,21 @@ $ git checkout f22b25e mars.txt
 
 WARNING - we must use identifier of state BEFORE we made the change we’re trying to undo.
 
+git status gives hints:
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+
+QQQ -	Make some changes.
+	How can I revert to previous status?
+		$ git checkout HEAD
+		$ git checkout HEAD mars.txt
+		$ git checkout HEAD~1 mars.txt
+		$ git checkout 2ddbf mars.txt
+
+
 
 
 EXTRAS
