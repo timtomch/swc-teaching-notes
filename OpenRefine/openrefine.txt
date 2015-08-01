@@ -1,0 +1,188 @@
+OpenRefine
+
+Used to be GoogleRefine, now maintained by team of independent OSS developers. Stable version is still called Google Refine, beta since 2013, relatively stable.
+
+Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
+
+Pros re spreadsheets:
+- handles larger files
+- supports variety of input/output formats (csv, tsv, excel, odt, json, xml, custom text...)
+- powerful filters, search & replace (regular expressions, etc.)
+- predictive algorithms for clustering
+- facets approach - a bit like discovery layers
+- full undo/redo history
+	- mistakes are OK
+	- set of operations can be applied to other files
+- easy APIs integration
+- open infrastructure, custom functions can be developed
+
+Cons:
+- less intuitive to install & run
+- non transparent saved files
+- not much documentation
+- development activity?
+- connection with Freebase currently down - Freebase is being migrated to Wikidata
+
+
+1. HOW TO INSTALL AND RUN
+
+Download from openrefine.org
+	- Google Refine 2.5 STABLE
+	- Open Refine 2.6 BETA
+Requires JAVA.
+
+Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
+
+
+2. IMPORT
+
+Download sample file from 
+
+Upload into Open Refine
+	- check headers
+	- remove rows if needed
+	- check encoding
+
+Very fast. Displays only the first rows, can be changed. This makes it faster.
+
+Reorder columns, hide, etc.
+
+3. FILTER & FACETS
+
+- Facets are one of most used features. Similar to what you would find in modern OPACs.
+
+Ex. Place of Publication -> Text Facet
+
+- we see data is messy, we can sort it out later
+- select place
+	- can correct on the fly, e.g. Bale -> Bâle or Balparaiso > Valparaiso
+	- can include/exclude -> not changing the data, temporary
+	
+This allows operations to be run on MATCHING ROWS. E.g. Star records from Baltimore. Delete records from Barcelona, etc.
+
+Can also be used to analyse data, e.g. sort by count -> most represented places of publication
+
+
+Facets will do exact matches by default. Can also use Filters to look for particular pattern in a column.
+
+Ex. Place of Publication -> Text Filter "London"
+
+Supports regular expressions, e.g. London$ to get those where London is the last word
+or ^L([a-z])*n( |$) for places starting with L and ending with n, etc.
+
+-> remember, only displays first results, check # of matching results
+
+
+Number facets
+- try on Date of publication
+	uh, oh, not working because text, some dates inconsistent
+- Custom facet allow to apply functions to data
+	Custom facet
+	value.toNumber() --> force converts to number
+		See help
+	Play with sliders
+
+Other types of facets, e.g.
+- Text length facet
+	Can be used to check data, e.g. Date of Publication more than 4 characters
+
+4. CLUSTERING
+
+We could work on solving all those problems one by one, or with regular expressions. But there's a faster approach with clustering.
+
+Date of Publication -> Text facet -> Cluster
+
+OpenRefine will apply algorithm to try and group expressions together. Try different algos & parameters to check.
+Once happy, hit select all (or only select those who make sense) & apply
+
+Not perfect, but a start. Can then work on remaining ones.
+
+5. TRANSFORMATIONS
+
+Clear the cluster facet.
+
+Apply blank facet to Date of Publication, filter by blank ones. What's going on here?
+Look at Place of Publication
+
+Let's try extracting the date of publication from there.
+
+Date of Publication -> Transform
+
+GREL - General Refine Expression Language
+(see help tab)
+
+Can refine cells from other columns, e.g. cells["Place of Publication"].value
+
+Combine with other functions. Date is after a , try splitting with comma:
+
+smartSplit(cells["Place of Publication"].value,",")[1]
+
+6. UNDO/REDO
+(if not shown earlier)
+
+Can revert to previous state
+Can save operations as JSON, and apply to other file
+
+--> single cell operations are not exported
+
+7. API integration
+
+How can we enrich our data? Say we want to get autor IDs from VIAF (Virtual International Authority File)
+
+First, let's filter a manageable part of the data, using date of publication, text filter, choose a year with about 10 results, e.g. 1808.
+
+Select Add column based on URL
+
+Name VIAF JSON
+Expression: "http://viaf.org/viaf/AutoSuggest?query="+ escape(value,'url')
+Check delay to not overwhelm server
+
+we see that some will have returned data
+
+To extract VIAFID
+
+Text transform, enter forEach(value.parseJson().result, v, v.viafid)
+
+8. RECONCILIATION
+
+Reconciliation functions
+Even easier, people have implemented database interfaces that interact directly with OpenRefine.
+Of interest to librarians:
+- VIAF
+- LCSH
+- JournalTOCs
+- FundRef (e.g. to link publications to funding source)
+- FAST (Faceted Application of Subject Terminology)
+
+(freebase is phasing out)
+
+Add standard service: http://iphylo.org/~rpage/phyloinformatics/services/reconciliation_viaf.php
+
+
+8. EXPORT
+
+Demonstrate variety of export formats.
+
+JSON via templating, can also be used to export e.g. HTML table or Markdown, or Wikipedia format, etc.
+
+Custom Tabular Exporter
+	- several options
+	- download locally
+	- upload to Google Spreadsheet or Google Fusion table
+
+Google Fusion example
+- First filter by year to limit number of lines, e.g. 1852
+- Custom Tabular Exporter, limit columns but be sure to include place of publication
+- Upload to Google Fusion table
+- Go to https://drive.google.com/drive/recent open created table
+- Change Place of Publication type from text to location
+- Add map tab
+
+
+Resources:
+- http://www.meanboyfriend.com/overdue_ideas/2014/11/working-with-data-using-openrefine/
+- NCompass Live, Using MarcEdit & Open Refine: http://nlc.nebraska.gov/scripts/calendar/eventshow.asp?ProgID=14290
+- http://enipedia.tudelft.nl/wiki/OpenRefine_Tutorial
+- GoogleRefine tutorials (YouTube)
+- OpenRefine book
+- https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources#librarians
