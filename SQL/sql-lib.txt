@@ -216,8 +216,6 @@ Write a query that lists the amount of books published for each year in the cata
 
 
 
-- challenge: How many temperature readings did Frank Pabodie record, and what was their average value?
-
 
 
 OPERATIONS
