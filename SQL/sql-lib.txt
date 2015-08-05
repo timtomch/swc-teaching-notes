@@ -6,7 +6,7 @@ Prep
 
 Database introduction
 - like spreadsheets
-- more efficient with large amounts of money
+- more efficient with large amounts of data
 - built to be accessed by multiple clients (collaborative editing)
 - form relationships -> RELATIONAL DATABASE
 
