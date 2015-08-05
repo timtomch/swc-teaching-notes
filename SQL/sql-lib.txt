@@ -1,5 +1,5 @@
 Prep
-- download db file - 
+- download db file - http://bit.ly/swclibdb
 - make sure sqlite3 started
 - .schema
 - stickies
@@ -56,6 +56,16 @@ wildcard:
 - Short challenge: Write a query that selects only titles from the Works table.
 
 
+SELECT DISTINCT
+- SELECT Publisher from Works;
+
+to remove duplicates
+- SELECT DISTINCT Publisher from Works;
+If we select a pair, the distinct pairs are returned
+- SELECT DISTINCT Place, Publisher FROM Works;
+
+(two different O'Reilly)
+
 
 ORDER BY
 - SELECT * FROM Works ORDER BY publisher ASC;
@@ -65,67 +75,82 @@ ORDER BY
 can specify multiple ORDER BY clauses
 - SELECT * FROM Authors ORDER BY family ASC, birth DESC;
 
-- challenge: Write a query that displays the full names of the scientists in the Person table, ordered by family name.
+- challenge: Write a query that displays the full names of authors, ordered by family name.
 
 
 
 
 WHERE
 - limit output
-- SELECT * FROM Visited WHERE site='DR-1';
+- SELECT * FROM Works WHERE Publisher="Wiley";
 
 Do not have to filter by displayed fields. DB manager filters first, then displays
-- SELECT ident FROM Visited WHERE site='DR-1';
+- SELECT Title FROM Works WHERE Publisher="Wiley";
 
 Boolean ops:
-- SELECT * FROM Visited WHERE site='DR-1' AND dated<"1927-03-22";
-- SELECT * FROM Visited WHERE site='DR-1' OR dated<"1932";
+- SELECT * FROM Works WHERE (Publisher='Wiley') AND (Date>='2011');
+
+- SELECT * FROM Works WHERE Publisher='Wiley' OR Publisher='O''Reilly';
+
+- SELECT * FROM Works WHERE Publisher IN('Wiley','O''Reilly');
 - combination possible, don't forget precedence
 
+Not equal:
+- SELECT * FROM Works WHERE Publisher !='Wiley';
+
 Fuzzy logic, specially useful for text
-- SELECT * FROM person WHERE family LIKE "D%";
+- SELECT Publisher FROM Works WHERE Publisher LIKE "%y";
+Negation:
+- SELECT Publisher FROM Works WHERE Publisher NOT LIKE "%il%";
 
-- SELECT * FROM person WHERE family NOT LIKE "D%";
+Remember how to avoid duplicates?
+- SELECT DISTINCT Publisher FROM Works WHERE Publisher LIKE "%il%";
 
-- SELECT * FROM Visited WHERE site!='DR-1';
+CHALLENGE
+Write a query that lists all books in the database that have the word "SQL" in their title and that have been published after 2010.
 
+	SELECT * FROM Works WHERE Title LIKE "%SQL%" AND Date>2010;
 
-- challenge: Write a query that selects all records from Survey with salinity values outside of the 0.0-1.0 range.
+Now order that list by Date, in descending order.
+
+	SELECT * FROM Works WHERE Title LIKE "%SQL%" AND Date>2010 ORDER BY Date DESC;
 
 
 
 
 NULL
-- How many lines in Visited?
-- SELECT * FROM Visited;
-- SELECT count(*) FROM Visited;   -> 8
-- SELECT count(*) FROM Visited WHERE dated>"1932";  -> 3
-- SELECT count(*) FROM Visited WHERE dated>"1932"; -> 4
+
+OK let's list the page numbers again:
+
+- SELECT Title, Pages from Works;
+
+Holes -> NULL values.
+
+- How many lines in Works?
+- SELECT * FROM Works;
+We can use a function:
+- SELECT count(*) FROM Works;
+- SELECT count(*) FROM Works WHERE pages > 500;
+- SELECT count(*) FROM Works WHERE pages <= 500;
+
 What is missing?
 - NULL values in operations always return NULL
 - it means "I don't know"
 - protection to avoid taking wrong conclusions
 so this won't work
-- SELECT * FROM Visited WHERE dated=NULL;
-- SELECT * FROM Visited WHERE dated!=NULL;
+- SELECT * FROM Works WHERE pages=NULL;
+- SELECT * FROM Works WHERE pages!=NULL;
 Instead
-- SELECT * FROM Visited WHERE dated IS NULL;
-- SELECT * FROM Visited WHERE dated IS NOT NULL;
+- SELECT * FROM Works WHERE pages IS NULL;
+- SELECT * FROM Works WHERE pages IS NOT NULL;
 This is very important
 - better than using placeholders or negative numbers or zero
 
 ALWAYS TEST FOR NULL in production!
-- Greg's story about healhcare?
-another illustration
-- SELECT * FROM Survey;
-we're interested in salinity reading that were not taken by dyer
-- SELECT reading FROM Survey WHERE quant="sal" AND person!="dyer";
-is that all? what about the cases where we don't know?
-- SELECT reading FROM Survey WHERE quant="sal" AND (person!="dyer" OR person IS NULL);
-What happens if I forget the brackets?
 
 
-- challenge: Write a query that sorts the records in Visited by date, omitting entries for which the date is not known (i.e., is null).
+
+- challenge: Write a query that sorts the authors table by date born, omitting entries for which the date is not known (i.e., is null).
 
 
 
@@ -133,20 +158,34 @@ JOIN
 - get back to slide 1
 - primary key / foreign key
 - used to join tables together
-- SELECT * FROM survey JOIN person;
+We have a list of ITEMS that reference Work_IDs (foreign & primary keys). We should be able to combine this information?
+
+What happens if we just type
+
+- SELECT * FROM Items JOIN Works;
+- SELECT count(*) FROM Items JOIN Works;
+
+Why 800? Because every combination of 20 works and 40 items.
+
 we have to specify how the tables are joined
-- SELECT * FROM survey JOIN person ON survey.person=person.ident;
+- SELECT * FROM Items JOIN Works ON Items.Work_ID=Works.Work_ID;
+
 note the dot notation
 select only what's needed
 dot notation can be used to distinguish if columns has same name in different tables
-- SELECT quant, personal FROM survey JOIN person ON survey.person=person.ident;
+- SELECT Items.Barcode, Works.Title, Works.ISBN FROM Items JOIN Works ON Items.Work_ID=Works.Work_ID LIMIT 10;
 
 
+-- CHALLENGE --
+
+Authority file. The relationship between Works and Authors is coded into the table Works_Authors. Can you write a query that displays all the authors involved with SQL in a Nutshell 3rd edition, along with their role?
 
 
-
-- challenge: Write a query that lists all radiation readings from the DR-1 site.
-- challenge: Write a query that lists all salinity readings taken north of the 49th parallel (lat > -49)
+SELECT Works_Authors.Role, Authors.Personal, Authors.Family 
+FROM   Works_Authors 
+JOIN   Authors 
+ON     Authors.Author_ID=Works_Authors.Author_ID 
+WHERE  Works_Authors.Work_ID=1;
 
 
 
@@ -155,41 +194,138 @@ dot notation can be used to distinguish if columns has same name in different ta
 Other stuff if we have time
 
 
-remove duplicates
-GROUP BY
-- SELECT quant, personal FROM survey JOIN person ON survey.person=person.ident GROUP BY quant;
-	what's going on here?
-- SELECT quant, personal FROM survey JOIN person ON survey.person=person.ident GROUP BY quant, personal;
-- SELECT DISTINCT quant, personal FROM survey JOIN person ON survey.person=person.ident;
-
-
 
 Aggregation, count(), max(), avg(), sum()
-- SELECT min(dated) FROM visited;
-- SELECT avg(reading) FROM survey WHERE quant="rad";
-- SELECT sum(reading) FROM survey WHERE quant="sal";
-- SELECT count(reading) FROM survey WHERE quant="sal";
-	can count anything
-multiple aggregations possible:
-- SELECT min(reading), max(reading) FROM survey WHERE quant="rad";
+- SELECT sum(Pages) FROM Works WHERE Publisher="Wiley";
+- SELECT min(Pages), max(Pages) FROM Works Where Publisher='O''Reilly';
+
+We've already seen the count() function.
+Can be used with * or specific column, doesn't matter, will count # of rows returned.
 
 What happens if I combine aggregate functions with regular column names?
-Say I want to see who took the most rad readings?
-- SELECT count(reading), person FROM survey WHERE quant="rad";
-not what I had expected
-this is because if we don't tell the db what to aggregate on, it will return something random
-this works better:
-- SELECT count(reading), person FROM survey WHERE quant="rad" GROUP BY person;
-- SELECT count(reading), avg(reading), person FROM survey WHERE quant="rad" GROUP BY person;
+
+- SELECT Publisher, count(Title) FROM Works;
+
+This counts all the titles, returns only one line, arbitrary publisher. We need to tell SQL how it should group records.
+
+- SELECT Publisher, count(Title) FROM Works GROUP BY Publisher
+
+-- CHALLENGE --
+
+Write a query that lists the amount of books published for each year in the catalog, and gives their average number of pages.
 
 
 
 - challenge: How many temperature readings did Frank Pabodie record, and what was their average value?
 
 
-Calculating values
-- SELECT 0.1*reading FROM Survey WHERE quant="rad";
-- 
+
+OPERATIONS
+
+This actually works SELECT 1+2
 
 
+Say that we are interested in finding out the time it takes to read those books. We know from experimental research that it takes on average 45 seconds to read a page for books that have been published by Wiley.
+
+- SELECT Title, 45*Pages FROM Works WHERE Publisher = "Wiley"
+
+gives us the amount in seconds. Now if we want hours, we divide by 3600.
+
+- SELECT Title, 45*Pages/3600 FROM Works WHERE Publisher = "Wiley";
+
+
+-- CHALLENGE
+
+Our research further shows that it takes on average 38 seconds to read a page of a book that has been published by O'Reilly, but we have to add an extra 89 minutes for each book that is spend looking up references online. Write a query to compute the amount of hours required to read those titles.
+
+	SELECT Title, 38*Pages/3600+89/60 FROM Works WHERE Publisher = "O'Reilly";
+
+
+Don't these numbers appear too round to be true? What happens if I type?
+
+SELECT Title, 38.0*Pages/3600+89/60 FROM Works WHERE Publisher = "O'Reilly";
+
+
+Now what if we want to combine the result of our two last queries together in a single query. We use the UNION statement:
+
+
+SELECT Title, 45*Pages/3600 FROM Works WHERE Publisher = "Wiley" UNION SELECT Title, 38*Pages/3600+89/60 FROM Works WHERE Publisher = "O'Reilly";
+
+
+
+CREATE, DROP
+
+Try typing .schema
+CREATE TABLE Authors(Author_ID integer, Family text, Personal text, Occupation text, Birth integer, Death integer);
+CREATE TABLE Items(Item_ID integer, Work_ID integer, Barcode text, Acquired integer, Status text);
+CREATE TABLE Works(Work_ID integer, Title text, ISBN text, Date integer, Place text, Publisher text, Edition text, Pages integer);
+CREATE TABLE Works_Authors(Work_ID integer, Author_ID integer, Role text);
+
+We can delete a whole table including its data (WARNING!!!) with DROP
+
+DROP TABLE Works_Authors;
+
+Different data types
+
+
+INSERT, UPDATE, DELETE
+
+- INSERT INTO authors VALUES(25,'Shakespeare', 'William', 'Playwright', NULL, 1616);
+We have to specify values for all columns in order of the CREATE statement. NULL when we want to left it empty.
+Otherwise use
+
+- INSERT INTO authors(Family, Personal, Birth) VALUES('Atwood', 'Margaret', 1939);
+
+We can also insert data from other tables:
+- CREATE TABLE Author_names(family text, personal text);
+- INSERT INTO Author_names SELECT family, personal FROM Authors;
+- SELECT * FROM Author_names;
+
+-- CHALLENGE --
+
+Create a table that contains only publisher names from the Works table. Warning: avoid duplicates!
+
+
+To alter the content of a row:
+- UPDATE Works SET Date=2006 WHERE Work_ID=20;
+Multiple fields work too:
+- UPDATE Works SET Date=2005, Edition='1st' WHERE Work_ID=20;
+
+WARNING: do not forget the WHERE clause, otherwise will overwrite everything. SQL doesn't do UNDO.
+
+To remove a row
+- DELETE FROM Authors WHERE family='Atwood';
+
+Delete everything, omit the WHERE clause.
+Say you made a mistake in the challenge above. To clear the table:
+- DELETE FROM Publishers;
+
+-- CHALLENGES --
+- The number of pages for 'SQL for dummies', 8th edition is 480. Update the Works table accordingly.
+
+- In the Authors table, NULL can either mean 'I don't know' or still living (if death is empty). Write a statement that replaces the null value in death with the string 'ALIVE' for authors where only the birth date is known.
+
+	UPDATE Authors SET Death='ALIVE' WHERE Birth IS NOT NULL AND Death IS NULL;
+	
+
+Back up with SQL
+
+Look at the .dump statement
+
+
+
+
+
+
+
+DATA HYGIENE
+Rules of good data
+1. Every value should be ATOMIC (i.e. not contain parts that we might want to work with separately)
+	e.g. separating family and personal names, space is not reliable. Different cultures.
+2. Every record should have a unique primary key
+	can be a serial number (e.g. work_id)
+	or can be one of the value (or even pair) that is known to be unique.
+3. There should be no redundant information
+	difference with spreadsheet
+4. For tables containing numeric data, units should be explicitly mentioned
 
