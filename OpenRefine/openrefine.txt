@@ -1,11 +1,13 @@
 OpenRefine
+- Based on Library Carpentry OR lesson
 
 Used to be GoogleRefine, now maintained by team of independent OSS developers. Stable version is still called Google Refine, beta since 2013, relatively stable.
 
 Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
+There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
 
 Pros re spreadsheets:
-- handles larger files
+- handles larger files (100'000 rows OK, does not scale to several millions)
 - supports variety of input/output formats (csv, tsv, excel, odt, json, xml, custom text...)
 - powerful filters, search & replace (regular expressions, etc.)
 - predictive algorithms for clustering
@@ -21,7 +23,30 @@ Cons:
 - non transparent saved files
 - not much documentation
 - development activity?
-- connection with Freebase currently down - Freebase is being migrated to Wikidata
+
+
+Reasons to use OpenRefine:
+- EXPLORE data
+	- e.g. how are values distributed
+	- think of facets in library search tool
+- NORMALIZE/CLEAN UP data
+	- inconsistent date formats
+	- typos, case mismatch, markup errors, e.g. London, london, London;, LONDOND, etc.
+	- Split unstructured data into structured, see online example
+	- Enrich data from an external source, e.g. Virtual International Authority File
+
+
+CONTENTS
+- Creating a project & importing data
+- Exploring data through filtering, faceting and clustering
+- Cleaning up data: split, merge, remove whitespaces, etc.
+- Use GREL to perform more complex operations
+- Save and reuse workflows
+- Reconciliation and APIs
+- Exporting data
+
+
+
 
 
 1. HOW TO INSTALL AND RUN
@@ -32,11 +57,14 @@ Download from openrefine.org
 Requires JAVA.
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
+Internet Explorer is not supported. Use Chrome or Firefox.
 
 
-2. IMPORT
+2. IMPORT DATA & CREATE PROJECT
 
-Download sample file from 
+Download sample file from bit.ly/openrefine
+OR
+Use "from URL" functionality - http:// has to be specified
 
 Upload into Open Refine
 	- check headers
@@ -47,40 +75,56 @@ Very fast. Displays only the first rows, can be changed. This makes it faster.
 
 Reorder columns, hide, etc.
 
-3. FILTER & FACETS
+ACTIVITY:
+- Play around with import options. Encoding. Live preview.
+ADVANCED:
+- Try out importing XML or JSON data - record path
 
-- Facets are one of most used features. Similar to what you would find in modern OPACs.
+Please uncheck "treat dates as dates etc."
+Once you're finished, create project.
 
-Ex. Place of Publication -> Text Facet
 
+3. EXPLORE DATA: SORT, FILTER, FACETS, CLUSTER
+See how data is displayed. Similar to spreadsheet.
+Not all rows (or records) are displayed -> preview, faster. Adjustable
+
+RE-ORDER
+All->Edit columns->Reorder or Remove
+Drag and drop
+
+SORT
+Choose a column, sort
+See new drop down menu
+- Similar to Excel "filter sort" -> temporary (unlike general Excel sort)
+- Can be made permanent.
+Add more columns
+
+FACETS
+Facets are one of most used features. Similar to what you would find in modern OPACs.
+
+Ex. Language -> Text Facet
 - we see data is messy, we can sort it out later
-- select place
-	- can correct on the fly, e.g. Bale -> Bâle or Balparaiso > Valparaiso
-	- can include/exclude -> not changing the data, temporary
-	
-This allows operations to be run on MATCHING ROWS. E.g. Star records from Baltimore. Delete records from Barcelona, etc.
 
-Can also be used to analyse data, e.g. sort by count -> most represented places of publication
 
+ACTIVITY:
+- Which licences are used for articles in this file? Which is the one used the msot? How many articles for each license?
+- Can you isolate articles for which no license has been assigned?
+- Try creating other facets and combining.
+
+- What happens if you try to create a timeline facet with the dates?
 
 Facets will do exact matches by default. Can also use Filters to look for particular pattern in a column.
 
-Ex. Place of Publication -> Text Filter "London"
+Ex. Subjects -> Text Filter "pyran"
 
-Supports regular expressions, e.g. London$ to get those where London is the last word
-or ^L([a-z])*n( |$) for places starting with L and ending with n, etc.
+Supports regular expressions!
 
 -> remember, only displays first results, check # of matching results
 
+IMPORTANT
+When filters are applied, operations only perform on matching rows.
+Example Language -> to lowercase
 
-Number facets
-- try on Date of publication
-	uh, oh, not working because text, some dates inconsistent
-- Custom facet allow to apply functions to data
-	Custom facet
-	value.toNumber() --> force converts to number
-		See help
-	Play with sliders
 
 Other types of facets, e.g.
 - Text length facet
@@ -145,6 +189,9 @@ Text transform, enter forEach(value.parseJson().result, v, v.viafid)
 
 8. RECONCILIATION
 
+What is reconciliation:
+Christina Harlow: Compare values in my dataset with values in an external dataset, if deemed a match, link and pull in external datapoint information
+
 Reconciliation functions
 Even easier, people have implemented database interfaces that interact directly with OpenRefine.
 Of interest to librarians:
@@ -186,3 +233,9 @@ Resources:
 - GoogleRefine tutorials (YouTube)
 - OpenRefine book
 - https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources#librarians
+- http://www.datacarpentry.org/OpenRefine-ecology-lesson/00-getting-started.html
+- https://github.com/LODLAM/LODLAMTO16/tree/master/OpenRefine_Tutorial using the RDF extension. This tutorial requires some advanced knowledge of RDF/LOD. Also LODRefine and the RDF extension are no longer supported, very finicky re: Java version, etc. Not sure this is a good example for begninners.
+
+Install help & troubleshooting:
+- https://groups.google.com/forum/#!forum/openrefine
+- https://summit.uwaterloo.ca/p389l6kkluv/ (webinar)
