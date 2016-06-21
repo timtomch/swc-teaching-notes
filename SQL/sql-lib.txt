@@ -1,5 +1,10 @@
+BEFORE TEACHING
+- print handouts with table structure (1st slide)
+
 Prep
 - download db file - http://bit.ly/swclibdb
+	Can use curl -LO http://bit.ly/swclibdb
+		(-L to follow links, -O --capital-oh-- to write the output to a file with the same name as the remote file)
 - make sure sqlite3 started
 - .schema
 - stickies
@@ -102,6 +107,11 @@ Fuzzy logic, specially useful for text
 - SELECT Publisher FROM Works WHERE Publisher LIKE "%y";
 Negation:
 - SELECT Publisher FROM Works WHERE Publisher NOT LIKE "%il%";
+
+% is a wildcard character, it means "zero or more characters"
+_ (underscore) means "exactly one character"
+	Can be combined: SELECT Publisher FROM Works WHERE Publisher LIKE "__l%";
+(only two wildcards valid in SQLite - other DB managers have more)
 
 Remember how to avoid duplicates?
 - SELECT DISTINCT Publisher FROM Works WHERE Publisher LIKE "%il%";

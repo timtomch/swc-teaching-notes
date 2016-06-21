@@ -127,8 +127,14 @@ Example Language -> to lowercase
 
 
 Other types of facets, e.g.
-- Text length facet
-	Can be used to check data, e.g. Date of Publication more than 4 characters
+- Numeric
+- Timeline
+- Customized 
+	- Word facet - this breaks down text into words and counts the number of records each word appears in
+		For example, filter by language-English then Word facet by author
+			-> rudimentary author facet, we'll see how to do this better
+	- Text length facet
+		Can be used to check data, e.g. Language more than 2 characters
 
 4. CLUSTERING
 
