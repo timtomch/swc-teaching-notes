@@ -1,5 +1,7 @@
 GIT
 
+Good handout: https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf
+
 WHY use version control? PHDcomics image
 
 Single user

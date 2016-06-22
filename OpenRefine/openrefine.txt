@@ -23,6 +23,7 @@ Cons:
 - non transparent saved files
 - not much documentation
 - development activity?
+- buggy and finicky, poor error reporting
 
 
 Reasons to use OpenRefine:
@@ -38,12 +39,13 @@ Reasons to use OpenRefine:
 
 CONTENTS
 - Creating a project & importing data
-- Exploring data through filtering, faceting and clustering
-- Cleaning up data: split, merge, remove whitespaces, etc.
+- Exploring data through filtering and faceting
+- Cleaning up data: split, merge, cluster, remove whitespaces, etc.
 - Use GREL to perform more complex operations
 - Save and reuse workflows
-- Reconciliation and APIs
 - Exporting data
+- Reconciliation and APIs
+
 
 
 
@@ -75,13 +77,16 @@ Very fast. Displays only the first rows, can be changed. This makes it faster.
 
 Reorder columns, hide, etc.
 
+-------------------------------------------------
 ACTIVITY:
 - Play around with import options. Encoding. Live preview.
 ADVANCED:
 - Try out importing XML or JSON data - record path
+-------------------------------------------------
 
 Please uncheck "treat dates as dates etc."
 Once you're finished, create project.
+
 
 
 3. EXPLORE DATA: SORT, FILTER, FACETS, CLUSTER
@@ -105,14 +110,16 @@ Facets are one of most used features. Similar to what you would find in modern O
 Ex. Language -> Text Facet
 - we see data is messy, we can sort it out later
 
-
+-------------------------------------------------
 ACTIVITY:
 - Which licences are used for articles in this file? Which is the one used the msot? How many articles for each license?
 - Can you isolate articles for which no license has been assigned?
 - Try creating other facets and combining.
 
 - What happens if you try to create a timeline facet with the dates?
+-------------------------------------------------
 
+FILTERS
 Facets will do exact matches by default. Can also use Filters to look for particular pattern in a column.
 
 Ex. Subjects -> Text Filter "pyran"
@@ -123,7 +130,7 @@ Supports regular expressions!
 
 IMPORTANT
 When filters are applied, operations only perform on matching rows.
-Example Language -> to lowercase
+Example Language -> Edit Cells -> Common transforms -> to lowercase
 
 
 Other types of facets, e.g.
@@ -136,46 +143,171 @@ Other types of facets, e.g.
 	- Text length facet
 		Can be used to check data, e.g. Language more than 2 characters
 
-4. CLUSTERING
+-------------------------------------------------
+ACTIVITY:
+- Find all the publications without a DOI
+	(hint: explore the different facets available, including the Customized facets)
+	(hint: facet by blank)
+- Remember the text facet we applied on Language? Look at the edit option. What do you think it does?
+  Can you clean up the languages (two-letter language codes only) that way?
+  What happens to the facets once the correction has been applied?
+  Is there a way to get back?
+-------------------------------------------------
 
-We could work on solving all those problems one by one, or with regular expressions. But there's a faster approach with clustering.
 
-Date of Publication -> Text facet -> Cluster
+4. CLEANING UP DATA
 
-OpenRefine will apply algorithm to try and group expressions together. Try different algos & parameters to check.
-Once happy, hit select all (or only select those who make sense) & apply
+We've seen in the activity how to start cleaning up data using facets.
+Let's have a look at the Authors column.
 
-Not perfect, but a start. Can then work on remaining ones.
+Authors -> Edit cells -> Split multi-valued cells
 
-5. TRANSFORMATIONS
+It works, but what happened to the rows?
+	OR didn't just create new rows and loose the relationship between authors.
+	Show as records instead of rows
+		Notice that "rows" belonging to the same records are grouped together (See numbering)
 
-Clear the cluster facet.
+CLUSTERING
+Now, do you trust the Authors column to always display an author the same way?
+Try doing a text filter on the Authors column and type "vakeel"
+	-> A. Khan Vakeel and Vakeel A. Khan is the same person.
 
-Apply blank facet to Date of Publication, filter by blank ones. What's going on here?
-Look at Place of Publication
+There are probably any number of permutation and short variations in that author column. Cleaning it up by hand will be fastidious, write a function (e.g. using RegExp) to catch all possible forms will be just as hard.
+But OpenRefine has a very powerful option: clustering.
 
-Let's try extracting the date of publication from there.
+(remove the filter first)
+Authors -> Edit cells -> Cluster and edit
 
-Date of Publication -> Transform
+This blows my mind, every time.
 
-GREL - General Refine Expression Language
-(see help tab)
+-------------------------------------------------
+ACTIVITY:
+- Play with the clustering options, methods, parameter sliders
+	(key collision, fingerprint works well)
+- Once you're happy, use the merge function to choose a canonical name for each author.
+- What's the difference between merge selected and recluster and merge selected and close?
+ADVANCED:
+- Check out https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth for more on the clustering methods used
+	(can be accessed through the more info link)
+-------------------------------------------------
 
-Can refine cells from other columns, e.g. cells["Place of Publication"].value
 
-Combine with other functions. Date is after a , try splitting with comma:
+TRANSFORMS
 
-smartSplit(cells["Place of Publication"].value,",")[1]
+We have seen how we can edit values using facets, how we can split, how we can normalize using clustering.
+But say we had the following problems
+- Removing punctuation
+- Splitting address into multiple parts (no separators)
+- Extracting ISBNs in a bibliographic citation
 
-6. UNDO/REDO
-(if not shown earlier)
+Enter Transforms.
 
-Can revert to previous state
-Can save operations as JSON, and apply to other file
+Create a text facet on publishers.
+Look at MDPI AG
+	why is it appearing twice? probably some whitespace?
+	We could clean it up using the same method as for the languages, but what if there were many instances in a long list of
+	publishers?
+Publisher -> Edit cells -> Common Transforms -> Trim whitespace
+	See what happened in your facet?
+
+The transforms in the Common Transforms submenu are the most common ones. But we can write our own using the Transform... option.
+
+Language -> Edit cells -> Transform...
+
+There is a box where you can type functions. A bit like the function box in Excel.
+
+value is what's originally in the cell
+
+value.toUppercase()
+	Two different syntaxes:
+		value.function(options)
+		function(value, options)
+
+Below is a preview, so you can check what you're doing.
+Check also History, Starred, Help.
+
+	More help:
+		- cheat sheet
+		- https://github.com/OpenRefine/OpenRefine/wiki/General-Refine-Expression-Language GREL reference, linked from workshop page
+
+Facet by publisher, select Askhantala + Technocrats
+	include option to select more than 1
+Have a look at the title - all uppercase
+Do a Transform...
+	value.toTitleCase()
+
+
+
+Remember we had issues applying a timeline facet to the Date column?
+We need to make sure the date is in the correct FORMAT
+
+Data types supported:
+- String
+- Number
+- Date
+- Boolean
+- Array
+
+By default, everything is a "string"
+
+-------------------------------------------------
+ACTIVITY:
+(remove all facets first)
+- Transform the contents of the  Date column so they are ISO8601 dates
+	(format YYYY-MM-DD HH:MM:SS)
+	- hint, look at the common transforms
+	ADVANCED: try doing this using GREL
+- Now try creating a Timeline facet on the Date
+
+- We need a new column where the date is displayed in the form dd MMMM yyyy
+	- Use Date -> Edit column -> Add column based on this column
+	- Try to find the GREL function that will do this
+		value.toString("dd MMMM yyyy")
+-------------------------------------------------	
+	
+
+5. SAVE AND REUSE WORKFLOWS
+
+Undo/Redo
+	- You can come back to previous stages
+	- The next changes will remain greyed out and you can re-apply them
+	- However if you select an earlier stage and then do other transforms, you loose the ones you undid
+	- Undo history is automatically saved, and remains available if you quit and reopen
+
+If you want a set of steps to be re-applied later, or used in another project, there's a way to do it.
+
+Click the Extract button
+- The operations we did are coded in a format called JSON
+- Try selecting and deselecting steps, will update the JSON
+- If you want to reuse it, copy-paste it somewhere else
+- To apply a set of steps from another project, use the Apply function
+	Column names must match!!
 
 --> single cell operations are not exported
 
-7. API integration
+6. EXPORTING DATA
+
+Export menu
+	- Different formats
+
+-------------------------------------------------
+ACTIVITY:
+- Try out different export options
+- Check out Custom Tabular Exporter
+	- several options
+	- download locally
+	- upload to Google Spreadsheet or Google Fusion table
+ADVANCED:
+- Check out Templating
+	Example case, to write out GeoJSON
+	can also be used to export e.g. HTML table or Markdown, or Wikipedia format, etc.
+-------------------------------------------------
+
+
+
+
+
+7. RECONCILIATION AND APIs
 
 How can we enrich our data? Say we want to get autor IDs from VIAF (Virtual International Authority File)
 
@@ -212,16 +344,6 @@ Of interest to librarians:
 Add standard service: http://iphylo.org/~rpage/phyloinformatics/services/reconciliation_viaf.php
 
 
-8. EXPORT
-
-Demonstrate variety of export formats.
-
-JSON via templating, can also be used to export e.g. HTML table or Markdown, or Wikipedia format, etc.
-
-Custom Tabular Exporter
-	- several options
-	- download locally
-	- upload to Google Spreadsheet or Google Fusion table
 
 Google Fusion example
 - First filter by year to limit number of lines, e.g. 1852
@@ -233,6 +355,8 @@ Google Fusion example
 
 
 Resources:
+- https://data-lessons.github.io/library-openrefine/
+- http://arcadiafalcone.net/GoogleRefineCheatSheets.pdf
 - http://www.meanboyfriend.com/overdue_ideas/2014/11/working-with-data-using-openrefine/
 - NCompass Live, Using MarcEdit & Open Refine: http://nlc.nebraska.gov/scripts/calendar/eventshow.asp?ProgID=14290
 - http://enipedia.tudelft.nl/wiki/OpenRefine_Tutorial
