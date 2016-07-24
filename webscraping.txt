@@ -1,0 +1,74 @@
+WEB SCRAPING LESSON 0.1
+
+CONTENTS
+What is web scraping and why it is useful
+Creating a Scrapy project
+Defining what items to extract using Xpath
+Writing a spider to crawl a website
+Store and reuse extracted items
+Do's and Don'ts of web scraping
+
+
+1 - WHAT IS WEB SCRAPING
+
+From Wikipedia:
+	"Web scraping (web harvesting or web data extraction) is a computer software technique of extracting information from websites."
+
+Closely related to web indexing (used by search engines like Google). They typically use tools called "bots" or "crawlers" to go through websites.
+Difference:
+	Indexing: going through ALL WEBSITES (unless blocked), store all content into database, follow ALL LINKS, index all stored data, repeat
+	Scraping: go through SPECIFIC WEBSITES, follow SPECIFIED LINKS, extract unstructured information and put it in STRUCTURED FORM
+
+Example:
+http://www.parl.gc.ca/Parliamentarians/en/members
+
+	Difference between UNSTRUCTURED and STRUCTURED data
+	
+	For humans, unstructured. We recognize names, provinces, political party, etc.
+	But a machine doesn't.
+	
+	Computers need LABELS.
+	This is a good website, because data is actually structured. 
+		View Source. DIVs
+		Export as XML/CSV. -> STRUCTURED DATA
+
+Compare with
+https://www.parliament.uk/mps-lords-and-offices/mps/
+
+	As humans, we recognize names, parties, etc.
+	
+	But this data is not as nicely structured.
+		View Source. Table
+
+
+
+http://www.bl.uk/reshelp/atyourdesk/docsupply/help/replycodes/dirlibcodes/
+https://morph.io/ostephens/british_library_directory_of_library_codes
+	British Library maintains list of library codes for its Document Supply service.
+	List of codes in a PDF file -> UNSTRUCTURED
+
+	
+
+
+
+References:
+- https://en.wikipedia.org/wiki/Web_scraping
+
+
+HOW TO SCRAPE
+Different options
+
+- Manually. Sometimes the best/fastest way. Humans are good at structuring information. We know what an address looks like, etc.
+	Good for relatively small amount of data, sometimes only solution.
+
+- Semi-manually, using tools such as browser extensions to indicate what data needs to be scraped.
+	Examples: Chrome Scraper extension
+
+
+
+OPTIONS
+Morph
+- Port of ScraperWiki Classic
+- Open source
+- Can be run locally, but also on cloud platform morph.io "Heroku for scrapers"- very convenient - works with GitHub
+- Project supported by the OpenAustralia Foundation
