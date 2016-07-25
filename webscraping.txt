@@ -91,13 +91,15 @@ Useful to inspect web page to find structure.
 	Etc. Then export and clean up using OpenRefine.
 	
 	
-	
+================================================================================================	
 CHALLENGE
 - Install Chrome Scraper extension
 - Choose a province (e.g. Ontario), find list of MPPs
 - Scrape them
 - Open in OpenRefine, separate first name, last name, political party, constituency
 	TIP: use copy-paste to import into OR
+================================================================================================
+
 
 
 3 - WRITING WEB SPIDERS - using Scrapy
@@ -206,13 +208,36 @@ START CRAWLING
 OK, so how do we now access the URLs we're interested in?
 Let's start by going back to the website and use the Inspect tool to find the elements we're looking for.
 
+We need to use "Selectors" to get to the elements we need. Scrapy uses XPath (or CSS) selectors for this.
+
+Refresher:
+Here are some examples of XPath expressions and their meanings:
+- /html/head/title: selects the <title> element, inside the <head> element of an HTML document
+- /html/head/title/text(): selects the text inside the aforementioned <title> element.
+- //td: selects all the <td> elements
+- //div[@class="mine"]: selects all div elements which contain an attribute class="mine"
+
+
 In Chrome, we can use the console to try out XPath queries:
 > $x('//*[@class="facetwp-results"]')
+
+	This actually only works if there is only one class. More general answer:
+	https://stackoverflow.com/questions/8808921/selecting-a-css-class-with-xpath
+
 
 Drilling down:
 > $x('//*[@class="facetwp-results"]/li/a/@href')
 
 Once we found what we're looking for, let's edit the Spider accordingly:
+
+Scrapy Selectors support different methods:
+- xpath(): returns a list of selectors, each of which represents the nodes selected by the xpath expression given as argument.
+		This is what we'll use
+- css(): returns a list of selectors, each of which represents the nodes selected by the CSS expression given as argument.
+- extract(): returns a unicode string with the selected data.
+- re(): returns a list of unicode strings extracted by applying the regular expression given as argument.
+
+
 
 	import scrapy
 
@@ -227,9 +252,92 @@ Once we found what we're looking for, let's edit the Spider accordingly:
 
 Looking good.
 
+OK, so we now have our URLs, how do we get further?
+
+Let's have a look at the first college page.
+What information are we interested in extracting?
+
+- Name
+- Website
+- Address
+- Telephone
+
+================================================================================================
+CHALLENGE
+What are the XPath queries to extract the above details?
+Hint: keep using the Inspect tool + console trick
+
+$x('//*[@class="page-title"]')
+$x('//*[@class="mem-contact"]/p[2]//a/@href')
+$x('//*[@class="mem-contact"]/p[1]')
+$x('//*[@class="mem-contact"]/p[2]/node()[2]') OR $x('//*[@class="mem-contact"]/p[2]/text()[1]')
+================================================================================================
 
 
+Other trick, we can also use Scrapy in shell mode to try out XPath selectors:
+(actually an iPython shell)
 
+$ scrapy shell "http://www.collegesinstitutes.ca/members/alberta-college-of-art-and-design/"
+In [1]: reponse.body
+In [2]: response.xpath('//*[@class="page-title"]')
+	Whoops, is that what we want?
+In [3]: response.xpath('//*[@class="page-title"]/text()').extract()
+
+Etc.
+
+To exit: CTRL-D (or CTRL-Z in Windows?)
+
+
+How do we bring this back together?
+
+Remember the CanCollegesItem we defined?
+
+	import scrapy
+	from cancolleges.items import CancollegesItem # We need this so that Python knows about the Item
+
+	class CollegeSpider(scrapy.Spider):
+	    name = "colleges"
+	    allowed_domains = ["collegesinstitutes.ca"]
+	    start_urls = ["http://www.collegesinstitutes.ca/our-members/member-directory/"]
+
+	    def parse(self, response):
+	        for url in response.xpath('//*[@class="facetwp-results"]/li/a/@href').extract():
+	            yield scrapy.Request(url, callback=self.get_details) # Callback to the get_details() method
+
+	    def get_details(self, response):
+	        item = CancollegesItem()
+	        item['name'] = response.xpath('//*[@class="page-title"]/text()').extract()
+		    item['link'] = response.xpath('//*[@class="mem-contact"]/p[2]//a/@href').extract()
+	        yield item # Return the item
+
+================================================================================================
+CHALLENGE
+Add the other elements to the Spider.
+Remember to edit the Item definition to allow for all fields to be taken care of.
+================================================================================================
+
+
+Running the spider above returns CancollegesItem objects.
+What if we want this data in another, more usable format?
+
+Feed exports > very powerful function of Scrapy
+
+Just type
+$ scrapy crawl colleges -o items.csv
+
+or
+$ scrapy crawl colleges -o items.json
+
+Also works with XML, Pickle, etc.
+http://doc.scrapy.org/en/latest/topics/feed-exports.html#topics-feed-exports
+
+MAGIC!!
+
+
+Going further:
+- Pipelines
+	Can be used to check validity of returned data
+	http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
 
@@ -324,11 +432,6 @@ References:
 - http://blog.rubyroidlabs.com/2016/04/web-scraping-1/
 - http://schoolofdata.org/handbook/courses/scraping/
 - http://schoolofdata.org/handbook/recipes/scraper-extension-for-chrome/
+- http://doc.scrapy.org/en/1.1/intro/tutorial.html
 
-
-
-
-
-OPTIONS
-Morph
 
