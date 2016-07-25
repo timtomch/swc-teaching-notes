@@ -2,14 +2,14 @@ WEB SCRAPING LESSON 0.1
 
 CONTENTS
 What is web scraping and why it is useful
-Creating a Scrapy project
+Scraping manually using browser extensions
 Defining what items to extract using Xpath
 Writing a spider to crawl a website
 Store and reuse extracted items
 Do's and Don'ts of web scraping
 
 
-1 - WHAT IS WEB SCRAPING
+1 - INTRODUCTION - WHAT IS WEB SCRAPING
 
 From Wikipedia:
 	"Web scraping (web harvesting or web data extraction) is a computer software technique of extracting information from websites."
@@ -41,6 +41,274 @@ https://www.parliament.uk/mps-lords-and-offices/mps/
 		View Source. Table
 
 
+Say we want a spreadsheet with all British parliament members. How to extract this data?
+
+
+2 - MANUALLY SCRAPE DATA USING BROWSER EXTENSIONS
+
+There are different options to scrape data:
+
+- Manually (copy paste). Sometimes the best/fastest way. Humans are good at structuring information. We know what an address looks like, etc.
+	Good for relatively small amount of data, sometimes only solution if no structural clues.
+
+- Semi-manually, using tools such as browser extensions to indicate what data needs to be scraped.
+	Good when data is somehow structured, e.g. table rows, titles in bold, etc.
+	
+	Examples: Chrome Scraper extension
+		(try ffscrap in Firefox)
+	
+	Going back to British parliament example:
+	- Select first row of table
+	- Right click -> Scrape similar
+	
+	Uses XPath selectors -> cf XPath lesson
+	
+	Export to Google Docs or clipboard/TSV.
+		Can be cleaned up further using OpenRefine (e.g. separate first, last name, party)
+	
+Sometimes not as clear cut. Addresses of Canadian MPs:
+	http://www.parl.gc.ca/Parliamentarians/en/members/addresses
+	
+	- Select 1st MP, Scrape similar
+	- Not what we want
+
+Useful to inspect web page to find structure.
+
+	- Chrome or Firefox -> inspect element
+	- MPs are inside ULs
+	
+	Try changing Xpath with //body/div[1]/div/ul
+	Click "Scrape"
+	
+	Better, but still unstructured. We see that name, addresses separated by LI elements.
+	
+	In Columns, replace . by ./li and rename column.
+	
+	Add new columns:
+		./li[2] -> Hill Office
+		./li[3] -> Constituency
+		
+	Etc. Then export and clean up using OpenRefine.
+	
+	
+	
+CHALLENGE
+- Install Chrome Scraper extension
+- Choose a province (e.g. Ontario), find list of MPPs
+- Scrape them
+- Open in OpenRefine, separate first name, last name, political party, constituency
+	TIP: use copy-paste to import into OR
+
+
+3 - WRITING WEB SPIDERS - using Scrapy
+
+Verify that Scrapy 1.1.0 is installed
+	Type scrapy version in Terminal
+
+	Requires Python 2.7+ or 3.4+
+	Should work in either environment
+
+
+EXPLAIN EXAMPLE
+http://www.collegesinstitutes.ca/our-members/member-directory/
+
+
+We will work in two steps, first gather all URLs
+Then extract data for each college
+
+	
+Initialize Scrapy project
+	Navigate to where you want to create the project
+	Type scrapy startproject cancolleges
+
+	This creates the following structure:
+	
+	cancolleges/
+	    scrapy.cfg            # deploy configuration file
+
+	    cancolleges/          # project's Python module, you'll import your code from here
+	        __init__.py
+
+	        items.py          # project items file
+
+	        pipelines.py      # project pipelines file
+
+	        settings.py       # project settings file
+
+	        spiders/          # a directory where you'll later put your spiders
+	            __init__.py
+	            ...
+
+
+DEFINING ITEMS
+	This is where the data extracted will be stored.
+	Items work like Python dictionaries.
+	
+	Remember that we will start by gathering all the URLs for the college pages.
+	Let's start by defining an Item to store the College URLs.
+	
+	Edit cancolleges/cancolleges/items.py
+	
+	(You will see Scrapy has pre-populated this file)
+	
+	import scrapy
+
+	class CancollegesItem(scrapy.Item):
+	    # define the fields for your item here like:
+	    # name = scrapy.Field()
+	    name = scrapy.Field()
+	    link = scrapy.Field()
+
+
+DEFINING A SPIDER
+	Spiders are the business end of the scraper. It's the bit of code that combs through a website and harvest data.
+	They define an initial list of URLs to download, how to follow links, and how to parse the contents of pages to extract items.
+	
+	Create a new file called colleges_spider.py under cancolleges/cancolleges/spiders
+	with
+	
+	import scrapy
+
+	class CollegeSpider(scrapy.Spider):
+	    name = "colleges"  # Identifies the scraper, has to be UNIQUE but does not need to be same name as spider filename
+	    allowed_domains = ["collegesinstitutes.ca"]
+	    start_urls = ["http://www.collegesinstitutes.ca/our-members/member-directory/"]
+
+	    def parse(self, response):
+			# a method of the spider, which will be called with the downloaded 
+			# Response object of each start URL. The response is passed to the method as the first and only argument.
+	        print response.text
+
+START CRAWLING
+	
+	Try it out by moving to project's top level directory and type
+		scrapy crawl colleges
+						^-- name of the spider we just created
+	
+		Should return a bunch of text, including the HTML content of the page we just scraped.
+
+	This is not very convenient, so try instead
+	
+	import scrapy
+
+	class CollegeSpider(scrapy.Spider):
+	    name = "colleges"
+	    allowed_domains = ["collegesinstitutes.ca"]
+	    start_urls = ["http://www.collegesinstitutes.ca/our-members/member-directory/"]
+
+	    def parse(self, response):
+	        with open("test.html", 'wb') as file:
+	            file.write(response.body)
+
+	Should create file "test.html". Look inside this file.
+	
+
+OK, so how do we now access the URLs we're interested in?
+Let's start by going back to the website and use the Inspect tool to find the elements we're looking for.
+
+In Chrome, we can use the console to try out XPath queries:
+> $x('//*[@class="facetwp-results"]')
+
+Drilling down:
+> $x('//*[@class="facetwp-results"]/li/a/@href')
+
+Once we found what we're looking for, let's edit the Spider accordingly:
+
+	import scrapy
+
+	class CollegeSpider(scrapy.Spider):
+	    name = "colleges"
+	    allowed_domains = ["collegesinstitutes.ca"]
+	    start_urls = ["http://www.collegesinstitutes.ca/our-members/member-directory/"]
+
+	    def parse(self, response):
+	        for url in response.xpath('//*[@class="facetwp-results"]/li/a/@href').extract():
+	            print url
+
+Looking good.
+
+
+
+
+
+
+
+CLOUD-BASED SCRAPING
+- ScrapingHub, Scrapy Cloud
+- Morph.io
+
+
+
+
+
+DOES and DONTS - LEGAL ASPECTS
+
+Can be illegal, check terms of use of target websites.
+Generally
+	Web scraping = tool.
+		"using a computer to read a website"
+	If data is publicly available, it's OK to scrape it, provided it does not brake the website.
+	Sharing data is the problematic bit.
+	Usually OK if public data (e.g. government data)
+
+Usually OK for personal consumption. Good practice to contact data owners/curators if aim to use it for institutional purposes
+- You might receive data already structured
+- Clarifies right to share extracted data
+
+Unfortunatly, not all data curators will be sensible to this.
+
+Don't download copies of documents that are clearly not public (c.f. SciHub...)
+Content theft is illegal
+Generally safe if not for commercial intent.
+	Case law evolving in the US, cases where scraping was declared illegal involved commercial aspects
+		e.g. competitor to eBay automatically placing bets
+		e.g. extracting pricing data to set own prices
+		"trespass to chattel"
+
+Harvesting personal information (e.g. email addresses, cf Australia's Spam Act of 2013) might be illegal. Be careful, especially if sharing extracted data.
+
+
+BUT even if legal, badly programmed scrapers can also bring down a website (Denial of Service attack).
+Test your code on small dataset first.
+
+
+Good practice:
+- if you extract PUBLIC data, share it
+	- code on GitHub
+	- data on GitHub / datahub.io etc.
+	- or use morph.io
+	
+IF YOU PUBLISH DATA, PROVIDE IT IN STRUCTURED FORM TO BEGIN WITH.
+	Web scraping is a "tool of last resort" when data curators fail to provide structured data.
+
+
+GOING FURTHER
+HTTP-authentication is supported by many frameworks, allows for scraping of protected data
+	Warning about legal aspects!
+There are frameworks that reproduce the workings of a web browser (e.g. PhantomJS)
+
+
+
+ALTERNATIVE: MORPH.IO
+- Port of ScraperWiki Classic
+- Open source
+- Project supported by the OpenAustralia Foundation
+- Can be run locally, but also on cloud platform morph.io "Heroku for scrapers"- very convenient - works with GitHub
+	requires a working install of git
+	requires ruby or python + several libraries for local running
+- For this reason, not chosen for this workshop
+- Platform runs the scraper and also stores data
+	Data can easily be shared, downloaded in structured format and accessed through dedicated API
+- Demo if enough time
+
+
+
+SCRAPE DATA FROM PDFs
+
+
+
+
+
 
 http://www.bl.uk/reshelp/atyourdesk/docsupply/help/replycodes/dirlibcodes/
 https://morph.io/ostephens/british_library_directory_of_library_codes
@@ -53,22 +321,14 @@ https://morph.io/ostephens/british_library_directory_of_library_codes
 
 References:
 - https://en.wikipedia.org/wiki/Web_scraping
+- http://blog.rubyroidlabs.com/2016/04/web-scraping-1/
+- http://schoolofdata.org/handbook/courses/scraping/
+- http://schoolofdata.org/handbook/recipes/scraper-extension-for-chrome/
 
 
-HOW TO SCRAPE
-Different options
-
-- Manually. Sometimes the best/fastest way. Humans are good at structuring information. We know what an address looks like, etc.
-	Good for relatively small amount of data, sometimes only solution.
-
-- Semi-manually, using tools such as browser extensions to indicate what data needs to be scraped.
-	Examples: Chrome Scraper extension
 
 
 
 OPTIONS
 Morph
-- Port of ScraperWiki Classic
-- Open source
-- Can be run locally, but also on cloud platform morph.io "Heroku for scrapers"- very convenient - works with GitHub
-- Project supported by the OpenAustralia Foundation
+
