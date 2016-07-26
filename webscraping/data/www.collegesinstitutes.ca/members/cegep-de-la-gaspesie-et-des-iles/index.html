@@ -1,0 +1,603 @@
+
+<!doctype html>
+<!--[if lt IE 7]><html lang="en-US" class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en-US" class="no-js"><!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>  Cégep de la Gaspésie et des Îles</title>
+
+<link rel="stylesheet" href="http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/css/language-selector.css?v=3.4.1" type="text/css" media="all" />
+
+	<!-- mobile meta (hooray!) -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<!-- Twitter Summary Card With Image -->
+		<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@collegecan">
+	<meta name="twitter:creator" content="@collegecan">
+	<meta name="twitter:title" content="Cégep de la Gaspésie et des Îles | Colleges and Institutes Canada">
+	<meta name="twitter:description" content="Le Cégep de la Gaspésie et des Îles est situé dans un environnement grandeur nature, entouré de plages, du Parc&hellip;">
+	<meta name="twitter:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/11/1_member_logo_cegep_de_Gaspesie.jpg">
+	
+	<!-- Facebook Sharing -->
+	<meta property="og:url" content="" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Cégep de la Gaspésie et des Îles | Colleges and Institutes Canada" />
+	<meta property="og:description" content="Le Cégep de la Gaspésie et des Îles est situé dans un environnement grandeur nature, entouré de plages, du Parc&hellip;" />
+	<meta property="og:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/11/1_member_logo_cegep_de_Gaspesie.jpg" />
+
+	<!--[if IE]>
+		<meta http-equiv="Page-Enter" content="blendTrans(duration=0)" />
+		<meta http-equiv="Page-Exit" content="blendTrans(duration=0)" />
+	<![endif]-->
+
+	<link rel="apple-touch-icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/apple-icon-touch.png">
+	<link rel="icon" href="../../wp-content/themes/accc/assets/img/layout/apple-touch-icon.png">
+
+	<!--[if IE]>
+		<link rel="shortcut icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/favicon.ico">
+	<![endif]-->
+
+	<!-- Favicon.ico for IE10 win -->
+	<meta name="msapplication-TileColor" content="#f01d4f">
+	<meta name="msapplication-TileImage" content="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/win8-tile-icon.png">
+
+	<link rel="pingback" href="http://www.collegesinstitutes.ca/xmlrpc.php">
+
+	<link rel="alternate" hreflang="en-US" href="index.html" />
+<link rel="alternate" hreflang="fr-FR" href="http://www.collegesinstitutes.ca/fr/members/cegep-de-la-gaspesie-et-des-iles/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Feed" href="http://www.collegesinstitutes.ca/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Comments Feed" href="http://www.collegesinstitutes.ca/comments/feed/" />
+<link rel="alternate" type="text/calendar" title="Colleges and Institutes Canada &raquo; iCal Feed" href="http://www.collegesinstitutes.ca/events/?ical=1" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"wpemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/wp-emoji.js","twemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/twemoji.js"}};
+			( function( window, document, settings ) {
+	var src, ready, ii, tests;
+
+	/**
+	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
+	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param type {String} Whether to test for support of "simple", "flag", "diversity" or "unicode8" emoji.
+	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( type ) {
+		var canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext && canvas.getContext( '2d' ),
+			stringFromCharCode = String.fromCharCode,
+			tonedata, tone, tone2;
+
+		if ( ! context || ! context.fillText ) {
+			return false;
+		}
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * This works because the image will be one of three things:
+				 * - Two empty squares, if the browser doesn't render emoji
+				 * - Two squares with 'A' and 'U' in them, if the browser doesn't render flag emoji
+				 * - The Australian flag
+				 *
+				 * The first two will encode to small images (1-2KB data URLs), the third will encode
+				 * to a larger image (4-5KB data URL).
+				 */
+				context.fillText( stringFromCharCode( 55356, 56806, 55356, 56826 ), 0, 0 );
+				return canvas.toDataURL().length > 3000;
+			case 'diversity':
+				/*
+				 * This tests if the browser supports the Emoji Diversity specification, by rendering an
+				 * emoji with no skin tone specified (in this case, Santa). It then adds a skin tone, and
+				 * compares if the emoji rendering has changed.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57221 ), 0, 0 );
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				context.fillText( stringFromCharCode( 55356, 57221, 55356, 57343 ), 0, 0 );
+				// Chrome has issues comparing arrays, and Safari has issues converting arrays to strings.
+				// So, we create our own string and compare that, instead.
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone2 = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				return tone !== tone2;
+			case 'simple':
+				/*
+				 * This creates a smiling emoji, and checks to see if there is any image data in the
+				 * center pixel. In browsers that don't support emoji, the character will be rendered
+				 * as an empty square, so the center pixel will be blank.
+				 */
+				context.fillText( stringFromCharCode( 55357, 56835 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+			case 'unicode8':
+				/*
+				 * To check for Unicode 8 support, let's try rendering the most important advancement
+				 * that the Unicode Consortium have made in years: the burrito.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57135 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+		}
+
+		return false;
+	}
+
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+
+		script.src = src;
+		script.type = 'text/javascript';
+		document.getElementsByTagName( 'head' )[0].appendChild( script );
+	}
+
+	tests = Array( 'simple', 'flag', 'unicode8', 'diversity' );
+
+	settings.supports = {
+		everything: true,
+		everythingExceptFlag: true
+	};
+
+	for( ii = 0; ii < tests.length; ii++ ) {
+		settings.supports[ tests[ ii ] ] = browserSupportsEmoji( tests[ ii ] );
+
+		settings.supports.everything = settings.supports.everything && settings.supports[ tests[ ii ] ];
+
+		if ( 'flag' !== tests[ ii ] ) {
+			settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && settings.supports[ tests[ ii ] ];
+		}
+	}
+
+	settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && ! settings.supports.flag;
+
+	settings.DOMReady = false;
+	settings.readyCallback = function() {
+		settings.DOMReady = true;
+	};
+
+	if ( ! settings.supports.everything ) {
+		ready = function() {
+			settings.readyCallback();
+		};
+
+		if ( document.addEventListener ) {
+			document.addEventListener( 'DOMContentLoaded', ready, false );
+			window.addEventListener( 'load', ready, false );
+		} else {
+			window.attachEvent( 'onload', ready );
+			document.attachEvent( 'onreadystatechange', function() {
+				if ( 'complete' === document.readyState ) {
+					settings.readyCallback();
+				}
+			} );
+		}
+
+		src = settings.source || {};
+
+		if ( src.concatemoji ) {
+			addScript( src.concatemoji );
+		} else if ( src.wpemoji && src.twemoji ) {
+			addScript( src.twemoji );
+			addScript( src.wpemoji );
+		}
+	}
+
+} )( window, document, window._wpemojiSettings );
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='wpdm-front-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/css/front.css' type='text/css' media='all' />
+<link rel='stylesheet' id='tribe_events-widget-this-week-pro-style-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/css/widget-this-week-full.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery-ui-css-css'  href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-bootstrap-css'  href='../../wp-content/themes/accc/assets/css/bootstrap.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css'  href='../../wp-content/themes/accc/assets/css/magnific-popup.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-stylesheet-css'  href='../../wp-content/themes/accc/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='pmc-ie-only-css'  href='http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/css/ie.css' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_events_linked_posts = {"post_types":{"tribe_venue":"venue","tribe_organizer":"organizer"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/jquery.cookie.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/front.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_this_week = {"ajaxurl":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/js/widget-this-week.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/vendor/modernizr.min.js'></script>
+<link rel='https://api.w.org/' href='http://www.collegesinstitutes.ca/wp-json/' />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='http://www.collegesinstitutes.ca/?p=15498' />
+<link rel="alternate" type="application/json+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fcegep-de-la-gaspesie-et-des-iles%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fcegep-de-la-gaspesie-et-des-iles%2F&#038;format=xml" />
+
+<!-- This site is using AdRotate v4.0 Professional to display their advertisements - https://ajdg.solutions/products/adrotate-for-wordpress/ -->
+<!-- AdRotate CSS -->
+<style type="text/css" media="screen">
+	.g { margin:0px; padding:0px; overflow:hidden; line-height:1; zoom:1; }
+	.g img { height:auto; }
+	.g-col { position:relative; float:left; }
+	.g-col:first-child { margin-left: 0; }
+	.g-col:last-child { margin-right: 0; }
+	@media only screen and (max-width: 480px) {
+		.g-col, .g-dyn, .g-single { width:100%; margin-left:0; margin-right:0; }
+	}
+</style>
+<!-- /AdRotate CSS -->
+
+<meta name="generator" content="WPML ver:3.4.1 stt:1,4;" />
+
+<style type="text/css">																																																																																																																																																																																
+</style>	
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/slick/slick.css">
+	
+	<!-- CSS Edits -->
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/edits.css">
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/print.css">
+	
+	<!-- Google Maps -->
+	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script> -->
+	
+		
+</head>
+
+<body class="single single-accc_member postid-15498 tribe-theme-accc">
+	
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-18659346-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<div class="search-form">
+	<div class="the-search-form clearfix en">
+		<form role="search" method="get" id="searchform" action="http://www.collegesinstitutes.ca/" >
+	<label class="screen-reader-text" for="s">Search:</label>
+	<input type="text" value="" name="s" id="s" placeholder="Search the Site" />
+	<input type="submit" id="searchsubmit" class="sprite" value="Search" />
+	</form>	</div>
+</div>
+<!-- // .search-form -->
+
+<header class="header en" role="banner">
+
+	<div class="container clearfix">
+
+		<nav role="navigation" class="utility-nav clearfix">
+	
+			<ul><li id="menu-item-2906" class="job-board menu-item menu-item-type-custom menu-item-object-custom menu-item-2906"><a href="https://jobs.collegesinstitutes.ca">Jobs</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-55"><a href="http://www.collegesinstitutes.ca/about/">About Us</a></li>
+<li id="menu-item-17400" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17400"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-10756" class="sprite facebook menu-item menu-item-type-custom menu-item-object-custom menu-item-10756"><a href="http://www.facebook.com/collegesinstitutes">Facebook</a></li>
+<li id="menu-item-10757" class="sprite twitter menu-item menu-item-type-custom menu-item-object-custom menu-item-10757"><a href="https://twitter.com/CollegeCan">Twitter</a></li>
+<li id="menu-item-10758" class="sprite linkedin menu-item menu-item-type-custom menu-item-object-custom menu-item-10758"><a href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+<li id="menu-item-44" class="sprite contactus menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li class="utility-link"><a id="toggle-search" class="utility-search sprite" href="index.html#">Search</a></li><li class="utility-link current-language"><a class="utility-lang" href="http://www.collegesinstitutes.ca/fr/members/cegep-de-la-gaspesie-et-des-iles/">FR</a></li></ul>		
+		</nav>
+		<!-- // .utility-nav -->
+				
+		<h1 title="Colleges and Institutes Canada">
+			<a href="http://www.collegesinstitutes.ca" rel="nofollow"><img class="site-logo" src="../../wp-content/themes/accc/assets/img/layout/logo.png" alt="Colleges and Institutes Canada" title="Colleges and Institutes Canada" /></a>
+		</h1>
+		
+		<a href="index.html#" class="sprite toggle-menu" id="toggle-menu">Menu</a>
+		<nav role="navigation" class="main-nav clearfix">
+			<ul class="menu clearfix"><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-33"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a>
+<ul class="sub-menu">
+	<li id="menu-item-19484" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+	<li id="menu-item-19485" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+	<li id="menu-item-33952" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+	<li id="menu-item-32749" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+	<li id="menu-item-34252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul>
+</li>
+<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a>
+<ul class="sub-menu">
+	<li id="menu-item-18907" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18907"><a href="http://www.collegesinstitutes.ca/what-we-do/leadership-development-institutes/">Leadership Development</a></li>
+	<li id="menu-item-2855" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2855"><a href="http://www.collegesinstitutes.ca/what-we-do/canadian-partnerships/">Canadian Partnerships</a></li>
+	<li id="menu-item-17336" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17336"><a href="http://www.collegesinstitutes.ca/what-we-do/international/">International Partnerships</a></li>
+	<li id="menu-item-14182" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14182"><a href="http://www.collegesinstitutes.ca/what-we-do/awards/">Awards of Excellence</a></li>
+</ul>
+</li>
+<li id="menu-item-2851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2851"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a>
+<ul class="sub-menu">
+	<li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="http://www.collegesinstitutes.ca/policyfocus/advanced-skills/">Skills Development</a></li>
+	<li id="menu-item-259" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-259"><a href="http://www.collegesinstitutes.ca/policyfocus/applied-research/">Applied Research</a></li>
+	<li id="menu-item-14479" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14479"><a href="http://www.collegesinstitutes.ca/policyfocus/indigenous-learners/">Indigenous Learners</a></li>
+	<li id="menu-item-261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-261"><a href="http://www.collegesinstitutes.ca/policyfocus/infrastructure/">Infrastructure</a></li>
+	<li id="menu-item-11401" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11401"><a href="http://www.collegesinstitutes.ca/policyfocus/entrepreneurship/">Entrepreneurship</a></li>
+	<li id="menu-item-14497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14497"><a href="http://www.collegesinstitutes.ca/policyfocus/transferability/">Transferability</a></li>
+</ul>
+</li>
+<li id="menu-item-8635" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-8635"><a href="http://www.collegesinstitutes.ca/events/">Events</a>
+<ul class="sub-menu">
+	<li id="menu-item-16020" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16020"><a href="http://www.collegesinstitutes.ca/conference/">CICan Conference</a></li>
+	<li id="menu-item-8639" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8639"><a href="http://www.collegesinstitutes.ca/events/">Upcoming Events</a></li>
+	<li id="menu-item-11904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11904"><a href="http://www.collegesinstitutes.ca/events/public/add/">Submit an Event</a></li>
+</ul>
+</li>
+<li id="menu-item-5097" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5097"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a>
+<ul class="sub-menu">
+	<li id="menu-item-5106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5106"><a href="http://www.collegesinstitutes.ca/news-centre/news-releases/">News Releases</a></li>
+	<li id="menu-item-11728" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11728"><a href="http://www.collegesinstitutes.ca/news-centre/colleges-in-the-news/">Colleges &#038; Institutes in the News</a></li>
+	<li id="menu-item-5105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5105"><a href="http://www.collegesinstitutes.ca/news-centre/perspectives/">Newsletters</a></li>
+</ul>
+</li>
+<li id="menu-item-11358" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11358"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a>
+<ul class="sub-menu">
+	<li id="menu-item-12892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12892"><a href="http://www.collegesinstitutes.ca/resources/all-resources/">All Resources</a></li>
+	<li id="menu-item-11979" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11979"><a href="http://www.collegesinstitutes.ca/resources/research-on-colleges/">Research on Colleges</a></li>
+	<li id="menu-item-12295" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12295"><a href="http://www.collegesinstitutes.ca/resources/resource-library/">Essential Skills</a></li>
+	<li id="menu-item-2099" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2099"><a href="http://www.collegesinstitutes.ca/resources/ip-toolkit/">IP Toolkit</a></li>
+	<li id="menu-item-11978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11978"><a href="http://www.collegesinstitutes.ca/resources/?fwp_by_resource_type=past-events">Past Events</a></li>
+</ul>
+</li>
+</ul>		</nav>
+
+	</div>
+	<!-- // .container -->
+
+</header>
+
+<div class="main-nav-dd-bg"><div class="container"></div></div>
+
+<div class="main clearfix">
+
+<!--[if lt IE 8]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="container">
+
+	
+<div class="breadcrumb en"><!-- Breadcrumb NavXT 5.4.0 -->
+<a title="Go to Colleges and Institutes Canada." href="http://www.collegesinstitutes.ca" class="home">Home</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Our Members." href="http://www.collegesinstitutes.ca/our-members/" class="post post-page">Our Members</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Member Profiles." href="../../our-members/member-directory/index.html">Member Profiles</a>&nbsp;&nbsp;/&nbsp;&nbsp;Cégep de la Gaspésie et des Îles</div><div class="secondary"><a href="index.html#" class="sprite toggle-sub-menu web-only" id="toggle-sub-menu">Sub Menu</a><nav role="navigation" class="page-nav"><ul><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul></nav></div>
+	
+	<p class="accessTarget"><a id="maincontentTarget">Main Content</a></p>
+	<section role="main" class="main-content clearfix">
+
+		
+		<div class="the-content mem">
+
+			<header>
+			<!-- <div class="share-this">
+
+<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'b076605b-817d-47b1-9435-3209a049f7c0', doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_facebook'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_twitter'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_linkedin'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_email'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_sharethis'></span>
+
+</div> --><h1 class="page-title">Cégep de la Gaspésie et des Îles</h1>			</header>
+
+			<div class="print-header print-only">
+				<h1 class="title blue">Cégep de la Gaspésie et des Îles</h1>
+				<img src="../../wp-content/themes/accc/assets/img/content/cican_logo_purple.png">
+				<div class="cleardiv"></div>
+			</div>
+
+			<div class="print-only"><img src="../../wp-content/uploads/2015/11/1_member_logo_cegep_de_Gaspesie.jpg" class="mem-logo" /></div>
+			<div class="mem-stats">
+				<div class="boxit white bluebg"><h1>Campuses</h1><h2 class="white">4</h2></div><div class="boxit"><h1>Enrolment</h1><ul><li><h2>1143</h2><h6>Full-time</h6></li><li><h2>97</h2><h6>Part-time</h6></li><li><h2>47</h2><h6>International</h6></li><li><h2>1</h2><h6>Indigenous</h6></li></ul></div><div class="boxit white darkgraybg web-only"><a href="http://www.cegepgim.ca/" target="_blank" class="white"><img src="../../wp-content/themes/accc/assets/img/content/mouse.png" alt="Visit Site"><h1>Visit Site</h1></a></div>			</div>
+
+			<div class="mem-content">
+
+				<div class="web-only"><a href="http://www.cegepgim.ca/" target="_blank"><img src="../../wp-content/uploads/2015/11/1_member_logo_cegep_de_Gaspesie.jpg" class="mem-logo" /></a></div><p>Le Cégep de la Gaspésie et des Îles est situé dans un environnement grandeur nature, entouré de plages, du Parc national Forillon et du Parc national de la Gaspésie. Il est composé de trois campus et d’une école nationale : le Campus de Gaspé, le Campus des Îles-de-la-Madeleine, le Campus de Carleton-sur-Mer et de l’École des pêches et de l’aquaculture du Québec, située à Grande-Rivière. L&#8217;École offre de la formation de niveaux secondaire et collégial spécifique au monde marin.</p>
+<p>Le Cégep de la Gaspésie et des Îles est apprécié pour ses petits groupes d’étudiants, l’accès facile aux enseignants, la qualité de son enseignement et son suivi personnalisé. Des programmes techniques et préuniversitaires sont offerts, tout comme la formation à distance hors campus. Une section anglophone permet à ses étudiants de faire une immersion totale ou partielle. Quelques programmes sont offerts en langue anglaise au campus de Gaspé.</p>
+<p>L’institution est installée en bordure d’un immense laboratoire naturel : le golfe du Saint-Laurent! Cette caractéristique régionale permet aux Gaspésiens et Madelinots de pratiquer plusieurs sports et activités de plein air à proximité de leurs lieux d’études ou de résidence. D’ailleurs, selon le magazine National Geographic, la région est l’une des 20 meilleures destinations à visiter au monde.</p>
+<h1 class="blue">Fast Facts</h1><ul>
+<li>Puisque les groupes sont petits, la proximité prof-élève est facilitée, ces enseignants sont disponibles et connaissent bien leurs élèves.</li>
+<li>Qualité de l&#8217;enseignement : les petits groupes permettent une meilleure compréhension de la matière. Les enseignants sont attentifs aux besoins de leurs étudiants.</li>
+<li>Recherche : le Cégep dispose de trois collèges de transfert de technologie : énergie éolienne, pêches et développement durable. Il est classé 4e au Canada selon Infosource Research en 2015.</li>
+<li>Créneaux d&#8217;excellence : le Cégep dispose d&#8217;une école nationale en pêches, du seul centre de formation en maintenance d&#8217;éoliennes au Québec et offre Tourisme d&#8217;aventure.</li>
+<li>Formation à distance : le Cégep est un leader en formation à distance et des centaines d&#8217;étudiants de partout en profitent, que ce soit en formation régulière ou continue.</li>
+</ul>
+<div class="container boxit"><h2>Our research specialization:</h2><ul>
+<li>Energie éolienne</li>
+<li>Pêches et aquaculture</li>
+<li>Pratiques novatrices &#8211; développement durable</li>
+</ul>
+<div class="cleardiv"></div></div>			</div>
+
+			<div class="cleardiv"></div>
+
+				<div class="container web-only"><h1 class="blue">This is how we...</h1><div class="accordion"><h3>Contribute to our Community</h3><div><p>Développement éolien : Au début des années 2000, la région vivait une grave crise économique avec la fermeture des plus grandes entreprises industrielles cherchant à se relever et diversifier son économie, un groupe de gens d&#8217;affaires ont imaginé développer une toute nouvelle filière industrielle et énergétique, l&#8217;éolien. Dès lors, le Cégep a procédé à une cartographie des différents types d&#8217;emplois présents dans la filière éolienne et a effectué des missions auprès de turbiniers, équipementiers et opérateurs de parc éolien. Le secteur d&#8217;emploi relatif à l&#8217;opération et à la maintenance d&#8217;éoliennes a été retenu. Une analyse des compétences et des qualifications requises pour occuper un tel emploi a été réalisée et un nouveau programme de formation a été développé. Après 10 ans, le Cégep est fier d&#8217;avoir fourni la majorité des travailleurs oeuvrant actuellement au Québec en opération et maintenance d&#8217;éoliennes. Le Cégep et ses partenaires ont aussi collaboré à développer une nouvelle filière industrielle et ont créé en Gaspésie un véritable pôle d&#8217;excellence et d&#8217;expertise en éolien.</p>
+</div><h3>Foster Student Success</h3><div><h2>Igor Urban</h2>
+<p>Igor Urban est arrivé au Cégep de la Gaspésie et des Îles comme étudiant en Tourisme d&#8217;aventure dont il a diplômé en 2010. Originaire de la France, il a choisi Gaspé comme milieu d&#8217;études. Après avoir obtenu son diplôme avec succès, il a trouvé un emploi comme responsable de l&#8217;accueil d&#8217;étudiants étrangers au Campus de Gaspé. Amoureux du Québec et de son milieu d&#8217;accueil, Igor a décidé de demander sa citoyenneté canadienne. Après avoir réussi toutes les étapes avec succès, il l&#8217;a obtenu le 2 décembre 2015. Soulignons qu&#8217;il a obtenu un poste permanent à l&#8217;été 2015. Le Cégep de la Gaspésie et des Îles est heureux de la compter parmi son équipe.</p>
+<h2>Dominic de Monpéou<strong><br />
+</strong></h2>
+<p>Dominic a étudié au Cégep de la Gaspésie et des îles, Campus de Carleton-sur-Mer de 2013 à 2015, en Arts, lettres et médias. Son cv est chargé : théâtre, improvisation, réalisation, etc. Il a remporté plusieurs distinctions tel un prix au Concours intercollégial de poésie. Pour l&#8217;instant, recrue de l&#8217;année de la ligue d&#8217;improvisation Baie-des-Chaleurs, le Prix d&#8217;art dramatique de l&#8217;École Antoine-Bernard de Carleton-sur-Mer en 2013 et le Prix de création littéraire, pour ne nommer que ceux-là. Plus récemment, grâce à une lettre humoristique originale, il a remporté la finale locale de Cégeps en spectacle au Campus de Carleton-sur-Mer. Une victoire à la finale de l&#8217;Est du Québec du même événement lui donne une place pour la finale nationale. En 2015, après avoir passé des auditions, il apprend qu&#8217;il est accepté à l&#8217;École nationale de l&#8217;humour.</p>
+</div><h3>Partner with Business and Community</h3><div><h2>Industry</h2><p>Durant la période estivale 2015, 5 stagiaires français du lycée de Bréhoulou ont travaillé au sein d&#8217;entreprises québécoises durant 6 semaines en aquaculture. Ces étudiants ont été placés dans des entreprises situées dans différentes régions du Québec. Ils ont trouvé cet apprentissage très enrichissant en raison de la complémentarité des espèces étudiées, différentes de celles étudiées en France et pour l&#8217;expérience internationale. En effet, la découverte d&#8217;une nouvelle culture a été très appréciée. Les commentaires ayant été très positifs, cette activité sera reconduite à l&#8217;été 2016.</p>
+<h2>Community</h2><h2>Les élèves en Travail social sont très présents dans la communauté :</h2>
+<ul>
+<li>Ils animent des activités avec l’organisme Gens-barque du Centre d’action bénévole local.</li>
+<li>Ils font des visites amicales aux personnes âgées en résidences.</li>
+<li>Ils accompagnent un intervenant communautaire pendant une journée.</li>
+<li>Ils réalisent une activité au bénéfice d’un organisme communautaire.</li>
+<li>Ils organisent des levées de fonds pour des organismes communautaires.</li>
+</ul>
+</div><h3>Support Indigenous Students</h3><div><h2>Programs &amp; Services of Interest</h2><ul>
+<li>Mesures d’aide à la réussite</li>
+<li>Aide pédagogique individuelle</li>
+<li>Centres d’aide français et anglais</li>
+<li>Centres d’aide mathématiques et philosophie</li>
+<li>Conseillère d’orientation</li>
+<li>Services adaptés</li>
+<li>Intervenants psychosociaux</li>
+<li>Travailleur de corridor à la Résidence</li>
+<li>Tutorat par le pairs</li>
+</ul>
+</div></div>
+			<div class="container mem-footer web-only">
+
+				<div class="mem-contact"><h1 class="blue">Contact Information</h1><p>96 rue Jacques-Cartier<br>Gaspé, QC<br>G4X 2S8</p><p><strong>Telephone: </strong> 418 368-2201<br><strong>Toll Free: </strong> 1 888 368-2201<br><strong>Website: </strong> <a href="http://www.cegepgim.ca/" target="_blank">http://www.cegepgim.ca/</a></p><p><a href="https://www.facebook.com/cegep.gaspesie.iles" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-facebook.png" alt="Facebook"></a><a href="https://twitter.com/cegepgim" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-twitter.png" alt="Twitter"></a><a href="http://instagram.com/cegepgim" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-instagram.png" alt="Instagram"></a><a href="https://www.youtube.com/channel/UCd3JxQuzGgtmcLAzd4meMqw" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-youtube.png" alt="YouTube"></a></p></div><div class="mem-googlemap web-only"><a href="http://maps.google.com/?q=48.83179499999999,-64.48362550000002" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?center=48.83179499999999,-64.48362550000002&zoom=9&size=500x300&maptype=roadmap&markers=color:blue%7C48.83179499999999,-64.48362550000002&sensor=false&key=AIzaSyCJ3ZjXVyPyCzPRPt9yyufxzzmSmP2wxtU" /></a></div>			<div class="cleardiv"></div>
+			</div>
+			<div class="print-only">
+				<h2 class="nowhitespace">For more information on <span class="blue">Cégep de la Gaspésie et des Îles</span> visit www.collegesinstitutes.ca/members/cegep-de-la-gaspesie-et-des-iles/</h2>			</div>
+			<p class="mem-updated web-only">Date modified: 2016-02-04</p>
+
+		</div>
+		<!-- // .the-content -->
+
+			</section>
+	<!-- // .main-content -->
+
+</div>
+<!-- // .container -->
+
+	
+	</div>
+	<!-- // .main -->
+
+	<footer class="footer" role="contentinfo">
+		
+		<div class="container clearfix">
+				
+			<p class="footer-tagline">
+			    Champion<br />Lead<br />Partner<br />Excel			</p>
+			
+			<div class="footer-navs">
+				
+				<ul class="social-media">
+					<li><a class="sprite facebook" href="https://www.facebook.com/collegesinstitutes">Facebook</a></li>
+					<li><a class="sprite twitter" href="https://twitter.com/CollegeCan">Twitter</a></li>
+					<li><a class="sprite linkedin" href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+					<li><a class="sprite email" href="mailto:info@collegesinstitutes.ca﻿">Email</a></li>
+			 	</ul>
+				
+				<nav class="footer-nav clearfix">
+				<ul><li id="menu-item-4325" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4325"><a href="http://www.collegesinstitutes.ca/about/">About</a></li>
+<li id="menu-item-83" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-83"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li id="menu-item-4327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4327"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a></li>
+<li id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a></li>
+<li id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a></li>
+<li id="menu-item-81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a></li>
+<li id="menu-item-14523" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14523"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a></li>
+</ul>				</nav>
+				
+				<nav class="footer-links clearfix">
+				<ul><li id="menu-item-6392" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6392"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-12761" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12761"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-98" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-98"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Terms of Use</a></li>
+<li id="menu-item-8161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8161"><a href="http://www.collegesinstitutes.ca/colleges-and-institutes-canadas-accessibility-plan/">Accessibility</a></li>
+</ul>				</nav>
+			    
+				<p class="copyright">© Colleges and Institutes Canada</p>
+							
+			</div>
+			<!-- // .footer-navs -->
+						
+		</div>
+		<!-- // .container -->
+		
+	</footer>
+	<!-- // .footer -->
+
+	        <div class="w3eden">
+            <div id="wpdm-popup-link" class="modal fade">
+                <div class="modal-dialog" style="width: 750px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                              <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body" id='wpdm-modal-body'>
+                            <p><a href="http://www.wpdownloadmanager.com/">WordPress Download Manager - Best Download Management Plugin</a></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+        </div>
+        <script language="JavaScript">
+            <!--
+            jQuery(function () {
+                //jQuery('#wpdm-popup-link').modal('hide');
+                jQuery('.wpdm-popup-link').click(function (e) {
+                    e.preventDefault();
+                    jQuery('#wpdm-popup-link .modal-title').html(jQuery(this).data('title'));
+                    jQuery('#wpdm-modal-body').html('<i class="icon"><img align="left" style="margin-top: -1px" src="http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/images/loading-new.gif" /></i>&nbsp;Please Wait...');
+                    jQuery('#wpdm-popup-link').modal('show');
+                    jQuery('#wpdm-modal-body').load(this.href,{mode:'popup'});
+                    return false;
+                });
+            });
+            //-->
+        </script>
+        <style type="text/css">
+            #wpdm-modal-body img {
+                max-width: 100% !important;
+            }
+        </style>
+    <script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.form.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/jquery.infinitescroll.min.js'></script>
+<script type='text/javascript' src='https://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/plugins.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/magnific-popup.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/main.js?01'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/wp-embed.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var icl_vars = {"current_language":"en","icl_home":"http:\/\/www.collegesinstitutes.ca\/","ajax_url":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php","url_type":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js'></script>
+<script type="text/css" id="tmpl-tribe_events_pro_customizer_css"></script><style type="text/css" id="tribe_events_pro_customizer_css"></style><script>var FWP_HTTP = FWP_HTTP || {}; FWP_HTTP.lang = 'en';</script>
+</body>
+</html>
+<!-- Dynamic page generated in 24.261 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-07-24 21:00:39 -->
+
+<!-- Compression = gzip -->
+<!-- super cache -->

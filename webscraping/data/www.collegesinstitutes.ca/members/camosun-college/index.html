@@ -1,0 +1,597 @@
+
+<!doctype html>
+<!--[if lt IE 7]><html lang="en-US" class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en-US" class="no-js"><!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>  Camosun College</title>
+
+<link rel="stylesheet" href="http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/css/language-selector.css?v=3.4.1" type="text/css" media="all" />
+
+	<!-- mobile meta (hooray!) -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<!-- Twitter Summary Card With Image -->
+		<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@collegecan">
+	<meta name="twitter:creator" content="@collegecan">
+	<meta name="twitter:title" content="Camosun College | Colleges and Institutes Canada">
+	<meta name="twitter:description" content="Camosun College is located in beautiful Victoria, British Columbia. Our two campuses serve approximately 18,000 learners a year in certificate,&hellip;">
+	<meta name="twitter:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/11/1_member_logo_camosun.png">
+	
+	<!-- Facebook Sharing -->
+	<meta property="og:url" content="" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Camosun College | Colleges and Institutes Canada" />
+	<meta property="og:description" content="Camosun College is located in beautiful Victoria, British Columbia. Our two campuses serve approximately 18,000 learners a year in certificate,&hellip;" />
+	<meta property="og:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/11/1_member_logo_camosun.png" />
+
+	<!--[if IE]>
+		<meta http-equiv="Page-Enter" content="blendTrans(duration=0)" />
+		<meta http-equiv="Page-Exit" content="blendTrans(duration=0)" />
+	<![endif]-->
+
+	<link rel="apple-touch-icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/apple-icon-touch.png">
+	<link rel="icon" href="../../wp-content/themes/accc/assets/img/layout/apple-touch-icon.png">
+
+	<!--[if IE]>
+		<link rel="shortcut icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/favicon.ico">
+	<![endif]-->
+
+	<!-- Favicon.ico for IE10 win -->
+	<meta name="msapplication-TileColor" content="#f01d4f">
+	<meta name="msapplication-TileImage" content="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/win8-tile-icon.png">
+
+	<link rel="pingback" href="http://www.collegesinstitutes.ca/xmlrpc.php">
+
+	<link rel="alternate" hreflang="en-US" href="index.html" />
+<link rel="alternate" hreflang="fr-FR" href="http://www.collegesinstitutes.ca/fr/members/camosun-college/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Feed" href="http://www.collegesinstitutes.ca/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Comments Feed" href="http://www.collegesinstitutes.ca/comments/feed/" />
+<link rel="alternate" type="text/calendar" title="Colleges and Institutes Canada &raquo; iCal Feed" href="http://www.collegesinstitutes.ca/events/?ical=1" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"wpemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/wp-emoji.js","twemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/twemoji.js"}};
+			( function( window, document, settings ) {
+	var src, ready, ii, tests;
+
+	/**
+	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
+	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param type {String} Whether to test for support of "simple", "flag", "diversity" or "unicode8" emoji.
+	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( type ) {
+		var canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext && canvas.getContext( '2d' ),
+			stringFromCharCode = String.fromCharCode,
+			tonedata, tone, tone2;
+
+		if ( ! context || ! context.fillText ) {
+			return false;
+		}
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * This works because the image will be one of three things:
+				 * - Two empty squares, if the browser doesn't render emoji
+				 * - Two squares with 'A' and 'U' in them, if the browser doesn't render flag emoji
+				 * - The Australian flag
+				 *
+				 * The first two will encode to small images (1-2KB data URLs), the third will encode
+				 * to a larger image (4-5KB data URL).
+				 */
+				context.fillText( stringFromCharCode( 55356, 56806, 55356, 56826 ), 0, 0 );
+				return canvas.toDataURL().length > 3000;
+			case 'diversity':
+				/*
+				 * This tests if the browser supports the Emoji Diversity specification, by rendering an
+				 * emoji with no skin tone specified (in this case, Santa). It then adds a skin tone, and
+				 * compares if the emoji rendering has changed.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57221 ), 0, 0 );
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				context.fillText( stringFromCharCode( 55356, 57221, 55356, 57343 ), 0, 0 );
+				// Chrome has issues comparing arrays, and Safari has issues converting arrays to strings.
+				// So, we create our own string and compare that, instead.
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone2 = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				return tone !== tone2;
+			case 'simple':
+				/*
+				 * This creates a smiling emoji, and checks to see if there is any image data in the
+				 * center pixel. In browsers that don't support emoji, the character will be rendered
+				 * as an empty square, so the center pixel will be blank.
+				 */
+				context.fillText( stringFromCharCode( 55357, 56835 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+			case 'unicode8':
+				/*
+				 * To check for Unicode 8 support, let's try rendering the most important advancement
+				 * that the Unicode Consortium have made in years: the burrito.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57135 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+		}
+
+		return false;
+	}
+
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+
+		script.src = src;
+		script.type = 'text/javascript';
+		document.getElementsByTagName( 'head' )[0].appendChild( script );
+	}
+
+	tests = Array( 'simple', 'flag', 'unicode8', 'diversity' );
+
+	settings.supports = {
+		everything: true,
+		everythingExceptFlag: true
+	};
+
+	for( ii = 0; ii < tests.length; ii++ ) {
+		settings.supports[ tests[ ii ] ] = browserSupportsEmoji( tests[ ii ] );
+
+		settings.supports.everything = settings.supports.everything && settings.supports[ tests[ ii ] ];
+
+		if ( 'flag' !== tests[ ii ] ) {
+			settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && settings.supports[ tests[ ii ] ];
+		}
+	}
+
+	settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && ! settings.supports.flag;
+
+	settings.DOMReady = false;
+	settings.readyCallback = function() {
+		settings.DOMReady = true;
+	};
+
+	if ( ! settings.supports.everything ) {
+		ready = function() {
+			settings.readyCallback();
+		};
+
+		if ( document.addEventListener ) {
+			document.addEventListener( 'DOMContentLoaded', ready, false );
+			window.addEventListener( 'load', ready, false );
+		} else {
+			window.attachEvent( 'onload', ready );
+			document.attachEvent( 'onreadystatechange', function() {
+				if ( 'complete' === document.readyState ) {
+					settings.readyCallback();
+				}
+			} );
+		}
+
+		src = settings.source || {};
+
+		if ( src.concatemoji ) {
+			addScript( src.concatemoji );
+		} else if ( src.wpemoji && src.twemoji ) {
+			addScript( src.twemoji );
+			addScript( src.wpemoji );
+		}
+	}
+
+} )( window, document, window._wpemojiSettings );
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='wpdm-front-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/css/front.css' type='text/css' media='all' />
+<link rel='stylesheet' id='tribe_events-widget-this-week-pro-style-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/css/widget-this-week-full.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery-ui-css-css'  href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-bootstrap-css'  href='../../wp-content/themes/accc/assets/css/bootstrap.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css'  href='../../wp-content/themes/accc/assets/css/magnific-popup.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-stylesheet-css'  href='../../wp-content/themes/accc/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='pmc-ie-only-css'  href='http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/css/ie.css' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_events_linked_posts = {"post_types":{"tribe_venue":"venue","tribe_organizer":"organizer"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/jquery.cookie.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/front.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_this_week = {"ajaxurl":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/js/widget-this-week.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/vendor/modernizr.min.js'></script>
+<link rel='https://api.w.org/' href='http://www.collegesinstitutes.ca/wp-json/' />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='http://www.collegesinstitutes.ca/?p=15151' />
+<link rel="alternate" type="application/json+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fcamosun-college%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fcamosun-college%2F&#038;format=xml" />
+
+<!-- This site is using AdRotate v4.0 Professional to display their advertisements - https://ajdg.solutions/products/adrotate-for-wordpress/ -->
+<!-- AdRotate CSS -->
+<style type="text/css" media="screen">
+	.g { margin:0px; padding:0px; overflow:hidden; line-height:1; zoom:1; }
+	.g img { height:auto; }
+	.g-col { position:relative; float:left; }
+	.g-col:first-child { margin-left: 0; }
+	.g-col:last-child { margin-right: 0; }
+	@media only screen and (max-width: 480px) {
+		.g-col, .g-dyn, .g-single { width:100%; margin-left:0; margin-right:0; }
+	}
+</style>
+<!-- /AdRotate CSS -->
+
+<meta name="generator" content="WPML ver:3.4.1 stt:1,4;" />
+
+<style type="text/css">																																																																																																																																																																																
+</style>	
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/slick/slick.css">
+	
+	<!-- CSS Edits -->
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/edits.css">
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/print.css">
+	
+	<!-- Google Maps -->
+	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script> -->
+	
+		
+</head>
+
+<body class="single single-accc_member postid-15151 tribe-theme-accc">
+	
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-18659346-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<div class="search-form">
+	<div class="the-search-form clearfix en">
+		<form role="search" method="get" id="searchform" action="http://www.collegesinstitutes.ca/" >
+	<label class="screen-reader-text" for="s">Search:</label>
+	<input type="text" value="" name="s" id="s" placeholder="Search the Site" />
+	<input type="submit" id="searchsubmit" class="sprite" value="Search" />
+	</form>	</div>
+</div>
+<!-- // .search-form -->
+
+<header class="header en" role="banner">
+
+	<div class="container clearfix">
+
+		<nav role="navigation" class="utility-nav clearfix">
+	
+			<ul><li id="menu-item-2906" class="job-board menu-item menu-item-type-custom menu-item-object-custom menu-item-2906"><a href="https://jobs.collegesinstitutes.ca">Jobs</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-55"><a href="http://www.collegesinstitutes.ca/about/">About Us</a></li>
+<li id="menu-item-17400" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17400"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-10756" class="sprite facebook menu-item menu-item-type-custom menu-item-object-custom menu-item-10756"><a href="http://www.facebook.com/collegesinstitutes">Facebook</a></li>
+<li id="menu-item-10757" class="sprite twitter menu-item menu-item-type-custom menu-item-object-custom menu-item-10757"><a href="https://twitter.com/CollegeCan">Twitter</a></li>
+<li id="menu-item-10758" class="sprite linkedin menu-item menu-item-type-custom menu-item-object-custom menu-item-10758"><a href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+<li id="menu-item-44" class="sprite contactus menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li class="utility-link"><a id="toggle-search" class="utility-search sprite" href="index.html#">Search</a></li><li class="utility-link current-language"><a class="utility-lang" href="http://www.collegesinstitutes.ca/fr/members/camosun-college/">FR</a></li></ul>		
+		</nav>
+		<!-- // .utility-nav -->
+				
+		<h1 title="Colleges and Institutes Canada">
+			<a href="http://www.collegesinstitutes.ca" rel="nofollow"><img class="site-logo" src="../../wp-content/themes/accc/assets/img/layout/logo.png" alt="Colleges and Institutes Canada" title="Colleges and Institutes Canada" /></a>
+		</h1>
+		
+		<a href="index.html#" class="sprite toggle-menu" id="toggle-menu">Menu</a>
+		<nav role="navigation" class="main-nav clearfix">
+			<ul class="menu clearfix"><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-33"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a>
+<ul class="sub-menu">
+	<li id="menu-item-19484" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+	<li id="menu-item-19485" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+	<li id="menu-item-33952" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+	<li id="menu-item-32749" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+	<li id="menu-item-34252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul>
+</li>
+<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a>
+<ul class="sub-menu">
+	<li id="menu-item-18907" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18907"><a href="http://www.collegesinstitutes.ca/what-we-do/leadership-development-institutes/">Leadership Development</a></li>
+	<li id="menu-item-2855" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2855"><a href="http://www.collegesinstitutes.ca/what-we-do/canadian-partnerships/">Canadian Partnerships</a></li>
+	<li id="menu-item-17336" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17336"><a href="http://www.collegesinstitutes.ca/what-we-do/international/">International Partnerships</a></li>
+	<li id="menu-item-14182" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14182"><a href="http://www.collegesinstitutes.ca/what-we-do/awards/">Awards of Excellence</a></li>
+</ul>
+</li>
+<li id="menu-item-2851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2851"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a>
+<ul class="sub-menu">
+	<li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="http://www.collegesinstitutes.ca/policyfocus/advanced-skills/">Skills Development</a></li>
+	<li id="menu-item-259" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-259"><a href="http://www.collegesinstitutes.ca/policyfocus/applied-research/">Applied Research</a></li>
+	<li id="menu-item-14479" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14479"><a href="http://www.collegesinstitutes.ca/policyfocus/indigenous-learners/">Indigenous Learners</a></li>
+	<li id="menu-item-261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-261"><a href="http://www.collegesinstitutes.ca/policyfocus/infrastructure/">Infrastructure</a></li>
+	<li id="menu-item-11401" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11401"><a href="http://www.collegesinstitutes.ca/policyfocus/entrepreneurship/">Entrepreneurship</a></li>
+	<li id="menu-item-14497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14497"><a href="http://www.collegesinstitutes.ca/policyfocus/transferability/">Transferability</a></li>
+</ul>
+</li>
+<li id="menu-item-8635" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-8635"><a href="http://www.collegesinstitutes.ca/events/">Events</a>
+<ul class="sub-menu">
+	<li id="menu-item-16020" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16020"><a href="http://www.collegesinstitutes.ca/conference/">CICan Conference</a></li>
+	<li id="menu-item-8639" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8639"><a href="http://www.collegesinstitutes.ca/events/">Upcoming Events</a></li>
+	<li id="menu-item-11904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11904"><a href="http://www.collegesinstitutes.ca/events/public/add/">Submit an Event</a></li>
+</ul>
+</li>
+<li id="menu-item-5097" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5097"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a>
+<ul class="sub-menu">
+	<li id="menu-item-5106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5106"><a href="http://www.collegesinstitutes.ca/news-centre/news-releases/">News Releases</a></li>
+	<li id="menu-item-11728" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11728"><a href="http://www.collegesinstitutes.ca/news-centre/colleges-in-the-news/">Colleges &#038; Institutes in the News</a></li>
+	<li id="menu-item-5105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5105"><a href="http://www.collegesinstitutes.ca/news-centre/perspectives/">Newsletters</a></li>
+</ul>
+</li>
+<li id="menu-item-11358" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11358"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a>
+<ul class="sub-menu">
+	<li id="menu-item-12892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12892"><a href="http://www.collegesinstitutes.ca/resources/all-resources/">All Resources</a></li>
+	<li id="menu-item-11979" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11979"><a href="http://www.collegesinstitutes.ca/resources/research-on-colleges/">Research on Colleges</a></li>
+	<li id="menu-item-12295" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12295"><a href="http://www.collegesinstitutes.ca/resources/resource-library/">Essential Skills</a></li>
+	<li id="menu-item-2099" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2099"><a href="http://www.collegesinstitutes.ca/resources/ip-toolkit/">IP Toolkit</a></li>
+	<li id="menu-item-11978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11978"><a href="http://www.collegesinstitutes.ca/resources/?fwp_by_resource_type=past-events">Past Events</a></li>
+</ul>
+</li>
+</ul>		</nav>
+
+	</div>
+	<!-- // .container -->
+
+</header>
+
+<div class="main-nav-dd-bg"><div class="container"></div></div>
+
+<div class="main clearfix">
+
+<!--[if lt IE 8]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="container">
+
+	
+<div class="breadcrumb en"><!-- Breadcrumb NavXT 5.4.0 -->
+<a title="Go to Colleges and Institutes Canada." href="http://www.collegesinstitutes.ca" class="home">Home</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Our Members." href="http://www.collegesinstitutes.ca/our-members/" class="post post-page">Our Members</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Member Profiles." href="../../our-members/member-directory/index.html">Member Profiles</a>&nbsp;&nbsp;/&nbsp;&nbsp;Camosun College</div><div class="secondary"><a href="index.html#" class="sprite toggle-sub-menu web-only" id="toggle-sub-menu">Sub Menu</a><nav role="navigation" class="page-nav"><ul><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul></nav></div>
+	
+	<p class="accessTarget"><a id="maincontentTarget">Main Content</a></p>
+	<section role="main" class="main-content clearfix">
+
+		
+		<div class="the-content mem">
+
+			<header>
+			<!-- <div class="share-this">
+
+<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'b076605b-817d-47b1-9435-3209a049f7c0', doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_facebook'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_twitter'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_linkedin'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_email'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_sharethis'></span>
+
+</div> --><h1 class="page-title">Camosun College</h1>			</header>
+
+			<div class="print-header print-only">
+				<h1 class="title blue">Camosun College</h1>
+				<img src="../../wp-content/themes/accc/assets/img/content/cican_logo_purple.png">
+				<div class="cleardiv"></div>
+			</div>
+
+			<div class="print-only"><img src="../../wp-content/uploads/2015/11/1_member_logo_camosun.png" class="mem-logo" /></div>
+			<div class="mem-stats">
+				<div class="boxit white bluebg"><h1>Campuses</h1><h2 class="white">2</h2></div><div class="boxit"><h1>Enrolment</h1><ul><li><h2>7908</h2><h6>Full-time</h6></li><li><h2>13373</h2><h6>Part-time</h6></li><li><h2>1511</h2><h6>International</h6></li><li><h2>2431</h2><h6>Apprentice</h6></li><li><h2>1121</h2><h6>Indigenous</h6></li></ul></div><div class="boxit white darkgraybg web-only"><a href="http://www.camosun.ca/" target="_blank" class="white"><img src="../../wp-content/themes/accc/assets/img/content/mouse.png" alt="Visit Site"><h1>Visit Site</h1></a></div>			</div>
+
+			<div class="mem-content">
+
+				<div class="web-only"><a href="http://www.camosun.ca/" target="_blank"><img src="../../wp-content/uploads/2015/11/1_member_logo_camosun.png" class="mem-logo" /></a></div><p>Camosun College is located in beautiful Victoria, British Columbia. Our two campuses serve approximately 18,000 learners a year in certificate, diploma, bachelor&#8217;s degree and continuing education programs. Each year Camosun welcomes over 1,100 Indigenous students from First Nations, Métis, and Inuit groups, and over 1,500 international students from more than 70 countries. The college welcomed its first students in 1971 and adopted the name “Camosun,” a local Lkwungen (Songhees) First Nation name meaning “where different waters meet and are transformed.” Today, Camosun College offers 160 programs to help meet the needs of students and communities in Victoria and beyond. Our education offerings include university transfer and applied degree programs; career and trades training; upgrading and preparatory programs; and continuing education. Camosun College has earned an outstanding reputation for teaching excellence. And, our impact as a college extends well beyond our highly skilled, job-ready graduates. We provide contract training opportunities for local business; research, innovation and prototyping services for industry; and well-trained co-op students for employers. With over 900 employees and an annual budget of $115 million, Camosun is one of our community’s top employers, generating over $1 billion in economic impact in our province every year.</p>
+<h1 class="blue">Fast Facts</h1><ul>
+<li>Camosun Innovates is a regional centre for applied research, manufacturing, social innovation and sport innovation services that enriches education, provides faculty opportunity and drives partnerships with business and social agencies.</li>
+<li>Founded in 1971, we serve 18,000+ students each year, including 1,100 Indigenous students and 1,500 international students from more than 70 countries.</li>
+<li>As a comprehensive, community college, we offer a variety of educational choices with lots of hands-on learning to prepare students for further post-secondary studies or rewarding careers.</li>
+<li>With an economic impact of $1 billion/year in British Columbia, Camosun is integral to the local and regional economy, and 86% of employed grads reside in Vancouver Island communities.</li>
+<li>The Camosun College Foundation facilitates philanthropic support to the college, benefitting students, families and communities. More than 1,300 students are supported annually with bursaries and awards, with $680K disbursed annually.</li>
+</ul>
+<div class="container boxit"><div class="mem-bucket"><h2>Our programs include:</h2><ul>
+<li><a href="http://camosun.ca/learn/programs/business-administration/" target="_blank">Bachelor of Business Administration: accounting, HR or marketing options</a></li>
+<li><a href="http://camosun.ca/learn/programs/athletic-and-exercise-therapy/" target="_blank">Sport and Exercise Education</a></li>
+<li><a href="http://camosun.ca/learn/areas/health-human-services.html" target="_blank">Health and Human Services</a></li>
+<li><a href="http://camosun.ca/learn/school/trades-technology/" target="_blank">Trades and Technologies</a></li>
+<li><a href="http://camosun.ca/learn/areas/university-transfer-options.html" target="_blank">University Transfer</a></li>
+</ul>
+</div><div class="mem-bucket"><h2>Our research specialization:</h2><ul>
+<li>Prototyping, manufacturing, 3-D scanning and modelling</li>
+<li>Engineering design and sensor integration</li>
+<li>Productivity and automation</li>
+<li>Social innovation and sport innovation</li>
+<li>Interdisciplinary education and faculty development</li>
+</ul>
+</div><div class="cleardiv"></div></div>			</div>
+
+			<div class="cleardiv"></div>
+
+				<div class="container web-only"><h1 class="blue">This is how we...</h1><div class="accordion"><h3>Contribute to our Community</h3><div><p>Camosun actively participates in shaping our region and its communities through direct representation at chambers, development agencies and professional associations. Through the award-winning Enterprise Point and Camosun Innovates, Camosun engages directly with industry, businesses and municipalities, linking them to our professional services. By providing access to a sophisticated suite of intellectual, technology and manufacturing assets, we drive innovation, create effective business solutions and spearhead beneficial social advancements.</p>
+</div><h3>Foster Student Success</h3><div><h2>Joel Mellish, Joe Bogner, and Max Amsler</h2>
+<p>Camosun Electronics and Computer Engineering Technology students Joel Mellish, Joe Bogner, and Max Amsler placed first in an applied research report contest, earning a cash prize of $1,000 and national recognition from the Canadian Council of Technicians and Technologists. Demonstrating exceptional professional skills in technology, documenting/reporting skills and presenting, the Camosun trio developed an autonomous quadcopter charging station, featuring a base station with mechanical doors, a wireless charging grid and an optical-assist landing mechanism. The station will be used in a variety of remote industrial monitoring applications. Program chair Alan Duncan credits Camosun’s comprehensive, CTAB-accredited program for the students’ success. “Our program offers leading-edge technology curriculum, instruction and labs, but what really makes it an exceptional program is the instruction and support in essential skills. This additional support gives our grads a real advantage when they are competing for top jobs in the technology sector.”</p>
+<p>Twenty-four deserving Camosun College students have just learned they will each receive a $5,000 Ike Barber Transfer Scholarship recognizing excellence in academic achievement and community service. The Irving K. Barber Scholarship Society, named for the BC philanthropist and founder of Slocan Forest Products Ltd., encourages students to start their post-secondary studies at a local public institution like Camosun College, then transfer to a degree-granting institution in BC to complete their four-year bachelor degree. Since the scholarships were established in 2006, more than 100 Camosun students have benefitted from the generosity and vision of Ike Barber. “The number of Camosun scholars named each year and the range of programs they represent is a testament to our strength as a comprehensive community college,” says Bell. Camosun’s award recipients plan to complete degrees in criminal justice, liberal arts, environmental technology, nursing and engineering.</p>
+<h2>Derek Vally and Kendall Foster</h2>
+<p>Carpentry apprentices Derek Vally and Kendall Foster placed first and second at the 2015 GameChanger Youth Expo and Competition in Vancouver. In a race against the clock, competitors were tasked with constructing a full-sized wishing well, from blueprint to finish, while overseeing a helper randomly assigned from a group of high school contestants. Al van Akker, chair of Camosun’s Architectural Trades programs, says, “Competitions showcase planning, execution, construction and teamwork skills, and they really draw attention to the expertise and strategy behind every construction project. Both students started in the Carpentry Foundation program and progressed to the Apprenticeship program. Derek got interested in carpentry while working at a desk job, whereas Kendall entered carpentry after finishing a university degree. “I had a dream to build my own house, so I took the Foundation program and fell in love with carpentry.”</p>
+</div><h3>Partner with Business and Community</h3><div><h2>Community</h2><p>College-level trades training, technology, accelerated academics—these are all within reach of high school students thanks to pioneering work of Camosun faculty and administration. Dual credit programming allows motivated and promising high school students to streamline their entry to well-paying careers and advanced education. The South Island Partnership includes Camosun College and the five south Vancouver Island school districts. Working together with local industry leaders, SIP provides dual credit programs and courses to give high school students a head start on their post-secondary and career paths. Options range from trades exploration, trades foundation, health, business and university transfer courses and programs. The program continues to expand in response the growing community demand. <a href="http://camosun.ca/learn/south-island-partnership/programs-courses/" target="_blank">Learn more</a>.</p>
+</div><h3>Support Indigenous Students</h3><div><p>The Centre for Indigenous Education &amp; Community Connections, Eyēʔ Sqȃ’lewen, offers support services and Indigenous programs for Aboriginal students and provides links between Camosun College, students, Elders, local Aboriginal organizations and First Nations communities. Eyēʔ Sqȃ’lewen is a term offered to us by Lkwungen Elder Elmer George. It references “good heart, good mind, and good feelings” &#8211; the experiences we want students to have here. It is with these guiding principles that we cultivate and honour Indigenous ways of knowing, being, doing and relating at Camosun.</p>
+<p><strong>Through Eyēʔ Sqȃ’lewen, Camosun provides Aboriginal students with </strong>academic, financial and cultural services, physical spaces like Na’tsa’maht, the Aboriginal gathering place, special projects and the ASP plan and Elders’ Voices and Elders-in-Residence programs.</p>
+<h2>Programs &amp; Services of Interest</h2><ul>
+<li><a href="http://camosun.ca/learn/school/indigenous-education-community-connections/programs.html" target="_blank">Indigenous Education Programs</a></li>
+<li><a href="http://camosun.ca/learn/school/indigenous-education-community-connections/index.html" target="_blank">Eyēʔ Sqȃ’lewen, The Centre for Indigenous Education &amp; Community Connections</a></li>
+</ul>
+</div></div>
+			<div class="container mem-footer web-only">
+
+				<div class="mem-contact"><h1 class="blue">Contact Information</h1><p>3100 Foul Bay Road<br>Victoria, BC<br>V8P 5J2</p><p><strong>Telephone: </strong> 250-370-3000<br><strong>Toll Free: </strong> 877-554-7555<br><strong>Website: </strong> <a href="http://www.camosun.ca/" target="_blank">http://www.camosun.ca/</a></p><p><a href="https://www.facebook.com/CamosunCollege" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-facebook.png" alt="Facebook"></a><a href="https://twitter.com/camosun" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-twitter.png" alt="Twitter"></a><a href="https://www.youtube.com/user/MyCamosun" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-youtube.png" alt="YouTube"></a></p></div><div class="mem-googlemap web-only"><a href="http://maps.google.com/?q=48.4477929,-123.32322499999998" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?center=48.4477929,-123.32322499999998&zoom=9&size=500x300&maptype=roadmap&markers=color:blue%7C48.4477929,-123.32322499999998&sensor=false&key=AIzaSyCJ3ZjXVyPyCzPRPt9yyufxzzmSmP2wxtU" /></a></div>			<div class="cleardiv"></div>
+			</div>
+			<div class="print-only">
+				<h2 class="nowhitespace">For more information on <span class="blue">Camosun College</span> visit www.collegesinstitutes.ca/members/camosun-college/</h2>			</div>
+			<p class="mem-updated web-only">Date modified: 2016-02-24</p>
+
+		</div>
+		<!-- // .the-content -->
+
+			</section>
+	<!-- // .main-content -->
+
+</div>
+<!-- // .container -->
+
+	
+	</div>
+	<!-- // .main -->
+
+	<footer class="footer" role="contentinfo">
+		
+		<div class="container clearfix">
+				
+			<p class="footer-tagline">
+			    Champion<br />Lead<br />Partner<br />Excel			</p>
+			
+			<div class="footer-navs">
+				
+				<ul class="social-media">
+					<li><a class="sprite facebook" href="https://www.facebook.com/collegesinstitutes">Facebook</a></li>
+					<li><a class="sprite twitter" href="https://twitter.com/CollegeCan">Twitter</a></li>
+					<li><a class="sprite linkedin" href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+					<li><a class="sprite email" href="mailto:info@collegesinstitutes.ca﻿">Email</a></li>
+			 	</ul>
+				
+				<nav class="footer-nav clearfix">
+				<ul><li id="menu-item-4325" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4325"><a href="http://www.collegesinstitutes.ca/about/">About</a></li>
+<li id="menu-item-83" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-83"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li id="menu-item-4327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4327"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a></li>
+<li id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a></li>
+<li id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a></li>
+<li id="menu-item-81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a></li>
+<li id="menu-item-14523" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14523"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a></li>
+</ul>				</nav>
+				
+				<nav class="footer-links clearfix">
+				<ul><li id="menu-item-6392" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6392"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-12761" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12761"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-98" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-98"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Terms of Use</a></li>
+<li id="menu-item-8161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8161"><a href="http://www.collegesinstitutes.ca/colleges-and-institutes-canadas-accessibility-plan/">Accessibility</a></li>
+</ul>				</nav>
+			    
+				<p class="copyright">© Colleges and Institutes Canada</p>
+							
+			</div>
+			<!-- // .footer-navs -->
+						
+		</div>
+		<!-- // .container -->
+		
+	</footer>
+	<!-- // .footer -->
+
+	        <div class="w3eden">
+            <div id="wpdm-popup-link" class="modal fade">
+                <div class="modal-dialog" style="width: 750px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                              <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body" id='wpdm-modal-body'>
+                            <p><a href="http://www.wpdownloadmanager.com/">WordPress Download Manager - Best Download Management Plugin</a></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+        </div>
+        <script language="JavaScript">
+            <!--
+            jQuery(function () {
+                //jQuery('#wpdm-popup-link').modal('hide');
+                jQuery('.wpdm-popup-link').click(function (e) {
+                    e.preventDefault();
+                    jQuery('#wpdm-popup-link .modal-title').html(jQuery(this).data('title'));
+                    jQuery('#wpdm-modal-body').html('<i class="icon"><img align="left" style="margin-top: -1px" src="http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/images/loading-new.gif" /></i>&nbsp;Please Wait...');
+                    jQuery('#wpdm-popup-link').modal('show');
+                    jQuery('#wpdm-modal-body').load(this.href,{mode:'popup'});
+                    return false;
+                });
+            });
+            //-->
+        </script>
+        <style type="text/css">
+            #wpdm-modal-body img {
+                max-width: 100% !important;
+            }
+        </style>
+    <script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.form.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/jquery.infinitescroll.min.js'></script>
+<script type='text/javascript' src='https://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/plugins.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/magnific-popup.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/main.js?01'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/wp-embed.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var icl_vars = {"current_language":"en","icl_home":"http:\/\/www.collegesinstitutes.ca\/","ajax_url":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php","url_type":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js'></script>
+<script type="text/css" id="tmpl-tribe_events_pro_customizer_css"></script><style type="text/css" id="tribe_events_pro_customizer_css"></style><script>var FWP_HTTP = FWP_HTTP || {}; FWP_HTTP.lang = 'en';</script>
+</body>
+</html>
+<!-- Dynamic page generated in 17.043 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-07-24 21:00:42 -->
+
+<!-- Compression = gzip -->
+<!-- super cache -->
