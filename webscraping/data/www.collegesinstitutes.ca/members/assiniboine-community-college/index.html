@@ -1,0 +1,595 @@
+
+<!doctype html>
+<!--[if lt IE 7]><html lang="en-US" class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en-US" class="no-js"><!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>  Assiniboine Community College</title>
+
+<link rel="stylesheet" href="http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/css/language-selector.css?v=3.4.1" type="text/css" media="all" />
+
+	<!-- mobile meta (hooray!) -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<!-- Twitter Summary Card With Image -->
+		<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@collegecan">
+	<meta name="twitter:creator" content="@collegecan">
+	<meta name="twitter:title" content="Assiniboine Community College | Colleges and Institutes Canada">
+	<meta name="twitter:description" content="Assiniboine Community College (ACC) has been providing exceptional learning experiences for over 50 years. For staff and students alike, ACC&hellip;">
+	<meta name="twitter:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/09/ACC.jpg">
+	
+	<!-- Facebook Sharing -->
+	<meta property="og:url" content="" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Assiniboine Community College | Colleges and Institutes Canada" />
+	<meta property="og:description" content="Assiniboine Community College (ACC) has been providing exceptional learning experiences for over 50 years. For staff and students alike, ACC&hellip;" />
+	<meta property="og:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/09/ACC.jpg" />
+
+	<!--[if IE]>
+		<meta http-equiv="Page-Enter" content="blendTrans(duration=0)" />
+		<meta http-equiv="Page-Exit" content="blendTrans(duration=0)" />
+	<![endif]-->
+
+	<link rel="apple-touch-icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/apple-icon-touch.png">
+	<link rel="icon" href="../../wp-content/themes/accc/assets/img/layout/apple-touch-icon.png">
+
+	<!--[if IE]>
+		<link rel="shortcut icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/favicon.ico">
+	<![endif]-->
+
+	<!-- Favicon.ico for IE10 win -->
+	<meta name="msapplication-TileColor" content="#f01d4f">
+	<meta name="msapplication-TileImage" content="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/win8-tile-icon.png">
+
+	<link rel="pingback" href="http://www.collegesinstitutes.ca/xmlrpc.php">
+
+	<link rel="alternate" hreflang="en-US" href="index.html" />
+<link rel="alternate" hreflang="fr-FR" href="http://www.collegesinstitutes.ca/fr/members/assiniboine-community-college/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Feed" href="http://www.collegesinstitutes.ca/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Comments Feed" href="http://www.collegesinstitutes.ca/comments/feed/" />
+<link rel="alternate" type="text/calendar" title="Colleges and Institutes Canada &raquo; iCal Feed" href="http://www.collegesinstitutes.ca/events/?ical=1" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"wpemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/wp-emoji.js","twemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/twemoji.js"}};
+			( function( window, document, settings ) {
+	var src, ready, ii, tests;
+
+	/**
+	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
+	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param type {String} Whether to test for support of "simple", "flag", "diversity" or "unicode8" emoji.
+	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( type ) {
+		var canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext && canvas.getContext( '2d' ),
+			stringFromCharCode = String.fromCharCode,
+			tonedata, tone, tone2;
+
+		if ( ! context || ! context.fillText ) {
+			return false;
+		}
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * This works because the image will be one of three things:
+				 * - Two empty squares, if the browser doesn't render emoji
+				 * - Two squares with 'A' and 'U' in them, if the browser doesn't render flag emoji
+				 * - The Australian flag
+				 *
+				 * The first two will encode to small images (1-2KB data URLs), the third will encode
+				 * to a larger image (4-5KB data URL).
+				 */
+				context.fillText( stringFromCharCode( 55356, 56806, 55356, 56826 ), 0, 0 );
+				return canvas.toDataURL().length > 3000;
+			case 'diversity':
+				/*
+				 * This tests if the browser supports the Emoji Diversity specification, by rendering an
+				 * emoji with no skin tone specified (in this case, Santa). It then adds a skin tone, and
+				 * compares if the emoji rendering has changed.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57221 ), 0, 0 );
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				context.fillText( stringFromCharCode( 55356, 57221, 55356, 57343 ), 0, 0 );
+				// Chrome has issues comparing arrays, and Safari has issues converting arrays to strings.
+				// So, we create our own string and compare that, instead.
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone2 = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				return tone !== tone2;
+			case 'simple':
+				/*
+				 * This creates a smiling emoji, and checks to see if there is any image data in the
+				 * center pixel. In browsers that don't support emoji, the character will be rendered
+				 * as an empty square, so the center pixel will be blank.
+				 */
+				context.fillText( stringFromCharCode( 55357, 56835 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+			case 'unicode8':
+				/*
+				 * To check for Unicode 8 support, let's try rendering the most important advancement
+				 * that the Unicode Consortium have made in years: the burrito.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57135 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+		}
+
+		return false;
+	}
+
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+
+		script.src = src;
+		script.type = 'text/javascript';
+		document.getElementsByTagName( 'head' )[0].appendChild( script );
+	}
+
+	tests = Array( 'simple', 'flag', 'unicode8', 'diversity' );
+
+	settings.supports = {
+		everything: true,
+		everythingExceptFlag: true
+	};
+
+	for( ii = 0; ii < tests.length; ii++ ) {
+		settings.supports[ tests[ ii ] ] = browserSupportsEmoji( tests[ ii ] );
+
+		settings.supports.everything = settings.supports.everything && settings.supports[ tests[ ii ] ];
+
+		if ( 'flag' !== tests[ ii ] ) {
+			settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && settings.supports[ tests[ ii ] ];
+		}
+	}
+
+	settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && ! settings.supports.flag;
+
+	settings.DOMReady = false;
+	settings.readyCallback = function() {
+		settings.DOMReady = true;
+	};
+
+	if ( ! settings.supports.everything ) {
+		ready = function() {
+			settings.readyCallback();
+		};
+
+		if ( document.addEventListener ) {
+			document.addEventListener( 'DOMContentLoaded', ready, false );
+			window.addEventListener( 'load', ready, false );
+		} else {
+			window.attachEvent( 'onload', ready );
+			document.attachEvent( 'onreadystatechange', function() {
+				if ( 'complete' === document.readyState ) {
+					settings.readyCallback();
+				}
+			} );
+		}
+
+		src = settings.source || {};
+
+		if ( src.concatemoji ) {
+			addScript( src.concatemoji );
+		} else if ( src.wpemoji && src.twemoji ) {
+			addScript( src.twemoji );
+			addScript( src.wpemoji );
+		}
+	}
+
+} )( window, document, window._wpemojiSettings );
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='wpdm-front-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/css/front.css' type='text/css' media='all' />
+<link rel='stylesheet' id='tribe_events-widget-this-week-pro-style-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/css/widget-this-week-full.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery-ui-css-css'  href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-bootstrap-css'  href='../../wp-content/themes/accc/assets/css/bootstrap.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css'  href='../../wp-content/themes/accc/assets/css/magnific-popup.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-stylesheet-css'  href='../../wp-content/themes/accc/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='pmc-ie-only-css'  href='http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/css/ie.css' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_events_linked_posts = {"post_types":{"tribe_venue":"venue","tribe_organizer":"organizer"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/jquery.cookie.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/front.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_this_week = {"ajaxurl":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/js/widget-this-week.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/vendor/modernizr.min.js'></script>
+<link rel='https://api.w.org/' href='http://www.collegesinstitutes.ca/wp-json/' />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='http://www.collegesinstitutes.ca/?p=13871' />
+<link rel="alternate" type="application/json+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fassiniboine-community-college%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fassiniboine-community-college%2F&#038;format=xml" />
+
+<!-- This site is using AdRotate v4.0 Professional to display their advertisements - https://ajdg.solutions/products/adrotate-for-wordpress/ -->
+<!-- AdRotate CSS -->
+<style type="text/css" media="screen">
+	.g { margin:0px; padding:0px; overflow:hidden; line-height:1; zoom:1; }
+	.g img { height:auto; }
+	.g-col { position:relative; float:left; }
+	.g-col:first-child { margin-left: 0; }
+	.g-col:last-child { margin-right: 0; }
+	@media only screen and (max-width: 480px) {
+		.g-col, .g-dyn, .g-single { width:100%; margin-left:0; margin-right:0; }
+	}
+</style>
+<!-- /AdRotate CSS -->
+
+<meta name="generator" content="WPML ver:3.4.1 stt:1,4;" />
+
+<style type="text/css">																																																																																																																																																																																
+</style>	
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/slick/slick.css">
+	
+	<!-- CSS Edits -->
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/edits.css">
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/print.css">
+	
+	<!-- Google Maps -->
+	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script> -->
+	
+		
+</head>
+
+<body class="single single-accc_member postid-13871 tribe-theme-accc">
+	
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-18659346-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<div class="search-form">
+	<div class="the-search-form clearfix en">
+		<form role="search" method="get" id="searchform" action="http://www.collegesinstitutes.ca/" >
+	<label class="screen-reader-text" for="s">Search:</label>
+	<input type="text" value="" name="s" id="s" placeholder="Search the Site" />
+	<input type="submit" id="searchsubmit" class="sprite" value="Search" />
+	</form>	</div>
+</div>
+<!-- // .search-form -->
+
+<header class="header en" role="banner">
+
+	<div class="container clearfix">
+
+		<nav role="navigation" class="utility-nav clearfix">
+	
+			<ul><li id="menu-item-2906" class="job-board menu-item menu-item-type-custom menu-item-object-custom menu-item-2906"><a href="https://jobs.collegesinstitutes.ca">Jobs</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-55"><a href="http://www.collegesinstitutes.ca/about/">About Us</a></li>
+<li id="menu-item-17400" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17400"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-10756" class="sprite facebook menu-item menu-item-type-custom menu-item-object-custom menu-item-10756"><a href="http://www.facebook.com/collegesinstitutes">Facebook</a></li>
+<li id="menu-item-10757" class="sprite twitter menu-item menu-item-type-custom menu-item-object-custom menu-item-10757"><a href="https://twitter.com/CollegeCan">Twitter</a></li>
+<li id="menu-item-10758" class="sprite linkedin menu-item menu-item-type-custom menu-item-object-custom menu-item-10758"><a href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+<li id="menu-item-44" class="sprite contactus menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li class="utility-link"><a id="toggle-search" class="utility-search sprite" href="index.html#">Search</a></li><li class="utility-link current-language"><a class="utility-lang" href="http://www.collegesinstitutes.ca/fr/members/assiniboine-community-college/">FR</a></li></ul>		
+		</nav>
+		<!-- // .utility-nav -->
+				
+		<h1 title="Colleges and Institutes Canada">
+			<a href="http://www.collegesinstitutes.ca" rel="nofollow"><img class="site-logo" src="../../wp-content/themes/accc/assets/img/layout/logo.png" alt="Colleges and Institutes Canada" title="Colleges and Institutes Canada" /></a>
+		</h1>
+		
+		<a href="index.html#" class="sprite toggle-menu" id="toggle-menu">Menu</a>
+		<nav role="navigation" class="main-nav clearfix">
+			<ul class="menu clearfix"><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-33"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a>
+<ul class="sub-menu">
+	<li id="menu-item-19484" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+	<li id="menu-item-19485" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+	<li id="menu-item-33952" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+	<li id="menu-item-32749" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+	<li id="menu-item-34252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul>
+</li>
+<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a>
+<ul class="sub-menu">
+	<li id="menu-item-18907" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18907"><a href="http://www.collegesinstitutes.ca/what-we-do/leadership-development-institutes/">Leadership Development</a></li>
+	<li id="menu-item-2855" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2855"><a href="http://www.collegesinstitutes.ca/what-we-do/canadian-partnerships/">Canadian Partnerships</a></li>
+	<li id="menu-item-17336" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17336"><a href="http://www.collegesinstitutes.ca/what-we-do/international/">International Partnerships</a></li>
+	<li id="menu-item-14182" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14182"><a href="http://www.collegesinstitutes.ca/what-we-do/awards/">Awards of Excellence</a></li>
+</ul>
+</li>
+<li id="menu-item-2851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2851"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a>
+<ul class="sub-menu">
+	<li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="http://www.collegesinstitutes.ca/policyfocus/advanced-skills/">Skills Development</a></li>
+	<li id="menu-item-259" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-259"><a href="http://www.collegesinstitutes.ca/policyfocus/applied-research/">Applied Research</a></li>
+	<li id="menu-item-14479" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14479"><a href="http://www.collegesinstitutes.ca/policyfocus/indigenous-learners/">Indigenous Learners</a></li>
+	<li id="menu-item-261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-261"><a href="http://www.collegesinstitutes.ca/policyfocus/infrastructure/">Infrastructure</a></li>
+	<li id="menu-item-11401" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11401"><a href="http://www.collegesinstitutes.ca/policyfocus/entrepreneurship/">Entrepreneurship</a></li>
+	<li id="menu-item-14497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14497"><a href="http://www.collegesinstitutes.ca/policyfocus/transferability/">Transferability</a></li>
+</ul>
+</li>
+<li id="menu-item-8635" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-8635"><a href="http://www.collegesinstitutes.ca/events/">Events</a>
+<ul class="sub-menu">
+	<li id="menu-item-16020" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16020"><a href="http://www.collegesinstitutes.ca/conference/">CICan Conference</a></li>
+	<li id="menu-item-8639" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8639"><a href="http://www.collegesinstitutes.ca/events/">Upcoming Events</a></li>
+	<li id="menu-item-11904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11904"><a href="http://www.collegesinstitutes.ca/events/public/add/">Submit an Event</a></li>
+</ul>
+</li>
+<li id="menu-item-5097" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5097"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a>
+<ul class="sub-menu">
+	<li id="menu-item-5106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5106"><a href="http://www.collegesinstitutes.ca/news-centre/news-releases/">News Releases</a></li>
+	<li id="menu-item-11728" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11728"><a href="http://www.collegesinstitutes.ca/news-centre/colleges-in-the-news/">Colleges &#038; Institutes in the News</a></li>
+	<li id="menu-item-5105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5105"><a href="http://www.collegesinstitutes.ca/news-centre/perspectives/">Newsletters</a></li>
+</ul>
+</li>
+<li id="menu-item-11358" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11358"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a>
+<ul class="sub-menu">
+	<li id="menu-item-12892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12892"><a href="http://www.collegesinstitutes.ca/resources/all-resources/">All Resources</a></li>
+	<li id="menu-item-11979" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11979"><a href="http://www.collegesinstitutes.ca/resources/research-on-colleges/">Research on Colleges</a></li>
+	<li id="menu-item-12295" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12295"><a href="http://www.collegesinstitutes.ca/resources/resource-library/">Essential Skills</a></li>
+	<li id="menu-item-2099" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2099"><a href="http://www.collegesinstitutes.ca/resources/ip-toolkit/">IP Toolkit</a></li>
+	<li id="menu-item-11978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11978"><a href="http://www.collegesinstitutes.ca/resources/?fwp_by_resource_type=past-events">Past Events</a></li>
+</ul>
+</li>
+</ul>		</nav>
+
+	</div>
+	<!-- // .container -->
+
+</header>
+
+<div class="main-nav-dd-bg"><div class="container"></div></div>
+
+<div class="main clearfix">
+
+<!--[if lt IE 8]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="container">
+
+	
+<div class="breadcrumb en"><!-- Breadcrumb NavXT 5.4.0 -->
+<a title="Go to Colleges and Institutes Canada." href="http://www.collegesinstitutes.ca" class="home">Home</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Our Members." href="http://www.collegesinstitutes.ca/our-members/" class="post post-page">Our Members</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Member Profiles." href="../../our-members/member-directory/index.html">Member Profiles</a>&nbsp;&nbsp;/&nbsp;&nbsp;Assiniboine Community College</div><div class="secondary"><a href="index.html#" class="sprite toggle-sub-menu web-only" id="toggle-sub-menu">Sub Menu</a><nav role="navigation" class="page-nav"><ul><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul></nav></div>
+	
+	<p class="accessTarget"><a id="maincontentTarget">Main Content</a></p>
+	<section role="main" class="main-content clearfix">
+
+		
+		<div class="the-content mem">
+
+			<header>
+			<!-- <div class="share-this">
+
+<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'b076605b-817d-47b1-9435-3209a049f7c0', doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_facebook'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_twitter'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_linkedin'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_email'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_sharethis'></span>
+
+</div> --><h1 class="page-title">Assiniboine Community College</h1>			</header>
+
+			<div class="print-header print-only">
+				<h1 class="title blue">Assiniboine Community College</h1>
+				<img src="../../wp-content/themes/accc/assets/img/content/cican_logo_purple.png">
+				<div class="cleardiv"></div>
+			</div>
+
+			<div class="print-only"><img src="../../wp-content/uploads/2015/09/ACC.jpg" class="mem-logo" /></div>
+			<div class="mem-stats">
+				<div class="boxit white bluebg"><h1>Campuses</h1><h2 class="white">5</h2></div><div class="boxit"><h1>Enrolment</h1><ul><li><h2>3273</h2><h6>Full-time</h6></li><li><h2>4251</h2><h6>Part-time</h6></li><li><h2>150</h2><h6>International</h6></li><li><h2>775</h2><h6>Apprentice</h6></li><li><h2>1078</h2><h6>Indigenous</h6></li></ul></div><div class="boxit white darkgraybg web-only"><a href="http://assiniboine.net/" target="_blank" class="white"><img src="../../wp-content/themes/accc/assets/img/content/mouse.png" alt="Visit Site"><h1>Visit Site</h1></a></div>			</div>
+
+			<div class="mem-content">
+
+				<div class="web-only"><a href="http://assiniboine.net/" target="_blank"><img src="../../wp-content/uploads/2015/09/ACC.jpg" class="mem-logo" /></a></div><p>Assiniboine Community College (ACC) has been providing exceptional learning experiences for over 50 years. For staff and students alike, ACC offers unparalleled learning environments and responds well to the demands and requirements of the Manitoba labour market. Instructors follow the philosophy of ‘learn by doing’, combining theory with hands-on learning inside classrooms, labs, kitchens, shops, fields and the college’s Sustainable Greenhouse.</p>
+<p>ACC has more than 40 unique diploma and certificate programs across a range of disciplines including food and hospitality, business, agriculture and the environment, health and human services, trades and technology. Additionally, the institution also provides apprenticeship programming in a variety of skilled trade disciplines.</p>
+<p>The college welcomed over 3,200 full-time students last year. With campuses in Brandon, Dauphin and Winnipeg, ACC provides comprehensive education opportunities throughout Manitoba. The college also partners with many communities and organizations across the province to deliver customized education and training.</p>
+<h1 class="blue">Fast Facts</h1><ul>
+<li><strong>96%</strong> of recent graduates seeking work have found employment.</li>
+<li>The average gross annual salary of our most recent graduates is <strong>$44,050</strong>.</li>
+<li><strong>94%</strong> of recent graduates choose to stay in Manitoba.</li>
+<li>We&#8217;re in the middle of a relocation and expansion to our North Hill Campus, a site once home to the Brandon Mental Health Centre. Some buildings date back <strong>100+ years</strong>.</li>
+<li>Our annual provincial economic impact is measured at <strong>$613 million</strong>.</li>
+</ul>
+<div class="container boxit"><div class="mem-bucket"><h2>Our programs include:</h2><ul>
+<li><a href="http://public.assiniboine.net/program/96/agribusiness/program-details" target="_blank">Agribusiness</a></li>
+<li><a href="http://assiniboine.net/program/104/communications-engineering-technology/program-details" target="_blank">Communications Engineering Technology</a></li>
+<li><a href="http://public.assiniboine.net/program/113/Early-Childhood-Education/program-details" target="_blank">Early Childhood Education</a></li>
+<li><a href="http://assiniboine.net/program/103/horticultural-production/program-details" target="_blank">Horticultural Production</a></li>
+<li><a href="http://public.assiniboine.net/program/125/Police-Studies/program-details" target="_blank">Police Studies</a></li>
+</ul>
+</div><div class="mem-bucket"><h2>Our research specialization:</h2><ul>
+<li>Food Security and Sustainability</li>
+<li>Bioenergy and Energy Consumption</li>
+<li>Fruit and vegetable breeding for Canadian Prairie conditions</li>
+<li>Greenhouse design and food production in cold climates</li>
+</ul>
+</div><div class="cleardiv"></div></div>			</div>
+
+			<div class="cleardiv"></div>
+
+				<div class="container web-only"><h1 class="blue">This is how we...</h1><div class="accordion"><h3>Contribute to our Community</h3><div><p>ACC works extensively with communities across Manitoba to deliver programs, often in health care and trades disciplines, as well as mature student high school programming. One strong illustration of the college&#8217;s impact is through its partnership with Sandy Bay First Nation.   For more than a decade, the college has offered mature student high school programs in the community, which is about 150 kilometers from the nearest ACC campus. Recently, the partnership between the ACC and Sandy Bay First Nation has grown to include college preparation programs and construction safety programs.  In several recent training programs, there have been many more applications than spots available. A new Applied Building Construction program, which got underway this past summer, filled with 15 trainees, but more than 60 were interested—including 30 who wrote a test to apply.  ACC grads are now filling jobs and leadership roles in Sandy Bay First Nation, and the community is asking for even more programming, from health care aid and nursing to plumbing and electrical. Current students are even working on an addition to the Sandy Bay childcare facility, opening up the possibility of provincial licensing.</p>
+</div><h3>Foster Student Success</h3><div><h2>Manjumol Abraham</h2>
+<p>Over a year ago, Manjumol Abraham left her home in Kerala, India, and flew more than 13,000 km to Dauphin, Manitoba to study at ACC.  Now, with two awards and a new job, Abraham credits her education for a “wonderful experience” and a new opportunity in Canada.  Abraham graduated in June 2015 from the Comprehensive Health Care Aide program at ACC’s Parkland Campus. She says her ultimate goal is to go on to become a registered nurse. Abraham is currently working full-time at the Swan Valley Lodge in Swan River, Manitoba.  “I am very glad to say that people are very nice here and I like it here,” she said. “It is a different culture from my country, but I love it.”  Out of the 15 students in her class, five were international students, studying alongside 10 Canadian students.</p>
+<h2>Ruby Anne Chartrand</h2>
+<p>ACC alumna Ruby Anne Chartrand has received a national nod of recognition for her dedication to early childhood care.  She was recently given the Prime Minister’s Award for Excellence in Early Childhood Education, an annual award that honours early childhood educators from across Canada who display exceptional talent in encouraging early development skills of children under their care.   “I felt overwhelmed and honoured to receive this award,” said Chartrand. “I didn’t even know I had been nominated, so it came as a complete shock when I got the call&#8230; I’ll never forget it. Nothing will top this for a long time.&#8221;  She travelled to Ottawa to accept her Certificate of Excellence. The distinction came with a $5,000 cheque, which was shared equally between Chartrand and ‘Children for the Future’ Aboriginal Head Start program where she is currently employed.  Chartrand began working towards her diploma in 2008 and graduated in 2012.</p>
+<h2>Matt Tolton and Will Turner</h2>
+<p>Two Agribusiness students are smiling ear to ear after being awarded first place in an annual provincial business competition and walking away with a cash prize and bragging rights. Matt Tolton and Will Turner represented ACC at the 2015 Manitoba New Venture Championships held in Winnipeg.  Their plan, titled Central Plains Railway Corporation, outlined repurposing an existing, but currently unused, railway branch line that runs from Rathwell to Nesbitt in Manitoba. The idea was that the line could be put back into business and used to move producer and elevator cars. Their business model also included storing railway cars, grain drying and grain storage.  The pair faced off against 11 teams comprised of undergraduate students from other colleges and universities in Manitoba. Tolton and Turner are the only ACC students to have ever participated in the competition.</p>
+</div><h3>Partner with Business and Community</h3><div><h2>Industry</h2><p>In 2009, ACC began collaborating with MTS TV Stories From Home, giving students in the Interactive Media Arts (IMA) program the opportunity to work with industry professionals while refining their skills to produce original, local documentaries to be seen by a wide audience.   MTS TV executive producers visit ACC each September to meet students in the IMA program and to hear their documentary ideas. In December, the college hosts an annual MTS TV Pitchfest where second-year students each have three minutes to share their story idea to a panel of industry professionals. Two to four documentaries are then chosen for production.   MTS TV provides a licence fee that is distributed among the student teams as a working budget and payment. The films are produced from January to April and then unveiled at a premiere event. They’re then broadcast on MTS TV&#8217;s &#8216;Stories From Home&#8217; video on demand service.</p>
+<h2>Community</h2><p>ACC has fostered a partnership with Habitat for Humanity, bringing together its pre-employment Carpentry, Construction Electrical and Piping Trades programs.   Instructors build the construction of a new Habitat home into the curriculum each year, giving students practical, hands-on experience in their field. The collaboration brings many people together, allowing students to develop their skills while making a meaningful contribution to the community.  The first Habitat home was completed in the spring of 2014. The goal is to build a new home over the course of each academic year, starting every September. The Brandon Chapter of Habitat for Humanity supplies the materials and floor plans with the home being built on site at the college&#8217;s North Hill Campus. Once complete, the homes are moved to their permanent locations in Brandon.  Students also meet the partner family they&#8217;re building a home for, gaining a powerful sense of purpose for their efforts.</p>
+</div><h3>Support Indigenous Students</h3><div><p>Diversity contributes to the wealth of Indigenous knowledge at ACC where we aim to ensure a sense of belonging while valuing and celebrating success. More than 18% of certificate and diploma students studying on campus or by distance identify as First Nations, Métis or Inuit.  We strive to provide exceptional learning experiences through hands-on, affordable education in an environment that is warm and friendly with a strong sense of community. We believe it’s important to assist students in both their academic and personal growth.   Our Cultural Centre welcomes individuals from all cultural backgrounds. It is a place to drop-in and relax, visit, learn and study. Counsellors are available Monday through Friday. Our Visiting Elders Program has Elders from the Dakota, Ojibway, and Métis nations who provide cultural guidance, teachings, historical information, traditional knowledge, direction and support to all students. ACC is a proud signatory of CICan&#8217;s Indigenous Education Protocol. Diversity contributes to the wealth of Indigenous knowledge at ACC where we aim to ensure a sense of belonging while valuing and celebrating success. More than 18% of certificate and diploma students studying on campus or by distance identify as First Nations, Métis or Inuit. We strive to provide exceptional learning experiences through hands-on, affordable education in an environment that is warm and friendly with a strong sense of community. We believe it’s important to assist students in both their academic and personal growth.   Our Cultural Centre welcomes individuals from all cultural backgrounds. It is a place to drop-in and relax, visit, learn and study. Counsellors are available Monday through Friday. Our Visiting Elders Program has Elders from the Dakota, Ojibway, and Métis nations who provide cultural guidance, teachings, historical information, traditional knowledge, direction and support to all students. ACC is a proud signatory of CICan&#8217;s <a href="http://www.collegesinstitutes.ca/policyfocus/indigenous-learners/protocol/">Indigenous Education Protocol</a>.</p>
+</div></div>
+			<div class="container mem-footer web-only">
+
+				<div class="mem-contact"><h1 class="blue">Contact Information</h1><p>1430 Victoria Ave East<br>Brandon, Manitoba<br>R7A 2A9</p><p><strong>Telephone: </strong> 204-725-8700<br><strong>Toll Free: </strong> 1-800-862-6307<br><strong>Website: </strong> <a href="http://assiniboine.net/" target="_blank">http://assiniboine.net/</a></p><p><a href="http://www.facebook.com/accmanitoba" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-facebook.png" alt="Facebook"></a><a href="http://www.twitter.com/accmb" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-twitter.png" alt="Twitter"></a><a href="http://www.instagram.com/accmb" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-instagram.png" alt="Instagram"></a><a href="http://www.youtube.com/accmanitoba" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-youtube.png" alt="YouTube"></a></p></div><div class="mem-googlemap web-only"><a href="http://maps.google.com/?q=49.84050200000001,-99.91864299999997" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?center=49.84050200000001,-99.91864299999997&zoom=9&size=500x300&maptype=roadmap&markers=color:blue%7C49.84050200000001,-99.91864299999997&sensor=false&key=AIzaSyCJ3ZjXVyPyCzPRPt9yyufxzzmSmP2wxtU" /></a></div>			<div class="cleardiv"></div>
+			</div>
+			<div class="print-only">
+				<h2 class="nowhitespace">For more information on <span class="blue">Assiniboine Community College</span> visit www.collegesinstitutes.ca/members/assiniboine-community-college/</h2>			</div>
+			<p class="mem-updated web-only">Date modified: 2016-02-04</p>
+
+		</div>
+		<!-- // .the-content -->
+
+			</section>
+	<!-- // .main-content -->
+
+</div>
+<!-- // .container -->
+
+	
+	</div>
+	<!-- // .main -->
+
+	<footer class="footer" role="contentinfo">
+		
+		<div class="container clearfix">
+				
+			<p class="footer-tagline">
+			    Champion<br />Lead<br />Partner<br />Excel			</p>
+			
+			<div class="footer-navs">
+				
+				<ul class="social-media">
+					<li><a class="sprite facebook" href="https://www.facebook.com/collegesinstitutes">Facebook</a></li>
+					<li><a class="sprite twitter" href="https://twitter.com/CollegeCan">Twitter</a></li>
+					<li><a class="sprite linkedin" href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+					<li><a class="sprite email" href="mailto:info@collegesinstitutes.ca﻿">Email</a></li>
+			 	</ul>
+				
+				<nav class="footer-nav clearfix">
+				<ul><li id="menu-item-4325" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4325"><a href="http://www.collegesinstitutes.ca/about/">About</a></li>
+<li id="menu-item-83" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-83"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li id="menu-item-4327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4327"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a></li>
+<li id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a></li>
+<li id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a></li>
+<li id="menu-item-81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a></li>
+<li id="menu-item-14523" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14523"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a></li>
+</ul>				</nav>
+				
+				<nav class="footer-links clearfix">
+				<ul><li id="menu-item-6392" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6392"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-12761" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12761"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-98" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-98"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Terms of Use</a></li>
+<li id="menu-item-8161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8161"><a href="http://www.collegesinstitutes.ca/colleges-and-institutes-canadas-accessibility-plan/">Accessibility</a></li>
+</ul>				</nav>
+			    
+				<p class="copyright">© Colleges and Institutes Canada</p>
+							
+			</div>
+			<!-- // .footer-navs -->
+						
+		</div>
+		<!-- // .container -->
+		
+	</footer>
+	<!-- // .footer -->
+
+	        <div class="w3eden">
+            <div id="wpdm-popup-link" class="modal fade">
+                <div class="modal-dialog" style="width: 750px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                              <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body" id='wpdm-modal-body'>
+                            <p><a href="http://www.wpdownloadmanager.com/">WordPress Download Manager - Best Download Management Plugin</a></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+        </div>
+        <script language="JavaScript">
+            <!--
+            jQuery(function () {
+                //jQuery('#wpdm-popup-link').modal('hide');
+                jQuery('.wpdm-popup-link').click(function (e) {
+                    e.preventDefault();
+                    jQuery('#wpdm-popup-link .modal-title').html(jQuery(this).data('title'));
+                    jQuery('#wpdm-modal-body').html('<i class="icon"><img align="left" style="margin-top: -1px" src="http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/images/loading-new.gif" /></i>&nbsp;Please Wait...');
+                    jQuery('#wpdm-popup-link').modal('show');
+                    jQuery('#wpdm-modal-body').load(this.href,{mode:'popup'});
+                    return false;
+                });
+            });
+            //-->
+        </script>
+        <style type="text/css">
+            #wpdm-modal-body img {
+                max-width: 100% !important;
+            }
+        </style>
+    <script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.form.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/jquery.infinitescroll.min.js'></script>
+<script type='text/javascript' src='https://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/plugins.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/magnific-popup.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/main.js?01'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/wp-embed.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var icl_vars = {"current_language":"en","icl_home":"http:\/\/www.collegesinstitutes.ca\/","ajax_url":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php","url_type":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js'></script>
+<script type="text/css" id="tmpl-tribe_events_pro_customizer_css"></script><style type="text/css" id="tribe_events_pro_customizer_css"></style><script>var FWP_HTTP = FWP_HTTP || {}; FWP_HTTP.lang = 'en';</script>
+</body>
+</html>
+<!-- Dynamic page generated in 3.169 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-07-24 22:03:54 -->
+
+<!-- Compression = gzip -->
+<!-- super cache -->

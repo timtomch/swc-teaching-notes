@@ -1,0 +1,597 @@
+
+<!doctype html>
+<!--[if lt IE 7]><html lang="en-US" class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html lang="en-US" class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en-US" class="no-js"><!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>  Conestoga College Institute of Technology and Advanced Learning</title>
+
+<link rel="stylesheet" href="http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/css/language-selector.css?v=3.4.1" type="text/css" media="all" />
+
+	<!-- mobile meta (hooray!) -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<!-- Twitter Summary Card With Image -->
+		<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@collegecan">
+	<meta name="twitter:creator" content="@collegecan">
+	<meta name="twitter:title" content="Conestoga College Institute of Technology and Advanced Learning | Colleges and Institutes Canada">
+	<meta name="twitter:description" content="Conestoga College Institute of Technology and Advanced Learning is a leader in polytechnic education and one of Ontario’s fastest growing&hellip;">
+	<meta name="twitter:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/11/Conestoga_College_logo.jpg">
+	
+	<!-- Facebook Sharing -->
+	<meta property="og:url" content="" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Conestoga College Institute of Technology and Advanced Learning | Colleges and Institutes Canada" />
+	<meta property="og:description" content="Conestoga College Institute of Technology and Advanced Learning is a leader in polytechnic education and one of Ontario’s fastest growing&hellip;" />
+	<meta property="og:image" content="http://www.collegesinstitutes.ca/wp-content/uploads/2015/11/Conestoga_College_logo.jpg" />
+
+	<!--[if IE]>
+		<meta http-equiv="Page-Enter" content="blendTrans(duration=0)" />
+		<meta http-equiv="Page-Exit" content="blendTrans(duration=0)" />
+	<![endif]-->
+
+	<link rel="apple-touch-icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/apple-icon-touch.png">
+	<link rel="icon" href="../../wp-content/themes/accc/assets/img/layout/apple-touch-icon.png">
+
+	<!--[if IE]>
+		<link rel="shortcut icon" href="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/favicon.ico">
+	<![endif]-->
+
+	<!-- Favicon.ico for IE10 win -->
+	<meta name="msapplication-TileColor" content="#f01d4f">
+	<meta name="msapplication-TileImage" content="http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/img/layout/win8-tile-icon.png">
+
+	<link rel="pingback" href="http://www.collegesinstitutes.ca/xmlrpc.php">
+
+	<link rel="alternate" hreflang="en-US" href="index.html" />
+<link rel="alternate" hreflang="fr-FR" href="http://www.collegesinstitutes.ca/fr/members/conestoga-college/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Feed" href="http://www.collegesinstitutes.ca/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Colleges and Institutes Canada &raquo; Comments Feed" href="http://www.collegesinstitutes.ca/comments/feed/" />
+<link rel="alternate" type="text/calendar" title="Colleges and Institutes Canada &raquo; iCal Feed" href="http://www.collegesinstitutes.ca/events/?ical=1" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"wpemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/wp-emoji.js","twemoji":"http:\/\/www.collegesinstitutes.ca\/wp-includes\/js\/twemoji.js"}};
+			( function( window, document, settings ) {
+	var src, ready, ii, tests;
+
+	/**
+	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
+	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param type {String} Whether to test for support of "simple", "flag", "diversity" or "unicode8" emoji.
+	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( type ) {
+		var canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext && canvas.getContext( '2d' ),
+			stringFromCharCode = String.fromCharCode,
+			tonedata, tone, tone2;
+
+		if ( ! context || ! context.fillText ) {
+			return false;
+		}
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * This works because the image will be one of three things:
+				 * - Two empty squares, if the browser doesn't render emoji
+				 * - Two squares with 'A' and 'U' in them, if the browser doesn't render flag emoji
+				 * - The Australian flag
+				 *
+				 * The first two will encode to small images (1-2KB data URLs), the third will encode
+				 * to a larger image (4-5KB data URL).
+				 */
+				context.fillText( stringFromCharCode( 55356, 56806, 55356, 56826 ), 0, 0 );
+				return canvas.toDataURL().length > 3000;
+			case 'diversity':
+				/*
+				 * This tests if the browser supports the Emoji Diversity specification, by rendering an
+				 * emoji with no skin tone specified (in this case, Santa). It then adds a skin tone, and
+				 * compares if the emoji rendering has changed.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57221 ), 0, 0 );
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				context.fillText( stringFromCharCode( 55356, 57221, 55356, 57343 ), 0, 0 );
+				// Chrome has issues comparing arrays, and Safari has issues converting arrays to strings.
+				// So, we create our own string and compare that, instead.
+				tonedata = context.getImageData( 16, 16, 1, 1 ).data;
+				tone2 = tonedata[0] + ',' + tonedata[1] + ',' + tonedata[2] + ',' + tonedata[3];
+
+				return tone !== tone2;
+			case 'simple':
+				/*
+				 * This creates a smiling emoji, and checks to see if there is any image data in the
+				 * center pixel. In browsers that don't support emoji, the character will be rendered
+				 * as an empty square, so the center pixel will be blank.
+				 */
+				context.fillText( stringFromCharCode( 55357, 56835 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+			case 'unicode8':
+				/*
+				 * To check for Unicode 8 support, let's try rendering the most important advancement
+				 * that the Unicode Consortium have made in years: the burrito.
+				 */
+				context.fillText( stringFromCharCode( 55356, 57135 ), 0, 0 );
+				return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+		}
+
+		return false;
+	}
+
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+
+		script.src = src;
+		script.type = 'text/javascript';
+		document.getElementsByTagName( 'head' )[0].appendChild( script );
+	}
+
+	tests = Array( 'simple', 'flag', 'unicode8', 'diversity' );
+
+	settings.supports = {
+		everything: true,
+		everythingExceptFlag: true
+	};
+
+	for( ii = 0; ii < tests.length; ii++ ) {
+		settings.supports[ tests[ ii ] ] = browserSupportsEmoji( tests[ ii ] );
+
+		settings.supports.everything = settings.supports.everything && settings.supports[ tests[ ii ] ];
+
+		if ( 'flag' !== tests[ ii ] ) {
+			settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && settings.supports[ tests[ ii ] ];
+		}
+	}
+
+	settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && ! settings.supports.flag;
+
+	settings.DOMReady = false;
+	settings.readyCallback = function() {
+		settings.DOMReady = true;
+	};
+
+	if ( ! settings.supports.everything ) {
+		ready = function() {
+			settings.readyCallback();
+		};
+
+		if ( document.addEventListener ) {
+			document.addEventListener( 'DOMContentLoaded', ready, false );
+			window.addEventListener( 'load', ready, false );
+		} else {
+			window.attachEvent( 'onload', ready );
+			document.attachEvent( 'onreadystatechange', function() {
+				if ( 'complete' === document.readyState ) {
+					settings.readyCallback();
+				}
+			} );
+		}
+
+		src = settings.source || {};
+
+		if ( src.concatemoji ) {
+			addScript( src.concatemoji );
+		} else if ( src.wpemoji && src.twemoji ) {
+			addScript( src.twemoji );
+			addScript( src.wpemoji );
+		}
+	}
+
+} )( window, document, window._wpemojiSettings );
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='wpdm-front-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/css/front.css' type='text/css' media='all' />
+<link rel='stylesheet' id='tribe_events-widget-this-week-pro-style-css'  href='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/css/widget-this-week-full.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery-ui-css-css'  href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-bootstrap-css'  href='../../wp-content/themes/accc/assets/css/bootstrap.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css'  href='../../wp-content/themes/accc/assets/css/magnific-popup.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pmc-stylesheet-css'  href='../../wp-content/themes/accc/style.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='pmc-ie-only-css'  href='http://www.collegesinstitutes.ca/wp-content/themes/accc/assets/css/ie.css' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_events_linked_posts = {"post_types":{"tribe_venue":"venue","tribe_organizer":"organizer"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/jquery.cookie.js'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/js/front.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tribe_this_week = {"ajaxurl":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/events-calendar-pro/src/resources/js/widget-this-week.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/vendor/modernizr.min.js'></script>
+<link rel='https://api.w.org/' href='http://www.collegesinstitutes.ca/wp-json/' />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='http://www.collegesinstitutes.ca/?p=15763' />
+<link rel="alternate" type="application/json+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fconestoga-college%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.collegesinstitutes.ca/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.collegesinstitutes.ca%2Fmembers%2Fconestoga-college%2F&#038;format=xml" />
+
+<!-- This site is using AdRotate v4.0 Professional to display their advertisements - https://ajdg.solutions/products/adrotate-for-wordpress/ -->
+<!-- AdRotate CSS -->
+<style type="text/css" media="screen">
+	.g { margin:0px; padding:0px; overflow:hidden; line-height:1; zoom:1; }
+	.g img { height:auto; }
+	.g-col { position:relative; float:left; }
+	.g-col:first-child { margin-left: 0; }
+	.g-col:last-child { margin-right: 0; }
+	@media only screen and (max-width: 480px) {
+		.g-col, .g-dyn, .g-single { width:100%; margin-left:0; margin-right:0; }
+	}
+</style>
+<!-- /AdRotate CSS -->
+
+<meta name="generator" content="WPML ver:3.4.1 stt:1,4;" />
+
+<style type="text/css">																																																																																																																																																																																
+</style>	
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/slick/slick.css">
+	
+	<!-- CSS Edits -->
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/edits.css">
+	<link rel="stylesheet" type="text/css" href="../../wp-content/themes/accc/assets/css/print.css">
+	
+	<!-- Google Maps -->
+	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script> -->
+	
+		
+</head>
+
+<body class="single single-accc_member postid-15763 tribe-theme-accc">
+	
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-18659346-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<div class="search-form">
+	<div class="the-search-form clearfix en">
+		<form role="search" method="get" id="searchform" action="http://www.collegesinstitutes.ca/" >
+	<label class="screen-reader-text" for="s">Search:</label>
+	<input type="text" value="" name="s" id="s" placeholder="Search the Site" />
+	<input type="submit" id="searchsubmit" class="sprite" value="Search" />
+	</form>	</div>
+</div>
+<!-- // .search-form -->
+
+<header class="header en" role="banner">
+
+	<div class="container clearfix">
+
+		<nav role="navigation" class="utility-nav clearfix">
+	
+			<ul><li id="menu-item-2906" class="job-board menu-item menu-item-type-custom menu-item-object-custom menu-item-2906"><a href="https://jobs.collegesinstitutes.ca">Jobs</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-55"><a href="http://www.collegesinstitutes.ca/about/">About Us</a></li>
+<li id="menu-item-17400" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17400"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-10756" class="sprite facebook menu-item menu-item-type-custom menu-item-object-custom menu-item-10756"><a href="http://www.facebook.com/collegesinstitutes">Facebook</a></li>
+<li id="menu-item-10757" class="sprite twitter menu-item menu-item-type-custom menu-item-object-custom menu-item-10757"><a href="https://twitter.com/CollegeCan">Twitter</a></li>
+<li id="menu-item-10758" class="sprite linkedin menu-item menu-item-type-custom menu-item-object-custom menu-item-10758"><a href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+<li id="menu-item-44" class="sprite contactus menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li class="utility-link"><a id="toggle-search" class="utility-search sprite" href="index.html#">Search</a></li><li class="utility-link current-language"><a class="utility-lang" href="http://www.collegesinstitutes.ca/fr/members/conestoga-college/">FR</a></li></ul>		
+		</nav>
+		<!-- // .utility-nav -->
+				
+		<h1 title="Colleges and Institutes Canada">
+			<a href="http://www.collegesinstitutes.ca" rel="nofollow"><img class="site-logo" src="../../wp-content/themes/accc/assets/img/layout/logo.png" alt="Colleges and Institutes Canada" title="Colleges and Institutes Canada" /></a>
+		</h1>
+		
+		<a href="index.html#" class="sprite toggle-menu" id="toggle-menu">Menu</a>
+		<nav role="navigation" class="main-nav clearfix">
+			<ul class="menu clearfix"><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-33"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a>
+<ul class="sub-menu">
+	<li id="menu-item-19484" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+	<li id="menu-item-19485" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+	<li id="menu-item-33952" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+	<li id="menu-item-32749" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+	<li id="menu-item-34252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul>
+</li>
+<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a>
+<ul class="sub-menu">
+	<li id="menu-item-18907" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18907"><a href="http://www.collegesinstitutes.ca/what-we-do/leadership-development-institutes/">Leadership Development</a></li>
+	<li id="menu-item-2855" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2855"><a href="http://www.collegesinstitutes.ca/what-we-do/canadian-partnerships/">Canadian Partnerships</a></li>
+	<li id="menu-item-17336" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17336"><a href="http://www.collegesinstitutes.ca/what-we-do/international/">International Partnerships</a></li>
+	<li id="menu-item-14182" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14182"><a href="http://www.collegesinstitutes.ca/what-we-do/awards/">Awards of Excellence</a></li>
+</ul>
+</li>
+<li id="menu-item-2851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2851"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a>
+<ul class="sub-menu">
+	<li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="http://www.collegesinstitutes.ca/policyfocus/advanced-skills/">Skills Development</a></li>
+	<li id="menu-item-259" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-259"><a href="http://www.collegesinstitutes.ca/policyfocus/applied-research/">Applied Research</a></li>
+	<li id="menu-item-14479" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14479"><a href="http://www.collegesinstitutes.ca/policyfocus/indigenous-learners/">Indigenous Learners</a></li>
+	<li id="menu-item-261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-261"><a href="http://www.collegesinstitutes.ca/policyfocus/infrastructure/">Infrastructure</a></li>
+	<li id="menu-item-11401" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11401"><a href="http://www.collegesinstitutes.ca/policyfocus/entrepreneurship/">Entrepreneurship</a></li>
+	<li id="menu-item-14497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14497"><a href="http://www.collegesinstitutes.ca/policyfocus/transferability/">Transferability</a></li>
+</ul>
+</li>
+<li id="menu-item-8635" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-8635"><a href="http://www.collegesinstitutes.ca/events/">Events</a>
+<ul class="sub-menu">
+	<li id="menu-item-16020" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16020"><a href="http://www.collegesinstitutes.ca/conference/">CICan Conference</a></li>
+	<li id="menu-item-8639" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8639"><a href="http://www.collegesinstitutes.ca/events/">Upcoming Events</a></li>
+	<li id="menu-item-11904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11904"><a href="http://www.collegesinstitutes.ca/events/public/add/">Submit an Event</a></li>
+</ul>
+</li>
+<li id="menu-item-5097" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5097"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a>
+<ul class="sub-menu">
+	<li id="menu-item-5106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5106"><a href="http://www.collegesinstitutes.ca/news-centre/news-releases/">News Releases</a></li>
+	<li id="menu-item-11728" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11728"><a href="http://www.collegesinstitutes.ca/news-centre/colleges-in-the-news/">Colleges &#038; Institutes in the News</a></li>
+	<li id="menu-item-5105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5105"><a href="http://www.collegesinstitutes.ca/news-centre/perspectives/">Newsletters</a></li>
+</ul>
+</li>
+<li id="menu-item-11358" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11358"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a>
+<ul class="sub-menu">
+	<li id="menu-item-12892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12892"><a href="http://www.collegesinstitutes.ca/resources/all-resources/">All Resources</a></li>
+	<li id="menu-item-11979" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11979"><a href="http://www.collegesinstitutes.ca/resources/research-on-colleges/">Research on Colleges</a></li>
+	<li id="menu-item-12295" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12295"><a href="http://www.collegesinstitutes.ca/resources/resource-library/">Essential Skills</a></li>
+	<li id="menu-item-2099" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2099"><a href="http://www.collegesinstitutes.ca/resources/ip-toolkit/">IP Toolkit</a></li>
+	<li id="menu-item-11978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11978"><a href="http://www.collegesinstitutes.ca/resources/?fwp_by_resource_type=past-events">Past Events</a></li>
+</ul>
+</li>
+</ul>		</nav>
+
+	</div>
+	<!-- // .container -->
+
+</header>
+
+<div class="main-nav-dd-bg"><div class="container"></div></div>
+
+<div class="main clearfix">
+
+<!--[if lt IE 8]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="container">
+
+	
+<div class="breadcrumb en"><!-- Breadcrumb NavXT 5.4.0 -->
+<a title="Go to Colleges and Institutes Canada." href="http://www.collegesinstitutes.ca" class="home">Home</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Our Members." href="http://www.collegesinstitutes.ca/our-members/" class="post post-page">Our Members</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a title="Go to Member Profiles." href="../../our-members/member-directory/index.html">Member Profiles</a>&nbsp;&nbsp;/&nbsp;&nbsp;Conestoga College Institute of Technology and Advanced Learning</div><div class="secondary"><a href="index.html#" class="sprite toggle-sub-menu web-only" id="toggle-sub-menu">Sub Menu</a><nav role="navigation" class="page-nav"><ul><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19484"><a href="../../our-members/member-directory/index.html">Member Profiles</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19485"><a href="http://www.collegesinstitutes.ca/our-members/members-map/">Our Members Across Canada</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33952"><a href="http://www.collegesinstitutes.ca/our-members/applied-research/">Applied Research Showcase</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32749"><a href="http://www.collegesinstitutes.ca/our-members/list-of-degrees/">Degrees &#038; <nobr>Post-Graduate</nobr> Programs</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34252"><a href="http://www.collegesinstitutes.ca/our-members/2016-art-showcase/">2016 Art Showcase</a></li>
+</ul></nav></div>
+	
+	<p class="accessTarget"><a id="maincontentTarget">Main Content</a></p>
+	<section role="main" class="main-content clearfix">
+
+		
+		<div class="the-content mem">
+
+			<header>
+			<!-- <div class="share-this">
+
+<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'b076605b-817d-47b1-9435-3209a049f7c0', doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_facebook'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_twitter'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_linkedin'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_email'></span>
+<span st_url="http://www.accc.ca/xp/index.php?option=com_content&view=article&id=16&catid=5&Itemid=247" class='st_sharethis'></span>
+
+</div> --><h1 class="page-title">Conestoga College Institute of Technology and Advanced Learning</h1>			</header>
+
+			<div class="print-header print-only">
+				<h1 class="title blue">Conestoga College Institute of Technology and Advanced Learning</h1>
+				<img src="../../wp-content/themes/accc/assets/img/content/cican_logo_purple.png">
+				<div class="cleardiv"></div>
+			</div>
+
+			<div class="print-only"><img src="../../wp-content/uploads/2015/11/Conestoga_College_logo.jpg" class="mem-logo" /></div>
+			<div class="mem-stats">
+				<div class="boxit white bluebg"><h1>Campuses</h1><h2 class="white">5</h2></div><div class="boxit"><h1>Enrolment</h1><ul><li><h2>13775</h2><h6>Full-time</h6></li><li><h2>439</h2><h6>Part-time</h6></li><li><h2>2020</h2><h6>International</h6></li><li><h2>2291</h2><h6>Apprentice</h6></li><li><h2>367</h2><h6>Indigenous</h6></li></ul></div><div class="boxit white darkgraybg web-only"><a href="http://www.conestogac.on.ca/" target="_blank" class="white"><img src="../../wp-content/themes/accc/assets/img/content/mouse.png" alt="Visit Site"><h1>Visit Site</h1></a></div>			</div>
+
+			<div class="mem-content">
+
+				<div class="web-only"><a href="http://www.conestogac.on.ca/" target="_blank"><img src="../../wp-content/uploads/2015/11/Conestoga_College_logo.jpg" class="mem-logo" /></a></div><p>Conestoga College Institute of Technology and Advanced Learning is a leader in polytechnic education and one of Ontario’s fastest growing colleges, delivering a full range of career-focused education, training and applied research programs to prepare students for success in the new knowledge economy and promote economic prosperity throughout our region and across Ontario.</p>
+<p>Established in 1967, Conestoga now serves approximately 12,000 full-time students through campuses and training centres in Kitchener, Waterloo, Cambridge, Guelph, Stratford, Ingersoll and Brantford and is a provincial leader in apprenticeship training. Continuing education programs attract more than 30,000 enrolments each year. As the region’s only provider of polytechnic education, Conestoga plays an integral role in the success of our community: 65 per cent of our graduates remain in the area after completing their education, contributing more than $1 billion each year to the local economy. Almost 50 per cent of the local adult population has accessed our services.</p>
+<h1 class="blue">Fast Facts</h1><ul>
+<li>Conestoga is the only college in Ontario – and one of only two in Canada – to offer engineering degree programs accredited by the Canadian Engineering Accreditation Board.</li>
+<li>Conestoga’s Bachelor of Applied Health Information Science is the only undergraduate degree program accredited by the Canadian Health Information Management Association.</li>
+<li>Conestoga is a leader in career-focused business education, including accredited financial planning and insurance programs and a bachelor’s degree in Accounting, Audit and IT fully recognized by CPA.</li>
+<li>Conestoga’s Institute of Food Processing Technology includes Canada’s only full-scale, small capacity pilot plant specifically designed for training and applied research to meet the industry’s need for increased competitiveness.</li>
+<li>Conestoga’s centres for innovation and excellence develop real-world solutions for smart manufacturing, entrepreneurship, advancing healthy communities, and improving care and quality of life for seniors.</li>
+</ul>
+<div class="container boxit"><div class="mem-bucket"><h2>Our programs include:</h2><ul>
+<li><a href="https://www.conestogac.on.ca/fulltime/1386C.jsp" target="_blank">Bachelor of Environmental Public Health</a></li>
+<li><a href="https://www.conestogac.on.ca/fulltime/1131C.jsp" target="_blank">Bachelor of Applied Health Information Science</a></li>
+<li><a href="https://www.conestogac.on.ca/fulltime/1066C.jsp" target="_blank">Bachelor of Engineering &#8211; Mechanical Systems Engineering</a></li>
+<li><a href="https://www.conestogac.on.ca/fulltime/1094C.jsp" target="_blank">Bachelor of Engineering &#8211; Electronic Systems Engineering</a></li>
+<li><a href="https://www.conestogac.on.ca/fulltime/1241C.jsp" target="_blank">Bachelor of Business Administration &#8211; Accounting, Audit and Information Technology</a></li>
+</ul>
+</div><div class="mem-bucket"><h2>Our research specialization:</h2><ul>
+<li>Aging and Seniors Care</li>
+<li>Advanced Manufacturing</li>
+<li>Advanced Recycling Technologies</li>
+<li>Robotics and Automation</li>
+<li>Food Processing Technology</li>
+</ul>
+</div><div class="cleardiv"></div></div>			</div>
+
+			<div class="cleardiv"></div>
+
+				<div class="container web-only"><h1 class="blue">This is how we...</h1><div class="accordion"><h3>Contribute to our Community</h3><div><p>More than 65 per cent of Conestoga’s 105,000+ alumni remain in the local community after completing their studies: their contribution to the local economy exceeds $1 billion each year. Additionally, more than 200,000 individuals have participated in the college’s Continuing Education activities to advance their career success and employability. Conestoga’s School of Career and Academic Access (CAA) provides upgrading programs and career services that lead to better jobs, more prosperous futures and a stronger community: in 2014-15, more than 4,200 individuals participated in CAA programs and services to reach their goals through further education, training or employment.</p>
+</div><h3>Foster Student Success</h3><div><h2>Caesar Martini</h2>
+<p>Conestoga graduate named top insurance student in Canada: Caesar Martini, a 2015 graduate of Conestoga’s Insurance &#8211; Property and Casualty program, has been recognized by the Insurance Institute of Canada as the country’s top graduating student from a full-time insurance program in 2015. Martini achieved an average of 95.9% over the course of his two-year program as well as honours in 8 of his 9 Chartered Insurance Professional (CIP) required courses. During his studies, he was awarded the Economical Insurance Business scholarship, the Insurance Institute of Ontario &#8211; Conestoga Chapter Award and the John E. Lowes Insurance Education Fund award sponsored by the Insurance Institute of Ontario. <a href="http://blogs1.conestogac.on.ca/news/2015/12/conestoga_graduate_named_top_i.php" target="_blank">Learn more</a>.</p>
+<h2>Marianne Walker</h2>
+<p>Conestoga grad honoured at 2015 Premier&#8217;s Awards: Marianne Walker, a 1977 graduate of the Nursing program at Conestoga College, joined the ranks of Ontario&#8217;s most distinguished college graduates on Monday, November 16, when she was named the 2015 recipient of the Premier&#8217;s Award for Health Sciences. Walker is currently president and CEO of Guelph General Hospital. In leadership roles spanning more than 30 years, she has worked to refocus health care on the patient. She has led several regional and province-wide initiatives that have greatly improved patient outcomes after a stroke, and her eldercare strategy is recognized as one of the best in Ontario. Walker credits her college training for much of her later success, saying ““Conestoga provided me with the foundation I built my career on.” <a href="http://blogs1.conestogac.on.ca/news/2015/11/conestoga_grad_honoured_at_201_1.php" target="_blank">Learn more</a>.</p>
+<p>Conestoga project takes top prize at Applied Research Showcase: An automated thermal management system developed by students in Conestoga’s Electronic Systems Engineering (ESE) degree program to support the needs of an industry client was awarded top prize at the Polytechnic Canada’s 2014 Student Applied Research Showcase. The system was developed for client Redragon Oil and Gas Systems International Inc. to address challenges in the company’s waste oil recycling process. The new technology provides automated monitoring of the existing oil filtration systems to ensure they reach and maintain appropriate temperatures so that contaminated oils are appropriately filtered and the filtration media isn’t damaged by overheating. Redragon officials estimate that the new technology could increase per system profits by 20 per cent and reduce customer costs by up to $2.4 million over 20 years. <a href="http://blogs1.conestogac.on.ca/news/2014/12/conestoga_project_takes_top_pr.php" target="_blank">Learn more</a>.</p>
+</div><h3>Partner with Business and Community</h3><div><h2>Industry</h2><p>Conestoga is working with Schlegel Villages, a leader in long-term care and retirement living, and the University of Waterloo to enhance the quality of life and care of older adults through the Research Institute for Aging (RIA). As the primary practice development partner, Conestoga is focused on evidence-informed training program development for staff already working in long-term care, as well as for students in programs that lead to careers working with seniors. A new Centre of Excellence for Innovation in Aging, located on University of Waterloo’s north campus, opened in Fall 2015. Described as “a global pinnacle of excellence” by His Excellency the Right Honourable David Johnston, Governor General of Canada, the Centre includes Ontario’s first purpose-built teaching long-term care (LTC) home connected to a research and training facility. <a href="http://www.the-ria.ca/opening-a-pinnacle-of-excellence/" target="_blank">Learn more</a>.</p>
+<p>The partnership between Conestoga and Lisaard House/Innisfree House to provide professional, compassionate, residential hospice care in Waterloo Region was recognized as the Best Corporate/Not-for-Profit Partnership at the 2015 Cambridge &amp; North Dumfries Community Awards. Conestoga provided land for the construction of Innisfree House, a new 10-bed hospice opened in July, 2015 to support the growing need for palliative care in our community for those who do not wish to spend their final days in hospital, but require more support than can be provided at home. Together, the two organizations worked with experts in palliative care and nursing to create specialized education programs for the new hospice&#8217;s nurses and personal support workers. The certificate programs, include experiential learning and focus on key areas of palliative care such as pain management and psychosocial issues, and are also available to nurses and personal support workers throughout the region. <a href="http://blogs1.conestogac.on.ca/news/2015/11/partnership_honoured_at_commun.php" target="_blank">Learn more</a>.</p>
+</div><h3>Support Indigenous Students</h3><div><p>Be-Dah-Bin Gamik, a Place of New Beginnings, provides services for Aboriginal students at Conestoga, including those who are First Nations (status and non-status), Metis and Inuit. It is a warm, welcoming and comfortable environment that assists students with a smooth transition to college life by providing ongoing student support. Aboriginal Services provides social and cultural events and activities, traditional counselling services, an Elders-in-Residence program and an Aboriginal Student Association. NISH-VIBES, a weekly Aboriginal radio show broadcast on Conestoga’s student-run radio station CJIQ-FM, has operated successfully for five years, and the fifth annual traditional Pow Wow held in Spring 2015 attracted a record number of participants.</p>
+<h2>Programs &amp; Services of Interest</h2><ul>
+<li><a href="https://www.conestogac.on.ca/aboriginal-services/" target="_blank">Be-Dah-Bin Gamik, a Place of New Beginnings</a></li>
+</ul>
+</div></div>
+			<div class="container mem-footer web-only">
+
+				<div class="mem-contact"><h1 class="blue">Contact Information</h1><p>299	Doon Valley Drive<br>Kitchener, ON<br>N2G 4M4</p><p><strong>Telephone: </strong> 519-748-5220<br><strong>Toll Free: </strong> 877-748-3535<br><strong>Website: </strong> <a href="http://www.conestogac.on.ca/" target="_blank">http://www.conestogac.on.ca/</a></p><p><a href="https://www.facebook.com/ConestogaCollege" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-facebook.png" alt="Facebook"></a><a href="https://twitter.com/ConestogaC" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-twitter.png" alt="Twitter"></a><a href="https://www.instagram.com/conestogacollege/" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-instagram.png" alt="Instagram"></a><a href="https://www.youtube.com/user/conestogapolytechnic" target="_blank"><img src="../../wp-content/themes/accc/assets/img/content/icon-mem-youtube.png" alt="YouTube"></a></p></div><div class="mem-googlemap web-only"><a href="http://maps.google.com/?q=43.3892703,-80.4041565" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?center=43.3892703,-80.4041565&zoom=9&size=500x300&maptype=roadmap&markers=color:blue%7C43.3892703,-80.4041565&sensor=false&key=AIzaSyCJ3ZjXVyPyCzPRPt9yyufxzzmSmP2wxtU" /></a></div>			<div class="cleardiv"></div>
+			</div>
+			<div class="print-only">
+				<h2 class="nowhitespace">For more information on <span class="blue">Conestoga College Institute of Technology and Advanced Learning</span> visit www.collegesinstitutes.ca/members/conestoga-college/</h2>			</div>
+			<p class="mem-updated web-only">Date modified: 2016-02-04</p>
+
+		</div>
+		<!-- // .the-content -->
+
+			</section>
+	<!-- // .main-content -->
+
+</div>
+<!-- // .container -->
+
+	
+	</div>
+	<!-- // .main -->
+
+	<footer class="footer" role="contentinfo">
+		
+		<div class="container clearfix">
+				
+			<p class="footer-tagline">
+			    Champion<br />Lead<br />Partner<br />Excel			</p>
+			
+			<div class="footer-navs">
+				
+				<ul class="social-media">
+					<li><a class="sprite facebook" href="https://www.facebook.com/collegesinstitutes">Facebook</a></li>
+					<li><a class="sprite twitter" href="https://twitter.com/CollegeCan">Twitter</a></li>
+					<li><a class="sprite linkedin" href="https://www.linkedin.com/company/collegesinstitutes">LinkedIn</a></li>
+					<li><a class="sprite email" href="mailto:info@collegesinstitutes.ca﻿">Email</a></li>
+			 	</ul>
+				
+				<nav class="footer-nav clearfix">
+				<ul><li id="menu-item-4325" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4325"><a href="http://www.collegesinstitutes.ca/about/">About</a></li>
+<li id="menu-item-83" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-83"><a href="http://www.collegesinstitutes.ca/about/contact-us/">Contact Us</a></li>
+<li id="menu-item-4327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4327"><a href="http://www.collegesinstitutes.ca/our-members/">Our Members</a></li>
+<li id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a href="http://www.collegesinstitutes.ca/what-we-do/">What We Do</a></li>
+<li id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a href="http://www.collegesinstitutes.ca/policyfocus/">Policy Focus</a></li>
+<li id="menu-item-81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81"><a href="http://www.collegesinstitutes.ca/news-centre/">News Centre</a></li>
+<li id="menu-item-14523" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14523"><a href="http://www.collegesinstitutes.ca/resources/">Resources</a></li>
+</ul>				</nav>
+				
+				<nav class="footer-links clearfix">
+				<ul><li id="menu-item-6392" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6392"><a href="http://www.collegesinstitutes.ca/news-centre/subscribe-perspectives/">Subscribe</a></li>
+<li id="menu-item-12761" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12761"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-98" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-98"><a href="http://www.collegesinstitutes.ca/terms-of-use-and-privacy-policy/">Terms of Use</a></li>
+<li id="menu-item-8161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8161"><a href="http://www.collegesinstitutes.ca/colleges-and-institutes-canadas-accessibility-plan/">Accessibility</a></li>
+</ul>				</nav>
+			    
+				<p class="copyright">© Colleges and Institutes Canada</p>
+							
+			</div>
+			<!-- // .footer-navs -->
+						
+		</div>
+		<!-- // .container -->
+		
+	</footer>
+	<!-- // .footer -->
+
+	        <div class="w3eden">
+            <div id="wpdm-popup-link" class="modal fade">
+                <div class="modal-dialog" style="width: 750px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                              <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body" id='wpdm-modal-body'>
+                            <p><a href="http://www.wpdownloadmanager.com/">WordPress Download Manager - Best Download Management Plugin</a></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+        </div>
+        <script language="JavaScript">
+            <!--
+            jQuery(function () {
+                //jQuery('#wpdm-popup-link').modal('hide');
+                jQuery('.wpdm-popup-link').click(function (e) {
+                    e.preventDefault();
+                    jQuery('#wpdm-popup-link .modal-title').html(jQuery(this).data('title'));
+                    jQuery('#wpdm-modal-body').html('<i class="icon"><img align="left" style="margin-top: -1px" src="http://www.collegesinstitutes.ca/wp-content/plugins/download-manager/images/loading-new.gif" /></i>&nbsp;Please Wait...');
+                    jQuery('#wpdm-popup-link').modal('show');
+                    jQuery('#wpdm-modal-body').load(this.href,{mode:'popup'});
+                    return false;
+                });
+            });
+            //-->
+        </script>
+        <style type="text/css">
+            #wpdm-modal-body img {
+                max-width: 100% !important;
+            }
+        </style>
+    <script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/jquery/jquery.form.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/jquery.infinitescroll.min.js'></script>
+<script type='text/javascript' src='https://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/plugins.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/magnific-popup.min.js'></script>
+<script type='text/javascript' src='../../wp-content/themes/accc/assets/js/main.js?01'></script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-includes/js/wp-embed.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var icl_vars = {"current_language":"en","icl_home":"http:\/\/www.collegesinstitutes.ca\/","ajax_url":"http:\/\/www.collegesinstitutes.ca\/wp-admin\/admin-ajax.php","url_type":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.collegesinstitutes.ca/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js'></script>
+<script type="text/css" id="tmpl-tribe_events_pro_customizer_css"></script><style type="text/css" id="tribe_events_pro_customizer_css"></style><script>var FWP_HTTP = FWP_HTTP || {}; FWP_HTTP.lang = 'en';</script>
+</body>
+</html>
+<!-- Dynamic page generated in 20.288 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-07-24 20:59:50 -->
+
+<!-- Compression = gzip -->
+<!-- super cache -->
