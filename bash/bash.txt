@@ -115,6 +115,8 @@ ARGUMENTS
 		 -r (reverse order)
 
 - mention MANPAGES
+	or search the web - man pages not on all Windows installs
+	http://explainshell.com/ - great resources, explains commands bit by bit
 
 
 
