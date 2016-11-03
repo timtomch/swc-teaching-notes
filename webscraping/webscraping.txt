@@ -1,17 +1,25 @@
-WEB SCRAPING LESSON 0.1
-July 2016
+WEB SCRAPING LESSON 0.2
+November 2016
 
-This is experimental, first time run.
+- Who am I?
+- Introduce others (Kim)
+- At end of workshop: brief intro to SWC.
+
+This is still experimental, in development.
 Grateful for feedback.
 
 
 CONTENTS
-What is web scraping and why it is useful
-Scraping manually using browser extensions
-Defining what items to extract using Xpath
-Writing a spider to crawl a website
-Store and reuse extracted items
-Do's and Don'ts of web scraping
+
+Part 1
+- What is web scraping and why it is useful
+- Using XPath to select elements on a web page
+- Scraping manually using browser extensions and web services
+
+Part 2
+- Writing a spider to crawl a website
+- Store and reuse extracted items
+- Do's and Don'ts of web scraping
 
 
 1 - INTRODUCTION - WHAT IS WEB SCRAPING
@@ -30,7 +38,7 @@ http://www.parl.gc.ca/Parliamentarians/en/members
 	Difference between UNSTRUCTURED and STRUCTURED data
 	
 	For humans, unstructured. We recognize names, provinces, political party, etc.
-	But a machine doesn't.
+	But a machine doesn't, unless you tell it what is what.
 	
 	Computers need LABELS.
 	This is a good website, because data is actually structured. 
@@ -45,11 +53,106 @@ https://www.parliament.uk/mps-lords-and-offices/mps/
 	But this data is not as nicely structured.
 		View Source. Table
 
+Say we want a spreadsheet with all British parliament members. How to extract this data? SCRAPING.
 
-Say we want a spreadsheet with all British parliament members. How to extract this data?
+
+2 - USING XPATH TO SELECT DATA ON A WEB PAGE
+
+XPath (which stands for XML Path Language) is an EXPRESSION LANGUAGE used to specify parts of an XML document.
+
+	XML and HTML are both MARKUP LANGUAGES. Use some structure to separate elements.
+	HTML is actually a special case of XML.
+	
+	
+	XML basic syntax
+	
+	<catfood>
+		<manufacturer>Purina</manufacturer>
+		<address> 12 Cat Way, Boise, Idaho, 21341</address>
+		<date>2019-10-01</date>
+	</catfood>
+
+	Nodes - Elements, attributes, text nodes
+	Opening and closing tags around elements
+	Nesting
+	Attribute values 
+
+XPath is a language to navigate an XML document to reach a particular element or group of elements.
+
+Look at source code of http://labs.timtom.ch/library-webscraping/02-xpath/
+
+There is a title element: <title>Selecting content on a web page with XPath</title>
+
+Using the console, we can try out XPath queries using built-in JQuery functions:
+
+$x("/html/head/title/text()")
+
+		^-- explain that path
+
+================================================================================================	
+CHALLENGE
+
+	Write an XPath query that selects the “Introduction” title above and try running it in the console.
+		
+================================================================================================			
 
 
-2 - MANUALLY SCRAPE DATA USING BROWSER EXTENSIONS
+Look at the HTML node tree.
+
+Everything is a node
+- the entire document is a node
+- all HTML elements are a node
+- text inside elements are a node
+
+They have HIERARCHICAL RELATIONSHIPS to each other
+- parent/child/sibling
+- sequence of connections between nodes is called a path
+
+Top node is "root node"
+
+
+Example, select all blockquote nodes on this page:
+
+$x("/html/body/div/blockquote")
+
+We can use // to skip levels:
+
+$x("//blockquote") 
+
+================================================================================================	
+CHALLENGE
+
+	Why is the second array longer than the first?
+	
+		The first one only selects blockquotes that are directly under the first div element.
+		The second query selects all blockquotes, regardless of where they are (also nested ones)
+================================================================================================			
+
+Use the class attribute to filter down elements:
+
+$x("//blockquote[@class='challenge']")
+
+		^-- [] notation is a PREDICATE, it means "select blockquote elements WHERE this condition is met"
+		
+================================================================================================	
+CHALLENGE (easy)
+
+	Select the Introduction title by ID.
+	
+		$x("/html/body/div/h1[@id='introduction']")
+================================================================================================
+
+================================================================================================	
+CHALLENGE (harder)
+
+	Select this challenge box.
+	
+		$x("//h2[@id = 'select-this-challenge-box']/..")[0]
+================================================================================================	
+
+
+
+3 - MANUALLY SCRAPE DATA USING BROWSER EXTENSIONS
 
 There are different options to scrape data:
 
@@ -59,18 +162,56 @@ There are different options to scrape data:
 - Semi-manually, using tools such as browser extensions to indicate what data needs to be scraped.
 	Good when data is somehow structured, e.g. table rows, titles in bold, etc.
 	
-	Examples: Chrome Scraper extension
+Examples: Chrome Scraper extension
 		(try ffscrap in Firefox)
 	
-	Going back to British parliament example:
+Going back to British parliament example: https://www.parliament.uk/mps-lords-and-offices/mps/
 	- Select first row of table
 	- Right click -> Scrape similar
 	
-	Uses XPath selectors -> cf XPath lesson
+Uses XPath selectors -> cf XPath lesson
 	
-	Export to Google Docs or clipboard/TSV.
+We can try this out
+	$x("//tbody/tr[td]")
+					^-- remember predicates? What does this mean?
+							Select TR elements that contain a TD element.
+	
+Column selectors are also XPath expressions.
+	
+	Remember that XPath queries are always relative to context. First Selector sets context.
+	We can try it out by typing
+	
+	$x("//tbody/tr[td]/*[1]")
+	
+		Export to Google Docs or clipboard/TSV.
 		Can be cleaned up further using OpenRefine (e.g. separate first, last name, party)
 	
+Try copy-pasting results into text editor (TSV data)
+	Lots of white space
+	
+Replace Columns with 
+	
+normalize-space(*[1])
+normalize-space(*[2])
+	
+
+================================================================================================	
+CHALLENGE 
+
+	Scrape the list of Ontario MPPs: www.ontla.on.ca/web/members/members_current.do?locale=en
+	
+	Once you get the name and riding, try adding a third column with the URL for the detail page
+	(under the name of politician).
+	
+		Add column
+		*[1]/a/@href
+		
+		Part of the URL is missing. Use concat() function
+		concat('http://www.ontla.on.ca/web/members/',*[1]/a/@href)
+================================================================================================	
+
+Custom XPATH
+		
 Sometimes not as clear cut. Addresses of Canadian MPs:
 	http://www.parl.gc.ca/Parliamentarians/en/members/addresses
 	
@@ -82,32 +223,154 @@ Useful to inspect web page to find structure.
 	- Chrome or Firefox -> inspect element
 	- MPs are inside ULs
 	
-	Try changing Xpath with //body/div[1]/div/ul
-	Click "Scrape"
+Try changing Xpath with
 	
-	Better, but still unstructured. We see that name, addresses separated by LI elements.
+//body/div[1]/div/ul
+	
+Click "Scrape"
+	
+Better, but still unstructured. We see that name, addresses separated by LI elements.
 	
 	In Columns, replace . by ./li and rename column.
 	
 	Add new columns:
-		./li[2] -> Hill Office
-		./li[3] -> Constituency
+	./li[1] -> Name
+	./li[2] -> Hill Office
+	./li[3] -> Constituency
 		
 	Etc. Then export and clean up using OpenRefine.
 	
 	
 ================================================================================================	
 CHALLENGE
-- Install Chrome Scraper extension
-- Choose a province (e.g. Ontario), find list of MPPs
-- Scrape them
-- Open in OpenRefine, separate first name, last name, political party, constituency
-	TIP: use copy-paste to import into OR
+
+	Keep working on the example above to add a column for the Hill Office phone number and fax number for each MP.
+	
+		./li[2]/span[3] -> Hill Office Phone
+		./li[2]/span[5] -> Hill Office Fax
+	
+	
 ================================================================================================
 
 
+CHAINING SCRAPERS
 
-3 - WRITING WEB SPIDERS - using Scrapy
+Going back to the Ontario MPP example.
+
+So we have a list of MPPs, which each have an URL to a detail page.
+What if we want a spreadsheet that includes some of the information from that detail page.
+
+We can write a first scraper to get the URLs (we did so before)
+Then a second one for the detailed information.
+
+Scraper cannot do that. We need to use a bit more advanced tools.
+Next week we will see how to build our own scraper using Python, but now we can use
+import.io
+
+	Free plan -> max 500 URLs per month
+		(I have a demo Premium plan)
+		Watch out when testing so as not to blow the limit.
+		
+Has a nice WYSIWYG like interface for scraping
+
+Try loading the URL for the MPP list
+(you are welcome to use another example, e.g. other province)
+
+http://www.ontla.on.ca/web/members/members_current.do?locale=en
+
+Does a moderately good job understanding that there's a table on that page and that we might be interested
+in getting that data out.
+
+It actually captures HTML for the name column. URL is embedded. What if we want this in a separate column.
+
+Add column, select name, include HTML.
+
+Then in table view, select 
+	Output HTML
+	
+	Write a Regular Expression to extract the href bit:
+	
+	href="(.*)"
+			^--- will capture what's in the parentheses
+			we get what's captured by using the $1 variable in the second fields
+	
+	$1
+	
+		Remember that those URLs are relative? Missing the beginning.
+		We can easily concatenate:
+		
+	http://www.ontla.on.ca/web/members/$1
+	
+	
+Then try it out!
+
+Click RUN URL
+
+Preview -> 105 lines
+
+
+This data can be easily downloaded.
+
+
+OK now for the 2nd step
+
+We want to use those URLs to harvest data from pages like http://www.ontla.on.ca/web/members/members_detail.do?locale=en&ID=7085
+
+Let's create a second import.io scraper using that URL
+
+Select the data we are interested in. Say, the email address, the current title, the political party.
+
+	Might work for one, what about others? Can we be sure the data is at the same place?
+	
+	Let's try it out. import.io allows us to run a scraper on multiple URLs. Let's put 2-3 in that box.
+	
+	Run, preview.
+	
+	We see that some data has not been captured correctly.
+	
+	Let's investigate.
+	
+Show source / inspect. Use XPath to query elements
+
+Email:
+
+$x("//div[@class='mppcontact']//div[@class='email']")
+
+Party:
+
+It's actually after the second H2 element.
+
+$x("//div[@class='mppinfoblock']/h2[2]/following-sibling::p")
+
+Try it out on multiple URLs. Once we are confident, we can chain scrapers.
+
+Use the output of one scraper to drive the other.
+
+
+================================================================================================	
+CHALLENGE
+
+Work on your own example. E.g. other province.
+
+Try selecting different data. Using XPath.
+
+Chain scrapers.
+================================================================================================	
+
+
+
+Work on your own, ask questions. We can hang around a bit longer.
+
+
+
+
+END OF PART 1
+Mention SWC
+
+
+
+
+4 - WRITING WEB SPIDERS - using Scrapy
 
 Verify that Scrapy 1.1.0 is installed
 	Type scrapy version in Terminal
