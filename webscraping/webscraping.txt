@@ -57,6 +57,11 @@ Say we want a spreadsheet with all British parliament members. How to extract th
 
 
 2 - USING XPATH TO SELECT DATA ON A WEB PAGE
+References: 
+- Kim's lesson
+- W3Schools
+- http://ricostacruz.com/cheatsheets/xpath.html
+- http://www.mulberrytech.com/quickref/xpath2.pdf
 
 XPath (which stands for XML Path Language) is an EXPRESSION LANGUAGE used to specify parts of an XML document.
 
