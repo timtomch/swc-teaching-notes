@@ -445,11 +445,14 @@ DEFINING A SPIDER
 			# as the response object:
 			print(response.text)
 
+(ask if everyone is familiar with OBJECT-ORIENTED PROGRAMMING. If not, spend some time explaining.)
+
+
 START CRAWLING
 
 	Try it out by moving to project's top level directory and type
 		scrapy crawl firstspider
-						^-- name of the spider we just created
+						       ^-- name of the spider we just created
 
 		Should return a bunch of text, including the HTML content of the page we just scraped.
 
