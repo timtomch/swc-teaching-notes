@@ -375,7 +375,7 @@ Mention SWC
 (source activate scraping)
 
 
-Verify that Scrapy 1.3.1 is installed (though should also work with older version)
+Verify that Scrapy 1.3.2 is installed (though should also work with older version)
   Use conda install -c conda-forge scrapy to get latest version
 	Type scrapy version in Terminal
 
@@ -424,52 +424,58 @@ Initialize Scrapy project
 
 
 DEFINING A SPIDER
-	Spiders are the business end of the scraper. It's the bit of code that combs through a website and harvest data.
-	They define an initial list of URLs to download, how to follow links, and how to parse the contents of pages to extract items.
+Spiders are the business end of the scraper. It's the bit of code that combs through a website and harvest data.
+They define an initial list of URLs to download, how to follow links, and how to parse the contents of pages to extract items.
 
-	Create a new file called colleges_spider.py under cancolleges/cancolleges/spiders
-	with
+Create a new spider with
+
+scrapy genspider mppaddresses www.ontla.on.ca/web/members/members_current.do?locale=en
+
+WARNING do not add http:// because Scrapy is still a bit stupid.
+
+Check out the results: in spiders directory:
 
 	import scrapy
 
-	class MPPSpider(scrapy.Spider):	# We are creating a class called MPPSpider
-
-		name = "firstspider"	# The name of this spider
-
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"  # The name of this spider
+	
 		# The allowed domain and the URLs where the spider should start crawling:
-		allowed_domains = ["www.ontla.on.ca"]
-		start_urls = ["http://www.ontla.on.ca/web/members/members_current.do?locale=en"]
+	    allowed_domains = ["www.ontla.on.ca/web/members/members_current.do?locale=en"]
+	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
 
-		def parse(self, response):
-			# The main method of the spider. The content of the scraped URL is passed on
-			# as the response object:
-			print(response.text)
+		# And a 'parse' function, which is the main method of the spider. The content of the scraped
+		# URL is passed on as the 'response' object:
+	    def parse(self, response):
+	        pass
 
 (ask if everyone is familiar with OBJECT-ORIENTED PROGRAMMING. If not, spend some time explaining.)
 
 
 START CRAWLING
 
-	Try it out by moving to project's top level directory and type
-		scrapy crawl firstspider
-						       ^-- name of the spider we just created
+Try it out by moving to project's top level directory and type
+	scrapy crawl mppaddresses
+				       ^-- name of the spider we just created
 
-		Should return a bunch of text, including the HTML content of the page we just scraped.
+Should return some debug output, look for code 200 (this means OK).
 
-	This is not very convenient, so try instead
+Try now editing the spider:
 
 	import scrapy
 
-	class CollegeSpider(scrapy.Spider):
-	    name = "colleges"
-	   	allowed_domains = ["labs.timtom.ch"]
-	    start_urls = ["http://labs.timtom.ch/swc-teaching-notes/webscraping/data/www.collegesinstitutes.ca/our-members/member-directory/index.html"]
+
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"
+	    allowed_domains = ["www.ontla.on.ca/web/members/members_current.do?locale=en"]
+	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
 
 	    def parse(self, response):
 	        with open("test.html", 'wb') as file:
 	            file.write(response.body)
 
-	Should create file "test.html". Look inside this file.
+
+Crawl again. This time it should have created test.html file with contents.
 
 
 OK, so how do we now access the URLs we're interested in?
@@ -495,10 +501,39 @@ In Chrome, we can use the console to try out XPath queries:
 Drilling down:
 > $x("//td[@class='mppcell']/a/@href")
 
-Returns a list of objects. Looking in detail, we see the links are RELATIVE.
+But now that we have started to play with Scrapy, let's try something out.
+
+Type
+	scrapy shell http://www.ontla.on.ca/web/members/members_current.do?locale=en/
+
+This allows us to test Python/Scrapy functions live on the scraped page.
+
+	>>> response.xpath("//td[@class='mppcell']/a/@href")
+	
+Point out that the result is an ARRAY of SELECTORS
+We are interested in the actual content pointed by the selectors. And just the first one for now:
+
+	>>> response.xpath("//td[@class='mppcell']/a/@href").extract_first()
+
+Looking in detail, we see the links are RELATIVE.
 Will this be an issue?
 
-Once we found what we're looking for, let's edit the Spider accordingly:
+	>>> testurl = response.xpath("//td[@class='mppcell']/a/@href").extract_first()
+	>>> response.urljoin(testurl)
+
+Now back to the spider to bring it all together:
+
+	import scrapy
+
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"
+	    allowed_domains = ["www.ontla.on.ca"]
+		start\_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+	    def parse(self, response):
+	        for url in response.xpath("//*[@class='mppcell']/a/@href").extract():
+	            print(response.urljoin(url))
+
 
 Scrapy Selectors support different methods:
 - xpath(): returns a list of selectors, each of which represents the nodes selected by the xpath expression given as argument.
@@ -507,35 +542,22 @@ Scrapy Selectors support different methods:
 - extract(): returns a unicode string with the selected data.
 - re(): returns a list of unicode strings extracted by applying the regular expression given as argument.
 
-
-import scrapy
-
-class MPPSpider(scrapy.Spider):
-	name = "getemails"	# The name of this spider
-
-	# The allowed domain and the URLs where the spider should start crawling:
-	allowed_domains = ["www.ontla.on.ca"]
-	start_urls = ["http://www.ontla.on.ca/web/members/members_current.do?locale=en"]
-
-	def parse(self, response):
-		# The main method of the spider. The content of the scraped URL is passed on
-		# as the response object:
-		for url in response.xpath("//*[@class='mppcell']/a/@href").extract():
-			url = 'http://www.ontla.on.ca/web/members/' + url
-		    print(url)
-
-Other couple of changes
-* for loop to loop through the objects returned by response.xpath
-* extract() to return text content of returned nodes
-* appending start of URL to make the links absolute
+================================================================================================
+CHALLENGE
+	Why am I using extract() and not extract_first() ?
+	Why the for loop?
+================================================================================================
 
 
+	scrapy crawl mppaddresses
 
 Looking good.
 
 OK, so we now have our URLs, how do we get further?
 
-Let's have a look at the first college page.
+FIXME from here
+
+Let's have a look at the first result page.
 What information are we interested in extracting?
 
 - Phone number(s)
