@@ -555,6 +555,26 @@ Looking good.
 
 OK, so we now have our URLs, how do we get further?
 
+Good idea when debugging to limit to a subset. We've seen above that our code works for all URLs, going forward
+let's only run it on 5 of them.
+
+	import scrapy
+
+
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"
+	    allowed_domains = ["www.ontla.on.ca"]
+	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+	    def parse(self, response):
+	        for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+	            print(response.urljoin(url))
+
+
+
+
+
+
 FIXME from here
 
 Let's have a look at the first result page.
