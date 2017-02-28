@@ -601,6 +601,9 @@ $x("//div[@class='email']/a/text()")
 ================================================================================================
 
 
+Use normalize-space to remove extra white space.
+
+
 Other trick, we can also use Scrapy in shell mode to try out XPath selectors:
 (actually an iPython shell)
 
@@ -621,35 +624,50 @@ To exit: CTRL-D (or CTRL-Z in Windows?)
 
 Putting it all together:
 
+# -*- coding: utf-8 -*-
 import scrapy
 
-class MPPSpider(scrapy.Spider):
-	name = "getemails"	# The name of this spider
 
-	# The allowed domain and the URLs where the spider should start crawling:
-	allowed_domains = ["www.ontla.on.ca"]
-	start_urls = ["http://www.ontla.on.ca/web/members/members_current.do?locale=en"]
+class MppaddressesSpider(scrapy.Spider):
+    name = "mppaddresses" # The name of this spider
+    
+    # The allowed domain and the URLs where the spider should start crawling:
+    allowed_domains = ["www.ontla.on.ca"]
+    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
 
-	def parse(self, response):
-		# The main method of the spider. The content of the scraped URL is passed on
-		# as the response object:
-		for url in response.xpath("//*[@class='mppcell']/a/@href").extract():
-		    url = 'http://www.ontla.on.ca/web/members/' + url
-		    yield scrapy.Request(url, callback=self.get_details)
+    def parse(self, response):
+		# The main method of the spider. It scrapes the URL(s) specified in the
+        # 'start_url' argument above. The content of the scraped URL is passed on
+		# as the 'response' object.
+        for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+            # This loops through all the URLs found inside an element of class 'mppcell'
+            
+            # Constructs an absolute URL by combining the response’s URL with a possible relative URL:
+            full_url = response.urljoin(url)
+            print("Found URL: "+full_url)
+            
+            # The following tells Scrapy to scrape the URL in the 'full_url' variable
+            # and calls the 'get_details() method below with the content of this
+            # URL:
+            yield scrapy.Request(full_url, callback=self.get_details)
+    
+    def get_details(self, response):
+		# This method is called on by the 'parse' method above. It scrapes the URLs
+        # that have been extracted in the previous step.
+	    name_detail = response.xpath("normalize-space(//div[@class='mppdetails']/h1/text())").extract_first()
+	    phone_detail = response.xpath("normalize-space(//div[@class='phone']/text())").extract_first()
+	    email_detail = response.xpath("normalize-space(//div[@class='email']/a/text())").extract_first()
+	    print("Found details: " + name_detail + ', ' + phone_detail + ', ' + email_detail)
 
-	def get_details(self, response):
-	    name_detail = response.xpath("normalize-space(//div[@class='mppdetails']/h1/text())").extract()[0]
-	    phone_detail = response.xpath("normalize-space(//div[@class='phone']/text())").extract()[0]
-	    email_detail = response.xpath("normalize-space(//div[@class='email']/a/text())").extract()[0]
-	    print(name_detail + ', ' + phone_detail + ', ' + email_detail)
 
 
+YIELD:
 yield is like return, but for potentially large datasets. Basically when you don't know from the beginning
 how big the dataset will be.
-				Also:
-				return implies that the function is returning control of execution to the point where the function was called.
-				yield, however, implies that the transfer of control is temporary and voluntary, and our function expects to regain it in the future.
-				From http://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
+Also:
+	return implies that the function is returning control of execution to the point where the function was called.
+	yield, however, implies that the transfer of control is temporary and voluntary, and our function expects to regain it in the future.
+	From http://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
 
 
 
@@ -657,49 +675,56 @@ DEFINING ITEMS
 	This is where the data extracted will be stored.
 	Items work like Python dictionaries.
 
-	Remember that we will start by gathering all the URLs for the college pages.
-	Let's start by defining an Item to store the College URLs.
-
-	Edit cancolleges/cancolleges/items.py
-
-	(You will see Scrapy has pre-populated this file)
+(editing ontariompps/ontariompps/items.py)
 
 	import scrapy
 
-
-class OntariomppsItem(scrapy.Item):
-    # define the fields for your item here like:
-    name = scrapy.Field()
-    email = scrapy.Field()
-    phone = scrapy.Field()
+	class OntariomppsItem(scrapy.Item):
+	    # define the fields for your item here like:
+	    name = scrapy.Field()
+	    phone = scrapy.Field()
+		email = scrapy.Field()
 
 Now use it in the spider:
 
 import scrapy
 from ontariompps.items import OntariomppsItem # We need this so that Python knows about the item object
 
-class MPPSpider(scrapy.Spider):
-	name = "getemails"	# The name of this spider
+class MppaddressesSpider(scrapy.Spider):
+    name = "mppaddresses" # The name of this spider
+    
+    # The allowed domain and the URLs where the spider should start crawling:
+    allowed_domains = ["www.ontla.on.ca"]
+    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
 
-	# The allowed domain and the URLs where the spider should start crawling:
-	allowed_domains = ["www.ontla.on.ca"]
-	start_urls = ["http://www.ontla.on.ca/web/members/members_current.do?locale=en"]
-
-	def parse(self, response):
-		# The main method of the spider. The content of the scraped URL is passed on
-		# as the response object:
-		for url in response.xpath("//*[@class='mppcell']/a/@href").extract():
-		    url = 'http://www.ontla.on.ca/web/members/' + url
-		    yield scrapy.Request(url, callback=self.get_details) # callback to get_details
-
-	def get_details(self, response):
-	    item = OntariomppsItem() # Defining a new Item object
-	    item['name'] = response.xpath("normalize-space(//div[@class='mppdetails']/h1/text())").extract()[0]
-	    item['phone'] = response.xpath("normalize-space(//div[@class='phone']/text())").extract()[0]
-	    item['email'] = response.xpath("normalize-space(//div[@class='email']/a/text())").extract()[0]
-	    yield item # Return the item
-
-
+    def parse(self, response):
+		# The main method of the spider. It scrapes the URL(s) specified in the
+        # 'start_url' argument above. The content of the scraped URL is passed on
+		# as the 'response' object.
+        for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+            # This loops through all the URLs found inside an element of class 'mppcell'
+            
+            # Constructs an absolute URL by combining the response’s URL with a possible relative URL:
+            full_url = response.urljoin(url)
+            print("Found URL: "+full_url)
+            
+            # The following tells Scrapy to scrape the URL in the 'full_url' variable
+            # and calls the 'get_details() method below with the content of this
+            # URL:
+            yield scrapy.Request(full_url, callback=self.get_details)
+    
+    def get_details(self, response):
+		# This method is called on by the 'parse' method above. It scrapes the URLs
+        # that have been extracted in the previous step.
+        
+        item = OntariomppsItem() # Creating a new Item object
+        # Store scraped data into that item:
+        item['name'] = response.xpath("normalize-space(//div[@class='mppdetails']/h1/text())").extract_first()
+        item['phone'] = response.xpath("normalize-space(//div[@class='phone']/text())").extract_first()
+        item['email'] = response.xpath("normalize-space(//div[@class='email']/a/text())").extract_first()
+	    
+        # Return that item to the main spider method:
+        yield item
 
 
 Running the spider above returns OntariomppsItem objects.
