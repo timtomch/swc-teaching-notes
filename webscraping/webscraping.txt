@@ -1,5 +1,5 @@
-WEB SCRAPING LESSON 0.2
-November 2016
+WEB SCRAPING LESSON 0.3
+February 2017
 
 - Who am I?
 - Introduce others (Kim)
@@ -253,116 +253,6 @@ CHALLENGE
 ================================================================================================
 
 
-CHAINING SCRAPERS
-
-Going back to the Ontario MPP example.
-
-So we have a list of MPPs, which each have an URL to a detail page.
-What if we want a spreadsheet that includes some of the information from that detail page.
-
-We can write a first scraper to get the URLs (we did so before)
-Then a second one for the detailed information.
-
-Scraper cannot do that. We need to use a bit more advanced tools.
-Next week we will see how to build our own scraper using Python, but now we can use
-import.io
-
-	Free plan -> max 500 URLs per month
-		(I have a demo Premium plan)
-		Watch out when testing so as not to blow the limit.
-
-Has a nice WYSIWYG like interface for scraping
-
-Try loading the URL for the MPP list
-(you are welcome to use another example, e.g. other province)
-
-http://www.ontla.on.ca/web/members/members_current.do?locale=en
-
-Does a moderately good job understanding that there's a table on that page and that we might be interested
-in getting that data out.
-
-It actually captures HTML for the name column. URL is embedded. What if we want this in a separate column.
-
-Add column, select name, include HTML.
-
-Then in table view, select
-	Output HTML
-
-	Write a Regular Expression to extract the href bit:
-
-	href="(.*)"
-			^--- will capture what's in the parentheses
-			we get what's captured by using the $1 variable in the second fields
-
-	$1
-
-		Remember that those URLs are relative? Missing the beginning.
-		We can easily concatenate:
-
-	http://www.ontla.on.ca/web/members/$1
-
-
-Then try it out!
-
-Click RUN URL
-
-Preview -> 105 lines
-
-
-This data can be easily downloaded.
-
-
-OK now for the 2nd step
-
-We want to use those URLs to harvest data from pages like http://www.ontla.on.ca/web/members/members_detail.do?locale=en&ID=7085
-
-Let's create a second import.io scraper using that URL
-
-Select the data we are interested in. Say, the email address, the current title, the political party.
-
-	Might work for one, what about others? Can we be sure the data is at the same place?
-
-	Let's try it out. import.io allows us to run a scraper on multiple URLs. Let's put 2-3 in that box.
-
-	Run, preview.
-
-	We see that some data has not been captured correctly.
-
-	Let's investigate.
-
-Show source / inspect. Use XPath to query elements
-
-Email:
-
-$x("//div[@class='mppcontact']//div[@class='email']")
-
-Party:
-
-It's actually after the second H2 element.
-
-$x("//div[@class='mppinfoblock']/h2[2]/following-sibling::p")
-
-Try it out on multiple URLs. Once we are confident, we can chain scrapers.
-
-Use the output of one scraper to drive the other.
-
-
-================================================================================================
-CHALLENGE
-
-Work on your own example. E.g. other province.
-
-Try selecting different data. Using XPath.
-
-Chain scrapers.
-================================================================================================
-
-
-
-Work on your own, ask questions. We can hang around a bit longer.
-
-
-
 
 END OF PART 1
 Mention SWC
@@ -451,6 +341,14 @@ Check out the results: in spiders directory:
 
 (ask if everyone is familiar with OBJECT-ORIENTED PROGRAMMING. If not, spend some time explaining.)
 
+================================================================================================
+CHALLENGE
+	Look at allowed_domains. What will happen?
+	Is this what we want? How should we edit this?
+================================================================================================
+
+
+
 
 START CRAWLING
 
@@ -467,7 +365,7 @@ Try now editing the spider:
 
 	class MppaddressesSpider(scrapy.Spider):
 	    name = "mppaddresses"
-	    allowed_domains = ["www.ontla.on.ca/web/members/members_current.do?locale=en"]
+	    allowed_domains = ["www.ontla.on.ca"]
 	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
 
 	    def parse(self, response):
@@ -501,7 +399,7 @@ In Chrome, we can use the console to try out XPath queries:
 Drilling down:
 > $x("//td[@class='mppcell']/a/@href")
 
-But now that we have started to play with Scrapy, let's try something out.
+But now that we have started to play with Scrapy, let's try something else out.
 
 Type
 	scrapy shell http://www.ontla.on.ca/web/members/members_current.do?locale=en/
@@ -521,6 +419,9 @@ Will this be an issue?
 	>>> testurl = response.xpath("//td[@class='mppcell']/a/@href").extract_first()
 	>>> response.urljoin(testurl)
 
+To exit: CTRL-D (or CTRL-Z in Windows?)
+
+
 Now back to the spider to bring it all together:
 
 	import scrapy
@@ -539,8 +440,11 @@ Scrapy Selectors support different methods:
 - xpath(): returns a list of selectors, each of which represents the nodes selected by the xpath expression given as argument.
 		This is what we'll use
 - css(): returns a list of selectors, each of which represents the nodes selected by the CSS expression given as argument.
+
 - extract(): returns a unicode string with the selected data.
+- extract_first()
 - re(): returns a list of unicode strings extracted by applying the regular expression given as argument.
+- re_first()
 
 ================================================================================================
 CHALLENGE
@@ -555,6 +459,8 @@ Looking good.
 
 OK, so we now have our URLs, how do we get further?
 
+
+LIMIT
 Good idea when debugging to limit to a subset. We've seen above that our code works for all URLs, going forward
 let's only run it on 5 of them.
 
@@ -572,12 +478,50 @@ let's only run it on 5 of them.
 
 
 
+RECURSIVE SCRAPING
+
+Start by defining a get_details method and chain it:
+
+import scrapy
+
+class MppaddressesSpider(scrapy.Spider):
+    name = "mppaddresses" # The name of this spider
+    
+    # The allowed domain and the URLs where the spider should start crawling:
+    allowed_domains = ["www.ontla.on.ca"]
+    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+    def parse(self, response):
+		# The main method of the spider. It scrapes the URL(s) specified in the
+		# 'start_url' argument above. The content of the scraped URL is passed on
+		# as the 'response' object.
+        
+		for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+			# This loops through all the URLs found inside an element of class 'mppcell'
+			
+			# Constructs an absolute URL by combining the response’s URL with a possible relative URL:
+			full_url = response.urljoin(url)
+			print("Found URL: "+full_url)
+            
+			# The following tells Scrapy to scrape the URL in the 'full_url' variable
+			# and calls the 'get_details() method below with the content of this
+			# URL:
+			yield scrapy.Request(full_url, callback=self.get_details)
+    
+	def get_details(self, response):
+		# This method is called on by the 'parse' method above. It scrapes the URLs
+		# that have been extracted in the previous step.
+		print("Visited URL: "+response.url)
+		
+
+EXPLAIN
+- yield
+- callback
+- ASYNCHRONOUS REQUESTS
 
 
 
-FIXME from here
-
-Let's have a look at the first result page.
+Let's have a look at the first detail page.
 What information are we interested in extracting?
 
 - Phone number(s)
@@ -590,7 +534,7 @@ In real life we would write queries that take care of this, for now we will just
 ================================================================================================
 CHALLENGE
 What are the XPath queries to extract the above details?
-Hint: keep using the Inspect tool + console trick
+Hint: keep using the Inspect tool + console trick OR Scrapy shell
 
 List of phone and fax numbers:
 $x("//div[@class='phone']/text()")
@@ -600,26 +544,18 @@ $x("//div[@class='email']/a/text()")
 
 ================================================================================================
 
+================================================================================================
+CHALLENGE - LEVEL 2
+Write a Regular Expression to grab the phone numbers.
+
+scrapy shell "http://www.ontla.on.ca/web/members/members_detail.do?locale=en&ID=7085"
+>>> response.xpath('//body').re(r'\d{3}-\d{3}-\d{4}')
+
+================================================================================================
+
 
 Use normalize-space to remove extra white space.
 
-
-Other trick, we can also use Scrapy in shell mode to try out XPath selectors:
-(actually an iPython shell)
-
-$ scrapy shell "http://www.ontla.on.ca/web/members/members_detail.do?locale=en&ID=7085"
-> In [1]: response.xpath("//div[@class='email']/a/text()").extract()
-> Out[1]: ['\nlalbanese.mpp@liberal.ola.org\n', '\nlalbanese.mpp.co@liberal.ola.org\n']
->
-> In [2]: response.xpath("//div[@class='email']/a/text()").extract()[0]
-> Out[2]: '\nlalbanese.mpp@liberal.ola.org\n'
->
-> In [3]: response.xpath("normalize-space(//div[@class='email']/a/text())").extract()[0]
-> Out[3]: 'lalbanese.mpp@liberal.ola.org'
-
-Etc.
-
-To exit: CTRL-D (or CTRL-Z in Windows?)
 
 
 Putting it all together:
