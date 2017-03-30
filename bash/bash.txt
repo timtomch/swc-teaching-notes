@@ -1,8 +1,14 @@
 IF REQ'D - WHO I AM
+INTRODUCE HELPERS
 HOW STICKIES WORK
 CONFIRM SCHEDULE
 
-Have people download the nelle folder https://timtomch.github.io/files/nelle.zip
+Have people download the nelle folder https://timtomch.github.io/files/nelle.zip / bit.ly/swcbash
+
+Question: using the terminal, who among you can navigate to your home directory and list the files it contains?
+Handout: linux_cheat_sheet.pdf
+
+
 
 
 WHAT IS THE SHELL AND WHY IT IS IMPORTANT
@@ -279,11 +285,14 @@ What if I want to remove the name of the file and only get the word count?
 - use tr & cut
 e.g. wc -l *.pdb | sort | tr -s ' ' | cut -d ' ' -f2
 
+                           ^- trim         ^- cut with delimiter
+
+
 What if instead of the number of lines I was interested in the number of bytes in every molecule file?
 - hint: use man wc
 - wc -c ...
 
-
+ (( BREAK ))
 
 
 

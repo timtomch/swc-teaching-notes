@@ -4,6 +4,8 @@ Good handout: https://services.github.com/kit/downloads/github-git-cheat-sheet.p
 
 WHY use version control? PHDcomics image
 
+Who uses "undo" in their editor? undo = simplest form of version control.
+
 Single user
 - nothing is lost, can get back to earlier stage - e.g. useful to get back to previously working version of code.
 - what version of code was used on day x to generate those results?
@@ -19,7 +21,7 @@ Multiple users
 EVERYTHING THAT CHANGES OVER TIME or NEEDS TO BE SHARED.
 
 
-On its own, DOES NOT REPLACE BACKUP (unless 2nd copy)
+On its own, DOES NOT REPLACE BACKUP
 
 It doesn’t require a server, unless sync and share are desired. Free GitHub provides server, no need to set one up. Community. Features for collaborative projects. Sharing.
 
@@ -44,7 +46,7 @@ Objectives:	- Configure git for the first time on a computer
 $ git config --global user.name “Thomas Guignard”
 $ git config --global user.email “tom”@timtom.ch”   <- email will likt to GitHub
 $ git config --global color.ui "auto"
-$ git config --global core.editor "nano -w"
+$ git config --global core.editor "nano -w"  <-- -w: disables word-wrapping
 
 Explain what each of these are doing.
 --global flag --> for every project on this computer. Also possible to have different settings for each directory (--local flag), etc. Type git config to get list of possible arguments.
@@ -293,6 +295,8 @@ $ git status --ignored
 QQQ	- If not done already, add data files and ignore them.
 
 
+(( BREAK ))
+
 
 5 - Adding a remote repo / GitHub
 OBJECTIVES:	- What’s a remote repo? Why is it useful?
@@ -302,6 +306,8 @@ OBJECTIVES:	- What’s a remote repo? Why is it useful?
 How can we collaborate with others on repo? We could technically email each other files and add them to our own repos, etc. Much easier to have a central copy, keep it on the web, and sync with it. Useful for 1 person (backup, multiple computers, sharing) or for a team (collaboration).
 
 Several services exist. You can even setup your own server. We will use GitHub here.
+
+Git is not GitHub. Git is software, GitHub is a service, a company.
 
 - Login to GitHub
 - Create new repo
@@ -463,9 +469,12 @@ We get the updated, corrected file. We don’t need to merge again, git knows so
 
 QQQ	- When working collaboratively, why is it a good idea to start pulling
 	  before starting a new work session?
-	- Try resolving conflicts using 2 copies. If enough time.
+	- Try resolving conflicts using 2 copies. If enough time. Collaborate in pairs. Add collaborators in GitHub
 	- What happens if you have a conflict on an image file? How can we resolve?
 
+	Also possible to discard either version:
+	$ git checkout --ours file.txt
+	$ git checkout --theirs file.txt
 
 
 

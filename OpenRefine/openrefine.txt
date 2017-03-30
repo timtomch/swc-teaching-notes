@@ -287,6 +287,9 @@ Click the Extract button
 
 6. EXPORTING DATA
 
+Don't forget, your data is not stored in the cloud. Even though OR lives in a browser, all data is local.
+Also it's not stored in a very user-friendly way/place. Best to export it once you're done working with it.
+
 Export menu
 	- Different formats
 
@@ -309,21 +312,32 @@ ADVANCED:
 
 7. RECONCILIATION AND APIs
 
-How can we enrich our data? Say we want to get autor IDs from VIAF (Virtual International Authority File)
+How can we enrich our data? 
 
-First, let's filter a manageable part of the data, using date of publication, text filter, choose a year with about 10 results, e.g. 1808.
+Can we retrieve data from URLs?
 
-Select Add column based on URL
+First, let's filter a manageable part of the data
+ISSN column. Star one line + Facet by start. To select a single line. Faster.
 
-Name VIAF JSON
-Expression: "http://viaf.org/viaf/AutoSuggest?query="+ escape(value,'url')
-Check delay to not overwhelm server
 
-we see that some will have returned data
+Steps:
+1. Edit column -> Add column by fetching URL
+2. GREL expression to build URL
 
-To extract VIAFID
+	Expression: "http://api.crossref.org/journals/"+ escape(value,'url')
+	Check delay to not overwhelm server
+	
 
-Text transform, enter forEach(value.parseJson().result, v, v.viafid)
+3. Fetch JSON data
+4. Parse JSON or HTML/XML
+
+Add another column
+
+	value.parseJson().message.title
+	   ^-- keep existing JSON response
+	   
+Also possible to Edit cells with Transform
+
 
 8. RECONCILIATION
 
@@ -342,6 +356,13 @@ Of interest to librarians:
 (freebase is phasing out)
 
 Add standard service: http://iphylo.org/~rpage/phyloinformatics/services/reconciliation_viaf.php
+
+
+Publisher column example
+Add standard service http://refine.codefork.com/reconcile/viaf
+	(if you plan to use this a lot, install your own instance instead)
+	
+	-> recongizes type of "entities"
 
 
 
