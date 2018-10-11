@@ -54,8 +54,8 @@ CONTENTS
 1. HOW TO INSTALL AND RUN
 
 Download from openrefine.org
-	- Google Refine 2.5 STABLE
-	- Open Refine 2.6 BETA
+	- Open Refine 2.8 STABLE
+	- Open Refine 3.0 BETA
 Requires JAVA.
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
@@ -64,7 +64,7 @@ Internet Explorer is not supported. Use Chrome or Firefox.
 
 2. IMPORT DATA & CREATE PROJECT
 
-Download sample file from bit.ly/openrefine
+Download sample file from http://bit.ly/libORsample
 OR
 Use "from URL" functionality - http:// has to be specified
 
@@ -85,6 +85,7 @@ ADVANCED:
 -------------------------------------------------
 
 Please uncheck "treat dates as dates etc."
+UTF-8 encoding
 Once you're finished, create project.
 
 
@@ -101,7 +102,7 @@ SORT
 Choose a column, sort
 See new drop down menu
 - Similar to Excel "filter sort" -> temporary (unlike general Excel sort)
-- Can be made permanent.
+- Can be made permanent - see the little Sort drop down on top
 Add more columns
 
 FACETS
@@ -166,6 +167,27 @@ It works, but what happened to the rows?
 	OR didn't just create new rows and loose the relationship between authors.
 	Show as records instead of rows
 		Notice that "rows" belonging to the same records are grouped together (See numbering)
+
+-------------------------------------------------
+ACTIVITY:
+- Why is OpenRefine handling this situation by creating new (linked) rows?
+  Instead of, say, multiple columns?
+  
+-> Allows for uneven number of authors
+-------------------------------------------------	
+
+To do it the other way around, use "join multi-value cells"
+	You can specify a different separator
+	Choose separators wisely
+	
+	Can be a good workflow for fixing data
+		Split
+		Work on data
+		Join again
+
+
+
+
 
 CLUSTERING
 Now, do you trust the Authors column to always display an author the same way?
