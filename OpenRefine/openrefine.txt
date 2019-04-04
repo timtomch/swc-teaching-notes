@@ -54,8 +54,8 @@ CONTENTS
 1. HOW TO INSTALL AND RUN
 
 Download from openrefine.org
-	- Google Refine 2.5 STABLE
-	- Open Refine 2.6 BETA
+	- Open Refine 2.8 STABLE
+	- Open Refine 3.0 BETA
 Requires JAVA.
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
@@ -64,7 +64,7 @@ Internet Explorer is not supported. Use Chrome or Firefox.
 
 2. IMPORT DATA & CREATE PROJECT
 
-Download sample file from bit.ly/openrefine
+Download sample file from http://bit.ly/libORsample
 OR
 Use "from URL" functionality - http:// has to be specified
 
@@ -85,6 +85,7 @@ ADVANCED:
 -------------------------------------------------
 
 Please uncheck "treat dates as dates etc."
+UTF-8 encoding
 Once you're finished, create project.
 
 
@@ -101,7 +102,7 @@ SORT
 Choose a column, sort
 See new drop down menu
 - Similar to Excel "filter sort" -> temporary (unlike general Excel sort)
-- Can be made permanent.
+- Can be made permanent - see the little Sort drop down on top
 Add more columns
 
 FACETS
@@ -167,6 +168,27 @@ It works, but what happened to the rows?
 	Show as records instead of rows
 		Notice that "rows" belonging to the same records are grouped together (See numbering)
 
+-------------------------------------------------
+ACTIVITY:
+- Why is OpenRefine handling this situation by creating new (linked) rows?
+  Instead of, say, multiple columns?
+  
+-> Allows for uneven number of authors
+-------------------------------------------------	
+
+To do it the other way around, use "join multi-value cells"
+	You can specify a different separator
+	Choose separators wisely
+	
+	Can be a good workflow for fixing data
+		Split
+		Work on data
+		Join again
+
+
+
+
+
 CLUSTERING
 Now, do you trust the Authors column to always display an author the same way?
 Try doing a text filter on the Authors column and type "vakeel"
@@ -176,6 +198,7 @@ There are probably any number of permutation and short variations in that author
 But OpenRefine has a very powerful option: clustering.
 
 (remove the filter first)
+(separate authors if not done already)
 Authors -> Edit cells -> Cluster and edit
 
 This blows my mind, every time.
@@ -264,6 +287,33 @@ ACTIVITY:
 	- Try to find the GREL function that will do this
 		value.toString("dd MMMM yyyy")
 -------------------------------------------------	
+
+
+(if enough time) Demonstrate Booleans & Arrays
+
+Make sure Authors are separated
+Authors -> Custom Text Facet
+Type GREL formula value.contains(",")
+
+
+It creates a boolean facet
+What's happening with those authors? They are separating family name and given name differently.
+What if we wanted to bring them all to First name Last name? (here I'm assuming I'm a context where that's how names are organized, not always the case)
+
+Select only those with a comma
+Authors -> Edit cells -> Transform...
+
+value.match(/(.*),(.*)/)
+            ^ these   ^  indicate that that's a Regular Expression inside a GREL expression
+			
+Look at the result. What's that? These are arrays.
+We could stop there and do the next bit in a different colum or a different step.
+Or we can continue to type the formula:
+
+value.match(/(.*),(.*)/).reverse().join(" ")
+
+
+
 	
 
 5. SAVE AND REUSE WORKFLOWS
@@ -287,6 +337,9 @@ Click the Extract button
 
 6. EXPORTING DATA
 
+Don't forget, your data is not stored in the cloud. Even though OR lives in a browser, all data is local.
+Also it's not stored in a very user-friendly way/place. Best to export it once you're done working with it.
+
 Export menu
 	- Different formats
 
@@ -309,21 +362,43 @@ ADVANCED:
 
 7. RECONCILIATION AND APIs
 
-How can we enrich our data? Say we want to get autor IDs from VIAF (Virtual International Authority File)
+How can we enrich our data? 
 
-First, let's filter a manageable part of the data, using date of publication, text filter, choose a year with about 10 results, e.g. 1808.
+Can we retrieve data from URLs?
 
-Select Add column based on URL
+First, let's filter a manageable part of the data
+ISSN column. Star one line + Facet by star. To select a single line. Faster.
 
-Name VIAF JSON
-Expression: "http://viaf.org/viaf/AutoSuggest?query="+ escape(value,'url')
-Check delay to not overwhelm server
+Steps: on the ISSN column
+1. Edit column -> Add column by fetching URL
+2. GREL expression to build URL
 
-we see that some will have returned data
+	Expression: "http://api.crossref.org/journals/"+ escape(value,'url')
+	Check delay to not overwhelm server
+	Check display error instead of null
+	
+	NEW this now requires a user and password - apparently you need to have a Crossref subscription :(
+	
+	Try instead 
+	"http://www.journaltocs.ac.uk/api/journals/"+value.escape('url')+"?user=tom@timtom.ch"
+	Generates XML instead of JSON
+	
 
-To extract VIAFID
+To parse JSON
+Add another column
 
-Text transform, enter forEach(value.parseJson().result, v, v.viafid)
+	value.parseJson().message.title
+	   ^-- keep existing JSON response
+	   
+To parse XML
+
+    value.parseHtml().select('item title')[0].htmlText()
+
+Also possible to Edit cells with Transform
+
+
+
+
 
 8. RECONCILIATION
 
@@ -339,13 +414,46 @@ Of interest to librarians:
 - FundRef (e.g. to link publications to funding source)
 - FAST (Faceted Application of Subject Terminology)
 
-(freebase is phasing out)
-
 Add standard service: http://iphylo.org/~rpage/phyloinformatics/services/reconciliation_viaf.php
 
 
 
-Google Fusion example
+
+Example:
+In the Publisher column, choose Reconcile->Start Reconciling
+
+Add standard service http://refine.codefork.com/reconcile/viaf
+	(if you plan to use this a lot, install your own instance instead)
+	
+	-> recongizes type of "entities"
+	
+	Pre-analyzes the dataset and selects type of data, this is why it displays "Corporate Name" in first column.
+	Try it on the Authors column too
+	
+	Can add additional columns to help narrow down search - leave blank for now
+	
+	Uncheck Auto-match (for now, we want to demonstrate how this works)
+
+	Create Text Facet on Publisher's column to demonstrate
+		Show International Union of Crystallography
+		MDPI
+
+
+
+Mention Extensions
+	See http://openrefine.org/download.html
+	e.g. RDF extension for exporting in RDF
+	
+Cross function
+	The ‘cross’ function takes a value from the OpenRefine project you are working on, 
+	and looks for that value in a column in another OpenRefine project. 
+	If it finds one or more matching rows in the second OpenRefine project, 
+	it returns an array containing the rows that it has matched.
+
+
+
+
+Google Fusion example - ONLY WITH DATASET WiTH LOCATION
 - First filter by year to limit number of lines, e.g. 1852
 - Custom Tabular Exporter, limit columns but be sure to include place of publication
 - Upload to Google Fusion table

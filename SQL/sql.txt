@@ -1,3 +1,5 @@
+GENERAL SQL LESSON
+
 Prep
 - download db file - http://files.software-carpentry.org/
 - make sure sqlite3 started

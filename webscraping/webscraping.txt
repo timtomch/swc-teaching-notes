@@ -1,5 +1,5 @@
-WEB SCRAPING LESSON 0.2
-November 2016
+WEB SCRAPING LESSON 0.3
+February 2017
 
 - Who am I?
 - Introduce others (Kim)
@@ -36,12 +36,12 @@ Example:
 http://www.parl.gc.ca/Parliamentarians/en/members
 
 	Difference between UNSTRUCTURED and STRUCTURED data
-	
+
 	For humans, unstructured. We recognize names, provinces, political party, etc.
 	But a machine doesn't, unless you tell it what is what.
-	
+
 	Computers need LABELS.
-	This is a good website, because data is actually structured. 
+	This is a good website, because data is actually structured.
 		View Source. DIVs
 		Export as XML/CSV. -> STRUCTURED DATA
 
@@ -49,7 +49,7 @@ Compare with
 https://www.parliament.uk/mps-lords-and-offices/mps/
 
 	As humans, we recognize names, parties, etc.
-	
+
 	But this data is not as nicely structured.
 		View Source. Table
 
@@ -67,10 +67,10 @@ XPath (which stands for XML Path Language) is an EXPRESSION LANGUAGE used to spe
 
 	XML and HTML are both MARKUP LANGUAGES. Use some structure to separate elements.
 	HTML is actually a special case of XML.
-	
-	
+
+
 	XML basic syntax
-	
+
 	<catfood>
 		<manufacturer>Purina</manufacturer>
 		<address> 12 Cat Way, Boise, Idaho, 21341</address>
@@ -80,7 +80,7 @@ XPath (which stands for XML Path Language) is an EXPRESSION LANGUAGE used to spe
 	Nodes - Elements, attributes, text nodes
 	Opening and closing tags around elements
 	Nesting
-	Attribute values 
+	Attribute values
 
 XPath is a language to navigate an XML document to reach a particular element or group of elements.
 
@@ -94,12 +94,12 @@ $x("/html/head/title/text()")
 
 		^-- explain that path
 
-================================================================================================	
+================================================================================================
 CHALLENGE
 
 	Write an XPath query that selects the “Introduction” title above and try running it in the console.
-		
-================================================================================================			
+
+================================================================================================
 
 
 Look at the HTML node tree.
@@ -122,38 +122,38 @@ $x("/html/body/div/blockquote")
 
 We can use // to skip levels:
 
-$x("//blockquote") 
+$x("//blockquote")
 
-================================================================================================	
+================================================================================================
 CHALLENGE
 
 	Why is the second array longer than the first?
-	
+
 		The first one only selects blockquotes that are directly under the first div element.
 		The second query selects all blockquotes, regardless of where they are (also nested ones)
-================================================================================================			
+================================================================================================
 
 Use the class attribute to filter down elements:
 
 $x("//blockquote[@class='challenge']")
 
 		^-- [] notation is a PREDICATE, it means "select blockquote elements WHERE this condition is met"
-		
-================================================================================================	
+
+================================================================================================
 CHALLENGE (easy)
 
 	Select the Introduction title by ID.
-	
+
 		$x("/html/body/div/h1[@id='introduction']")
 ================================================================================================
 
-================================================================================================	
+================================================================================================
 CHALLENGE (harder)
 
 	Select this challenge box.
-	
+
 		$x("//h2[@id = 'select-this-challenge-box']/..")[0]
-================================================================================================	
+================================================================================================
 
 
 
@@ -166,60 +166,60 @@ There are different options to scrape data:
 
 - Semi-manually, using tools such as browser extensions to indicate what data needs to be scraped.
 	Good when data is somehow structured, e.g. table rows, titles in bold, etc.
-	
+
 Examples: Chrome Scraper extension
 		(try ffscrap in Firefox)
-	
+
 Going back to British parliament example: https://www.parliament.uk/mps-lords-and-offices/mps/
 	- Select first row of table
 	- Right click -> Scrape similar
-	
+
 Uses XPath selectors -> cf XPath lesson
-	
+
 We can try this out
 	$x("//tbody/tr[td]")
 					^-- remember predicates? What does this mean?
 							Select TR elements that contain a TD element.
-	
+
 Column selectors are also XPath expressions.
-	
+
 	Remember that XPath queries are always relative to context. First Selector sets context.
 	We can try it out by typing
-	
+
 	$x("//tbody/tr[td]/*[1]")
-	
+
 		Export to Google Docs or clipboard/TSV.
 		Can be cleaned up further using OpenRefine (e.g. separate first, last name, party)
-	
+
 Try copy-pasting results into text editor (TSV data)
 	Lots of white space
-	
-Replace Columns with 
-	
+
+Replace Columns with
+
 normalize-space(*[1])
 normalize-space(*[2])
-	
 
-================================================================================================	
-CHALLENGE 
+
+================================================================================================
+CHALLENGE
 
 	Scrape the list of Ontario MPPs: www.ontla.on.ca/web/members/members_current.do?locale=en
-	
+
 	Once you get the name and riding, try adding a third column with the URL for the detail page
 	(under the name of politician).
-	
+
 		Add column
 		*[1]/a/@href
-		
+
 		Part of the URL is missing. Use concat() function
 		concat('http://www.ontla.on.ca/web/members/',*[1]/a/@href)
-================================================================================================	
+================================================================================================
 
 Custom XPATH
-		
+
 Sometimes not as clear cut. Addresses of Canadian MPs:
 	http://www.parl.gc.ca/Parliamentarians/en/members/addresses
-	
+
 	- Select 1st MP, Scrape similar
 	- Not what we want
 
@@ -227,145 +227,35 @@ Useful to inspect web page to find structure.
 
 	- Chrome or Firefox -> inspect element
 	- MPs are inside ULs
-	
+
 Try changing Xpath with
-	
+
 //body/div[1]/div/ul
-	
+
 Click "Scrape"
-	
+
 Better, but still unstructured. We see that name, addresses separated by LI elements.
-	
+
 	In Columns, replace . by ./li and rename column.
-	
+
 	Add new columns:
 	./li[1] -> Name
 	./li[2] -> Hill Office
 	./li[3] -> Constituency
-		
+
 	Etc. Then export and clean up using OpenRefine.
-	
-	
-================================================================================================	
+
+
+================================================================================================
 CHALLENGE
 
 	Keep working on the example above to add a column for the Hill Office phone number and fax number for each MP.
-	
+
 		./li[2]/span[3] -> Hill Office Phone
 		./li[2]/span[5] -> Hill Office Fax
-	
-	
+
+
 ================================================================================================
-
-
-CHAINING SCRAPERS
-
-Going back to the Ontario MPP example.
-
-So we have a list of MPPs, which each have an URL to a detail page.
-What if we want a spreadsheet that includes some of the information from that detail page.
-
-We can write a first scraper to get the URLs (we did so before)
-Then a second one for the detailed information.
-
-Scraper cannot do that. We need to use a bit more advanced tools.
-Next week we will see how to build our own scraper using Python, but now we can use
-import.io
-
-	Free plan -> max 500 URLs per month
-		(I have a demo Premium plan)
-		Watch out when testing so as not to blow the limit.
-		
-Has a nice WYSIWYG like interface for scraping
-
-Try loading the URL for the MPP list
-(you are welcome to use another example, e.g. other province)
-
-http://www.ontla.on.ca/web/members/members_current.do?locale=en
-
-Does a moderately good job understanding that there's a table on that page and that we might be interested
-in getting that data out.
-
-It actually captures HTML for the name column. URL is embedded. What if we want this in a separate column.
-
-Add column, select name, include HTML.
-
-Then in table view, select 
-	Output HTML
-	
-	Write a Regular Expression to extract the href bit:
-	
-	href="(.*)"
-			^--- will capture what's in the parentheses
-			we get what's captured by using the $1 variable in the second fields
-	
-	$1
-	
-		Remember that those URLs are relative? Missing the beginning.
-		We can easily concatenate:
-		
-	http://www.ontla.on.ca/web/members/$1
-	
-	
-Then try it out!
-
-Click RUN URL
-
-Preview -> 105 lines
-
-
-This data can be easily downloaded.
-
-
-OK now for the 2nd step
-
-We want to use those URLs to harvest data from pages like http://www.ontla.on.ca/web/members/members_detail.do?locale=en&ID=7085
-
-Let's create a second import.io scraper using that URL
-
-Select the data we are interested in. Say, the email address, the current title, the political party.
-
-	Might work for one, what about others? Can we be sure the data is at the same place?
-	
-	Let's try it out. import.io allows us to run a scraper on multiple URLs. Let's put 2-3 in that box.
-	
-	Run, preview.
-	
-	We see that some data has not been captured correctly.
-	
-	Let's investigate.
-	
-Show source / inspect. Use XPath to query elements
-
-Email:
-
-$x("//div[@class='mppcontact']//div[@class='email']")
-
-Party:
-
-It's actually after the second H2 element.
-
-$x("//div[@class='mppinfoblock']/h2[2]/following-sibling::p")
-
-Try it out on multiple URLs. Once we are confident, we can chain scrapers.
-
-Use the output of one scraper to drive the other.
-
-
-================================================================================================	
-CHALLENGE
-
-Work on your own example. E.g. other province.
-
-Try selecting different data. Using XPath.
-
-Chain scrapers.
-================================================================================================	
-
-
-
-Work on your own, ask questions. We can hang around a bit longer.
-
 
 
 
@@ -377,31 +267,42 @@ Mention SWC
 
 4 - WRITING WEB SPIDERS - using Scrapy
 
-Verify that Scrapy 1.1.0 is installed
+(source activate scraping)
+
+
+Verify that Scrapy 1.3.2 is installed (though should also work with older version)
+  Use conda install -c conda-forge scrapy to get latest version
 	Type scrapy version in Terminal
 
 	Requires Python 2.7+ or 3.4+
 	Should work in either environment
 
+	If you are familiar with environments, it might be helpful to install it in an environment
+	e.g.
+	conda create --name scrapy python=3
+	source activate scrapy
+	conda install -c conda-forge scrapy
+	(to get the latest version)
+
 
 EXPLAIN EXAMPLE
-http://www.collegesinstitutes.ca/our-members/member-directory/
+http://www.ontla.on.ca/web/members/members_current.do?locale=en
 
 
 We will work in two steps, first gather all URLs
-Then extract data for each college
+Then extract data for each minister
 
-	
+
 Initialize Scrapy project
 	Navigate to where you want to create the project
-	Type scrapy startproject cancolleges
+	Type scrapy startproject ontariompps
 
 	This creates the following structure:
-	
-	cancolleges/
+
+	ontariompps/
 	    scrapy.cfg            # deploy configuration file
 
-	    cancolleges/          # project's Python module, you'll import your code from here
+	    ontariompps/          # project's Python module, you'll import your code from here
 	        __init__.py
 
 	        items.py          # project items file
@@ -414,73 +315,71 @@ Initialize Scrapy project
 	            __init__.py
 	            ...
 
-
-DEFINING ITEMS
-	This is where the data extracted will be stored.
-	Items work like Python dictionaries.
-	
-	Remember that we will start by gathering all the URLs for the college pages.
-	Let's start by defining an Item to store the College URLs.
-	
-	Edit cancolleges/cancolleges/items.py
-	
-	(You will see Scrapy has pre-populated this file)
-	
-	import scrapy
-
-	class CancollegesItem(scrapy.Item):
-	    # define the fields for your item here like:
-	    # name = scrapy.Field()
-	    name = scrapy.Field()
-	    link = scrapy.Field()
+(yes, confusingly, scrapy makes a ontariompps folder within a ontariompps folder...)
 
 
 DEFINING A SPIDER
-	Spiders are the business end of the scraper. It's the bit of code that combs through a website and harvest data.
-	They define an initial list of URLs to download, how to follow links, and how to parse the contents of pages to extract items.
-	
-	Create a new file called colleges_spider.py under cancolleges/cancolleges/spiders
-	with
-	
+Spiders are the business end of the scraper. It's the bit of code that combs through a website and harvest data.
+They define an initial list of URLs to download, how to follow links, and how to parse the contents of pages to extract items.
+
+Create a new spider with
+
+scrapy genspider mppaddresses www.ontla.on.ca/web/members/members_current.do?locale=en
+
+WARNING do not add http:// because Scrapy is still a bit stupid.
+
+Check out the results: in spiders directory:
+
 	import scrapy
 
-	class CollegeSpider(scrapy.Spider):
-	    name = "colleges"  # Identifies the scraper, has to be UNIQUE but does not need to be same name as spider filename
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"  # The name of this spider
 	
-		# allowed_domains = ["collegesinstitutes.ca"] ### REAL URLS
-	    # start_urls = ["http://www.collegesinstitutes.ca/our-members/member-directory/"]
-	
-	    allowed_domains = ["labs.timtom.ch"]
-	    start_urls = ["http://labs.timtom.ch/swc-teaching-notes/webscraping/data/www.collegesinstitutes.ca/our-members/member-directory/index.html"]
-		
+		# The allowed domain and the URLs where the spider should start crawling:
+	    allowed_domains = ["www.ontla.on.ca/web/members/members_current.do?locale=en"]
+	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+		# And a 'parse' function, which is the main method of the spider. The content of the scraped
+		# URL is passed on as the 'response' object:
 	    def parse(self, response):
-			# a method of the spider, which will be called with the downloaded 
-			# Response object of each start URL. The response is passed to the method as the first and only argument.
-	        print response.text
+	        pass
+
+(ask if everyone is familiar with OBJECT-ORIENTED PROGRAMMING. If not, spend some time explaining.)
+
+================================================================================================
+CHALLENGE
+	Look at allowed_domains. What will happen?
+	Is this what we want? How should we edit this?
+================================================================================================
+
+
+
 
 START CRAWLING
-	
-	Try it out by moving to project's top level directory and type
-		scrapy crawl colleges
-						^-- name of the spider we just created
-	
-		Should return a bunch of text, including the HTML content of the page we just scraped.
 
-	This is not very convenient, so try instead
-	
+Try it out by moving to project's top level directory and type
+	scrapy crawl mppaddresses
+				       ^-- name of the spider we just created
+
+Should return some debug output, look for code 200 (this means OK).
+
+Try now editing the spider:
+
 	import scrapy
 
-	class CollegeSpider(scrapy.Spider):
-	    name = "colleges"
-	   	allowed_domains = ["labs.timtom.ch"]
-	    start_urls = ["http://labs.timtom.ch/swc-teaching-notes/webscraping/data/www.collegesinstitutes.ca/our-members/member-directory/index.html"]
-	
+
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"
+	    allowed_domains = ["www.ontla.on.ca"]
+	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
 	    def parse(self, response):
 	        with open("test.html", 'wb') as file:
 	            file.write(response.body)
 
-	Should create file "test.html". Look inside this file.
-	
+
+Crawl again. This time it should have created test.html file with contents.
+
 
 OK, so how do we now access the URLs we're interested in?
 Let's start by going back to the website and use the Inspect tool to find the elements we're looking for.
@@ -496,127 +395,289 @@ Here are some examples of XPath expressions and their meanings:
 
 
 In Chrome, we can use the console to try out XPath queries:
-> $x('//*[@class="facetwp-results"]')
+> $x("//td[@class='mppcell']")
 
 	This actually only works if there is only one class. More general answer:
-	https://stackoverflow.com/questions/8808921/selecting-a-css-class-with-xpath
+	> `//*[contains(concat(" ", normalize-space(@class), " "), " mppcell ")]`
 
 
 Drilling down:
-> $x('//*[@class="facetwp-results"]/li/a/@href')
+> $x("//td[@class='mppcell']/a/@href")
 
-Once we found what we're looking for, let's edit the Spider accordingly:
+But now that we have started to play with Scrapy, let's try something else out.
+
+Type
+	scrapy shell http://www.ontla.on.ca/web/members/members_current.do?locale=en/
+
+This allows us to test Python/Scrapy functions live on the scraped page.
+
+	>>> response.xpath("//td[@class='mppcell']/a/@href")
+	
+Point out that the result is an ARRAY of SELECTORS
+We are interested in the actual content pointed by the selectors. And just the first one for now:
+
+	>>> response.xpath("//td[@class='mppcell']/a/@href").extract_first()
+
+Looking in detail, we see the links are RELATIVE.
+Will this be an issue?
+
+	>>> testurl = response.xpath("//td[@class='mppcell']/a/@href").extract_first()
+	>>> response.urljoin(testurl)
+
+To exit: CTRL-D (or CTRL-Z in Windows?)
+
+
+Now back to the spider to bring it all together:
+
+	import scrapy
+
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"
+	    allowed_domains = ["www.ontla.on.ca"]
+		start\_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+	    def parse(self, response):
+	        for url in response.xpath("//*[@class='mppcell']/a/@href").extract():
+	            print(response.urljoin(url))
+
 
 Scrapy Selectors support different methods:
 - xpath(): returns a list of selectors, each of which represents the nodes selected by the xpath expression given as argument.
 		This is what we'll use
 - css(): returns a list of selectors, each of which represents the nodes selected by the CSS expression given as argument.
+
 - extract(): returns a unicode string with the selected data.
+- extract_first()
 - re(): returns a list of unicode strings extracted by applying the regular expression given as argument.
+- re_first()
+
+================================================================================================
+CHALLENGE
+	Why am I using extract() and not extract_first() ?
+	Why the for loop?
+================================================================================================
 
 
-
-	import scrapy
-
-	class CollegeSpider(scrapy.Spider):
-	    name = "colleges"
-	    allowed_domains = ["labs.timtom.ch"]
-	    start_urls = ["http://labs.timtom.ch/swc-teaching-notes/webscraping/data/www.collegesinstitutes.ca/our-members/member-directory/index.html"]
-		
-	    def parse(self, response):
-	        for url in response.xpath('//*[@class="facetwp-results"]/li/a/@href').extract():
-	            print url
+	scrapy crawl mppaddresses
 
 Looking good.
 
 OK, so we now have our URLs, how do we get further?
 
-Let's have a look at the first college page.
+
+LIMIT
+Good idea when debugging to limit to a subset. We've seen above that our code works for all URLs, going forward
+let's only run it on 5 of them.
+
+	import scrapy
+
+
+	class MppaddressesSpider(scrapy.Spider):
+	    name = "mppaddresses"
+	    allowed_domains = ["www.ontla.on.ca"]
+	    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+	    def parse(self, response):
+	        for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+	            print(response.urljoin(url))
+
+
+
+RECURSIVE SCRAPING
+
+Start by defining a get_details method and chain it:
+
+import scrapy
+
+class MppaddressesSpider(scrapy.Spider):
+    name = "mppaddresses" # The name of this spider
+    
+    # The allowed domain and the URLs where the spider should start crawling:
+    allowed_domains = ["www.ontla.on.ca"]
+    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+    def parse(self, response):
+		# The main method of the spider. It scrapes the URL(s) specified in the
+		# 'start_url' argument above. The content of the scraped URL is passed on
+		# as the 'response' object.
+        
+		for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+			# This loops through all the URLs found inside an element of class 'mppcell'
+			
+			# Constructs an absolute URL by combining the response’s URL with a possible relative URL:
+			full_url = response.urljoin(url)
+			print("Found URL: "+full_url)
+            
+			# The following tells Scrapy to scrape the URL in the 'full_url' variable
+			# and calls the 'get_details() method below with the content of this
+			# URL:
+			yield scrapy.Request(full_url, callback=self.get_details)
+    
+	def get_details(self, response):
+		# This method is called on by the 'parse' method above. It scrapes the URLs
+		# that have been extracted in the previous step.
+		print("Visited URL: "+response.url)
+		
+
+EXPLAIN
+- yield
+- callback
+- ASYNCHRONOUS REQUESTS
+
+
+
+Let's have a look at the first detail page.
 What information are we interested in extracting?
 
-- Name
-- Website
-- Address
-- Telephone
+- Phone number(s)
+- Email address(es)
+
+Look at some examples. There are inconsistencies (not all numbers or emails are in the same location).
+In real life we would write queries that take care of this, for now we will just harvest the 1st number.
+
 
 ================================================================================================
 CHALLENGE
 What are the XPath queries to extract the above details?
-Hint: keep using the Inspect tool + console trick
+Hint: keep using the Inspect tool + console trick OR Scrapy shell
 
-$x('//*[@class="page-title"]')
-$x('//*[@class="mem-contact"]/p[2]//a/@href')
-$x('//*[@class="mem-contact"]/p[1]')
-$x('//*[@class="mem-contact"]/p[2]/node()[2]') OR $x('//*[@class="mem-contact"]/p[2]/text()[1]')
+List of phone and fax numbers:
+$x("//div[@class='phone']/text()")
+
+List of email addresses:
+$x("//div[@class='email']/a/text()")
+
+================================================================================================
+
+================================================================================================
+CHALLENGE - LEVEL 2
+Write a Regular Expression to grab the phone numbers.
+
+scrapy shell "http://www.ontla.on.ca/web/members/members_detail.do?locale=en&ID=7085"
+>>> response.xpath('//body').re(r'\d{3}-\d{3}-\d{4}')
+
 ================================================================================================
 
 
-Other trick, we can also use Scrapy in shell mode to try out XPath selectors:
-(actually an iPython shell)
-
-$ scrapy shell "http://www.collegesinstitutes.ca/members/alberta-college-of-art-and-design/"
-In [1]: reponse.body
-In [2]: response.xpath('//*[@class="page-title"]')
-	Whoops, is that what we want?
-In [3]: response.xpath('//*[@class="page-title"]/text()').extract()
-
-Etc.
-
-To exit: CTRL-D (or CTRL-Z in Windows?)
+Use normalize-space to remove extra white space.
 
 
-How do we bring this back together?
 
-Remember the CanCollegesItem we defined?
+Putting it all together:
 
-	import scrapy
-	from cancolleges.items import CancollegesItem # We need this so that Python knows about the Item
+# -*- coding: utf-8 -*-
+import scrapy
 
-	class CollegeSpider(scrapy.Spider):
-	    name = "colleges"
-	    allowed_domains = ["collegesinstitutes.ca"]
-	    start_urls = ["http://www.collegesinstitutes.ca/our-members/member-directory/"]
 
-	    def parse(self, response):
-	        for url in response.xpath('//*[@class="facetwp-results"]/li/a/@href').extract():
-	            yield scrapy.Request(url, callback=self.get_details) # Callback to the get_details() method
+class MppaddressesSpider(scrapy.Spider):
+    name = "mppaddresses" # The name of this spider
+    
+    # The allowed domain and the URLs where the spider should start crawling:
+    allowed_domains = ["www.ontla.on.ca"]
+    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
 
-	    def get_details(self, response):
-	        item = CancollegesItem()
-	        item['name'] = response.xpath('//*[@class="page-title"]/text()').extract()
-		    item['link'] = response.xpath('//*[@class="mem-contact"]/p[2]//a/@href').extract()
-	        yield item # Return the item
+    def parse(self, response):
+		# The main method of the spider. It scrapes the URL(s) specified in the
+        # 'start_url' argument above. The content of the scraped URL is passed on
+		# as the 'response' object.
+        for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+            # This loops through all the URLs found inside an element of class 'mppcell'
+            
+            # Constructs an absolute URL by combining the response’s URL with a possible relative URL:
+            full_url = response.urljoin(url)
+            print("Found URL: "+full_url)
+            
+            # The following tells Scrapy to scrape the URL in the 'full_url' variable
+            # and calls the 'get_details() method below with the content of this
+            # URL:
+            yield scrapy.Request(full_url, callback=self.get_details)
+    
+    def get_details(self, response):
+		# This method is called on by the 'parse' method above. It scrapes the URLs
+        # that have been extracted in the previous step.
+	    name_detail = response.xpath("normalize-space(//div[@class='mppdetails']/h1/text())").extract_first()
+	    phone_detail = response.xpath("normalize-space(//div[@class='phone']/text())").extract_first()
+	    email_detail = response.xpath("normalize-space(//div[@class='email']/a/text())").extract_first()
+	    print("Found details: " + name_detail + ', ' + phone_detail + ', ' + email_detail)
 
+
+
+YIELD:
 yield is like return, but for potentially large datasets. Basically when you don't know from the beginning
 how big the dataset will be.
-	Also:
-	return implies that the function is returning control of execution to the point where the function was called. 
+Also:
+	return implies that the function is returning control of execution to the point where the function was called.
 	yield, however, implies that the transfer of control is temporary and voluntary, and our function expects to regain it in the future.
 	From http://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
 
 
-================================================================================================
-CHALLENGE
-Add the other elements to the Spider.
-Remember to edit the Item definition to allow for all fields to be taken care of.
 
-Advanced:
-Check http://www.collegesinstitutes.ca/members/aurora-college/
-Look at column with enrollment numbers. Several colleges have these. Can you incorporate them in your spider?
-Don't forget to update the Item accordingly
-================================================================================================
+DEFINING ITEMS
+	This is where the data extracted will be stored.
+	Items work like Python dictionaries.
+
+(editing ontariompps/ontariompps/items.py)
+
+	import scrapy
+
+	class OntariomppsItem(scrapy.Item):
+	    # define the fields for your item here like:
+	    name = scrapy.Field()
+	    phone = scrapy.Field()
+		email = scrapy.Field()
+
+Now use it in the spider:
+
+import scrapy
+from ontariompps.items import OntariomppsItem # We need this so that Python knows about the item object
+
+class MppaddressesSpider(scrapy.Spider):
+    name = "mppaddresses" # The name of this spider
+    
+    # The allowed domain and the URLs where the spider should start crawling:
+    allowed_domains = ["www.ontla.on.ca"]
+    start_urls = ['http://www.ontla.on.ca/web/members/members_current.do?locale=en/']
+
+    def parse(self, response):
+		# The main method of the spider. It scrapes the URL(s) specified in the
+        # 'start_url' argument above. The content of the scraped URL is passed on
+		# as the 'response' object.
+        for url in response.xpath("//*[@class='mppcell']/a/@href").extract()[:5]:
+            # This loops through all the URLs found inside an element of class 'mppcell'
+            
+            # Constructs an absolute URL by combining the response’s URL with a possible relative URL:
+            full_url = response.urljoin(url)
+            print("Found URL: "+full_url)
+            
+            # The following tells Scrapy to scrape the URL in the 'full_url' variable
+            # and calls the 'get_details() method below with the content of this
+            # URL:
+            yield scrapy.Request(full_url, callback=self.get_details)
+    
+    def get_details(self, response):
+		# This method is called on by the 'parse' method above. It scrapes the URLs
+        # that have been extracted in the previous step.
+        
+        item = OntariomppsItem() # Creating a new Item object
+        # Store scraped data into that item:
+        item['name'] = response.xpath("normalize-space(//div[@class='mppdetails']/h1/text())").extract_first()
+        item['phone'] = response.xpath("normalize-space(//div[@class='phone']/text())").extract_first()
+        item['email'] = response.xpath("normalize-space(//div[@class='email']/a/text())").extract_first()
+	    
+        # Return that item to the main spider method:
+        yield item
 
 
-Running the spider above returns CancollegesItem objects.
+Running the spider above returns OntariomppsItem objects.
 What if we want this data in another, more usable format?
 
 Feed exports > very powerful function of Scrapy
 
 Just type
-$ scrapy crawl colleges -o items.csv
+$ scrapy crawl getemails -o items.csv
 
 or
-$ scrapy crawl colleges -o items.json
+$ scrapy crawl getemails -o items.json
 
 Also works with XML, Pickle, etc.
 http://doc.scrapy.org/en/latest/topics/feed-exports.html#topics-feed-exports
@@ -660,25 +721,25 @@ Example deploy on ScrapingHub
 - $ shub login
 	Provide your API as found on https://app.scrapinghub.com/account/apikey
 	This writes the API key into a local file: less ~/.scrapinghub.yml
-	Not specific to that repository 
+	Not specific to that repository
 	shub logout to remove it
 
 - Create a new project, note its ID
 - cd to the root of a scrapy project directory
-	
+
 - $ shub deploy
 	Provide the ID of the recently created project
-	
+
 - From the web app, run spider
 	Arguments can be provided
-	
+
 - Items are found under the Items tab
 	Free project: one concurrent spider, max 2.5GB of data storage, data retention 7 days
 	Items can be downloaded individually or in batch (big green Items button on top)
 	Can also be accessed through API calls
 		http://doc.scrapinghub.com/api/overview.html
 		e.g. curl -u 1e2490bfc15d4e6089e4b842364b5cd1: "https://storage.scrapinghub.com/items/85589/1/1?format=xml"
-		
+
 
 - Jobs can be scheduled, etc.
 
@@ -721,8 +782,8 @@ http://www.bl.uk/reshelp/atyourdesk/docsupply/help/replycodes/dirlibcodes/
 https://morph.io/ostephens/british_library_directory_of_library_codes
 	British Library maintains list of library codes for its Document Supply service.
 	List of codes in a PDF file -> UNSTRUCTURED
-	
-	
+
+
 
 
 
@@ -763,7 +824,7 @@ Good practice:
 	- code on GitHub
 	- data on GitHub / datahub.io etc.
 	- or use morph.io
-	
+
 IF YOU PUBLISH DATA, PROVIDE IT IN STRUCTURED FORM TO BEGIN WITH.
 	Web scraping is a "tool of last resort" when data curators fail to provide structured data.
 
@@ -777,7 +838,7 @@ There are frameworks that reproduce the workings of a web browser (e.g. PhantomJ
 
 
 
-	
+
 
 
 
@@ -787,5 +848,3 @@ References:
 - http://schoolofdata.org/handbook/courses/scraping/
 - http://schoolofdata.org/handbook/recipes/scraper-extension-for-chrome/
 - http://doc.scrapy.org/en/1.1/intro/tutorial.html
-
-
