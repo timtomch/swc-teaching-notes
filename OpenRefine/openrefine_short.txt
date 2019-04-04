@@ -1,0 +1,363 @@
+OpenRefine - Short version
+- Developed for OLA Education Institute webinar in April 2019
+- Based on Library Carpentry OR lesson
+
+
+
+
+CONTENTS
+- Introduction
+	What is OpenRefine
+	Where does it come from
+	What makes it different
+	Why use it
+	How does it work
+- The OpenRefine workflow
+	- Import
+	- Analyze
+	- Cleanup
+	- Export
+- Resources
+	Some pointers on how to go further
+- Discussion and Q&A
+	Answer any questions you might have
+	Discuss any real life data cleanup use cases you might have
+
+
+
+
+INTRO
+
+Used to be GoogleRefine, now maintained by team of independent OSS developers.
+
+Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
+There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
+
+Pros re spreadsheets:
+- handles larger files (100'000 rows OK, does not scale to several millions)
+- supports variety of input/output formats (csv, tsv, excel, odt, json, xml, custom text...)
+- powerful filters, search & replace (regular expressions, etc.)
+- predictive algorithms for clustering
+- facets approach - a bit like discovery layers
+- full undo/redo history
+	- mistakes are OK
+	- set of operations can be applied to other files
+- easy APIs integration
+- open infrastructure, custom functions can be developed
+
+Cons:
+- less intuitive to install & run
+- non transparent saved files
+
+
+Reasons to use OpenRefine:
+- EXPLORE data
+	- e.g. how are values distributed
+	- think of facets in library search tool
+- NORMALIZE/CLEAN UP data
+	- inconsistent date formats
+	- typos, case mismatch, markup errors, e.g. London, london, London;, LONDOND, etc.
+	- Split unstructured data into structured, see online example
+	- Enrich data from an external source, e.g. Virtual International Authority File
+
+
+
+HOW TO INSTALL AND RUN
+
+Download from openrefine.org
+	- Version 3.1 is STABLE
+	- 3.2 BETA
+Requires JAVA
+	- Oracle discontinuing support for free Java, but still available
+	- Can use Amazon Corretto also
+
+Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
+Internet Explorer is not supported. Use Chrome or Firefox.
+
+More details in companion document
+
+
+
+
+
+
+IMPORT DATA & CREATE PROJECT
+
+You can also open previous project
+
+
+Multiple ways to import data
+	- Local file
+	- URL
+	- Database connection
+	- Copy and paste...
+
+
+Use "from URL" functionality - https://raw.githubusercontent.com/LibraryCarpentry/lc-open-refine/gh-pages/data/doaj-article-sample.csv
+
+Upload into Open Refine
+	- already way more options than when importing into Excel
+	- check headers
+	- remove rows if needed
+	- check encoding
+
+Very fast. Displays only the first rows, can be changed. This makes it faster.
+
+Reorder columns, hide, etc.
+
+
+Uncheck "treat dates as dates etc."
+
+
+
+
+
+
+
+
+3. EXPLORE DATA: SORT, FILTER, FACETS, CLUSTER
+See how data is displayed. Similar to spreadsheet.
+Not all rows (or records) are displayed -> preview, faster. Adjustable
+
+All operations are accessed through drop-down menus in the relevant column. For things affecting all columns (e.g reordering them), use the "All" column.
+
+SORT
+Choose a column, sort
+See new drop down menu
+- Similar to Excel "filter sort" -> temporary (unlike general Excel sort)
+- Can be made permanent.
+
+
+
+FACETS
+Facets are one of most used features. Similar to what you would find in modern OPACs.
+
+Ex. Language -> Text Facet
+- we see data is messy, we can sort it out later
+
+Can be combined with other facets.
+
+Invert option
+
+Export as list by clicking the "choice" link
+
+
+Different types, e.g. facet by blank (on the DOI column)
+
+
+
+
+FILTERS
+Facets will do exact matches by default. Can also use Filters to look for particular pattern in a column.
+
+Ex. Subjects -> Text Filter "pyran"
+
+Supports regular expressions!
+
+	A Regular Expression is a powerful way to define search patterns. With it you can for example search for numbers that are formatted like a postal code.
+	I have put the link to a few tutorials on Regular Expressions in the companion document.
+
+
+-> remember, only displays first results, check # of matching results
+
+
+IMPORTANT
+When filters are applied, operations only perform on matching rows.
+Example Language -> Edit Cells -> Common transforms -> to lowercase
+
+Reset All  and Remove All buttons
+
+
+
+
+IF time permits
+Other types of facets, e.g.
+- Numeric
+- Timeline
+- Customized 
+	- Word facet - this breaks down text into words and counts the number of records each word appears in
+		For example, filter by language-English then Word facet by author
+			-> rudimentary author facet, we'll see how to do this better
+	- Text length facet
+		Can be used to check data, e.g. Language more than 2 characters
+
+
+
+
+
+
+
+
+
+4. CLEANING UP DATA
+
+
+Let's get back to our language facet.
+We can use facets to quickly do some cleanup.
+
+Edit the English facet
+	This *alters* the data
+	Undo function - see temporary message on top
+	Also Undo/Redo history
+
+
+Can't edit a blank facet
+	Instead use Edit Cells -> Transform and input text with ""
+
+	This function supports more complex transformations, using a syntax called GREL: General Refine Expression Language.
+	This is beyond the scope of this short introduction, but I've provided links to learn how to use GREL to do more complex transforms.
+
+	It's a little like the formulas in Excel but more powerful.
+
+	Also supports Python and Clojure.
+
+	If you just want to replace text, remember to use "". Check preview before hitting OK.
+
+
+
+Now let's have a look at the Authors column. Authors are separated by |
+If we want to start analyzing or editing this column, we need to separate the authors.
+
+Authors -> Edit cells -> Split multi-valued cells
+
+It works, but what happened to the rows?
+	OR didn't just create new rows and loose the relationship between authors.
+	Show as records instead of rows
+		Notice that "rows" belonging to the same records are grouped together (See numbering)
+
+
+
+CLUSTERING
+Now, do you trust the Authors column to always display an author the same way?
+Try doing a text filter on the Authors column and type "vakeel"
+	-> A. Khan Vakeel and Vakeel A. Khan is the same person.
+
+
+There are probably any number of permutation and short variations in that author column. Cleaning it up by hand will be fastidious, write a function (e.g. using RegExp) to catch all possible forms will be just as hard.
+But OpenRefine has a very powerful option: clustering.
+
+(remove the filter first)
+Authors -> Edit cells -> Cluster and edit
+
+This blows my mind, every time. It's using different types of algorithms, you can play with the options until you find the one that works best.
+If you're interested in what this all means, check out the Clustering in Depth link I've put in the references.
+
+As usual with OpenRefine, it starts with previewing data changes only. You can decide which one you want to merge.
+
+
+
+
+If time permits
+TRANSFORMS
+
+We have a bit of time, so let's look at Transforms more in detail. You don't need to know GREL to use the most common ones.
+
+
+Create a text facet on publishers.
+Look at MDPI AG
+	why is it appearing twice? probably some whitespace?
+	We could clean it up using the same method as for the languages, but what if there were many instances in a long list of
+	publishers?
+Publisher -> Edit cells -> Common Transforms -> Trim whitespace
+	See what happened in your facet?
+
+The transforms in the Common Transforms submenu are the most common ones. But we can write our own using the Transform... option.
+
+
+
+Facet by publisher, select Askhantala + Technocrats
+	include option to select more than 1
+Have a look at the title - all uppercase
+Do a Transform...
+	value.toTitleCase()
+
+
+
+
+UNDO/REDO
+OpenRefine keeps a history of all operations that alter the data (not filtering, faceting, etc.). Multiple undo
+Can easily travel back to earlier stage.
+
+Can also export a series of operations to be "played back"
+
+
+
+EXPORTING DATA
+
+Say we are now happy with how we cleaned up our data. 
+The typical workflow is loading data in a particular format, working on it, exporting it in the same format
+so we can then load it where it came from (for example a digital repostory or your ILS).
+
+Before we export, we need to make sure the data is in the same format.
+Remember the Authors column?
+
+Edit Cell -> Join multi-valued cells
+
+
+
+
+Export menu
+
+Most common is CSV, TSV or Excel format
+
+Custom tabular allows to select which columns you want to export, etc.
+
+Templating for more advanced output. Also for JSON output.
+
+
+
+If time permits
+
+MARC
+MarcEdit 
+Built-in tool in the most recent versions
+
+Transform MARC file in TSV or JSON
+Load into OpenRefine
+	WARNING: check that there are no "" around empty values - it will mess up MarcEdit when importing
+
+
+Different mindset with MARC files - instead of one record per row, there's one row per MARC tag.
+Use facet to select all tags, e.g. 856
+Use another facet to select indicators, e.g. 40
+
+Eg use text transform
+value.replace("?utm_source=marc","?org=algonquincollege.com")
+
+
+Export into TSV (MarcEdit only supports that format for importing)
+
+
+
+
+
+
+If time permits
+Going further
+- Reconciliation
+
+What is reconciliation:
+Christina Harlow: Compare values in my dataset with values in an external dataset, if deemed a match, link and pull in external datapoint information
+
+See references for link
+
+
+
+
+WRAP UP
+
+Point to companion document again
+
+Mention that they can get back to me anytime
+
+Resources - check out tutorials
+
+If you are in Toronto
+code4lib Toronto - informal meetings for people interested in technology and libraries, we meet about 4/5 times a year
+Next meeting is April 24 on web accessibility at Gerstein
+Then one on July 18 on demistifying the library stack
+...
+
+code4lib North in Hamilton on May 30-31
+Free, open to all
+
