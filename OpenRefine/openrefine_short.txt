@@ -174,6 +174,7 @@ IF time permits
 Other types of facets, e.g.
 - Numeric
 - Timeline
+	- This looks weird, we'll get back to it
 - Customized 
 	- Word facet - this breaks down text into words and counts the number of records each word appears in
 		For example, filter by language-English then Word facet by author
@@ -251,6 +252,24 @@ If time permits
 TRANSFORMS
 
 We have a bit of time, so let's look at Transforms more in detail. You don't need to know GREL to use the most common ones.
+
+
+
+Look at the date column
+	Do a text facet, look for the different formats
+	Try a timeline facet - looks weird because not recognized as times
+	Star them so we can look at them after editing
+
+	Use Edit Cells -> Common Transforms -> To Date
+
+	Check the ones we had starred (Filter by star)
+
+	Check the timeline facet again!
+
+	Will still not guarantee it will work if inconsistent date formats are use, e.g. European style d/m/y vs North-American style m/d/y...
+	If you are in a situation like this, you might need to use GREL to first normalize dates
+
+
 
 
 Create a text facet on publishers.
@@ -339,7 +358,19 @@ Going further
 What is reconciliation:
 Christina Harlow: Compare values in my dataset with values in an external dataset, if deemed a match, link and pull in external datapoint information
 
-See references for link
+
+We didn't have time to go through it in this intro, but check references for examples.
+
+Use cases:
+	- Georgraphical locations
+	- Subject headings
+	- Author names
+	...
+
+	Multiple sources available, Wikidata enabled by default
+
+
+	If enough time, show the Gases example
 
 
 
