@@ -105,6 +105,20 @@ See new drop down menu
 - Can be made permanent - see the little Sort drop down on top
 
 
+-------------------------------------------------
+ACTIVITY:
+- Try sorting by gps_Altitude
+- Do you think values are correct?
+	Likely more like missing values
+	Did you talk about this this morning in the data organization session?
+	Better to use NULL or empty to code something that's missing.
+-------------------------------------------------
+
+
+
+
+
+
 FACETS
 Facets are one of most used features. With facets you can apply filters to your data quickly.
 Great for exploring data, but also for cleanup.
@@ -126,6 +140,17 @@ Use Edit > Common Transforms > To Date
 Then try again
 
 
+Other types of facets, e.g.
+- Numeric
+- Timeline
+- Customized 
+	- Word facet - this breaks down text into words and counts the number of records each word appears in
+	- Text length facet
+		Can be used to check data
+
+
+
+
 FILTERS
 Facets will do exact matches by default. Can also use Filters to look for particular pattern in a column.
 
@@ -139,13 +164,22 @@ IMPORTANT
 When filters are applied, operations only perform on matching rows.
 
 
-Other types of facets, e.g.
-- Numeric
-- Timeline
-- Customized 
-	- Word facet - this breaks down text into words and counts the number of records each word appears in
-	- Text length facet
-		Can be used to check data
+
+-------------------------------------------------
+ACTIVITY:
+- Try adding a text filter to respondent_roof_type
+- Type in "mabat"
+- What is being selected?
+- How would you separate mabatisloping and mabatipitched?
+		Text Facet
+-------------------------------------------------
+
+
+Excluding entries
+Using exclude/include with facets
+
+Remember that once a facet is applied and some entries are selected, operations are only performed on selected entries
+Look at the number at the top
 
 
 
@@ -257,6 +291,39 @@ But because this is common tranform: Edit -> Common Transforms -> Trip leading a
 
 
 
+
+A few more cleanup activities
+
+-------------------------------------------------
+ACTIVITY:
+- Text facet on Villages
+- Remember that 49?
+- How can you use other data to figure out what village this was?
+	Example, look at date
+	or GPS coordinates
+	Can use sort, filter or facets
+-------------------------------------------------
+
+
+Remember that zero in the Altitude column?
+Let's try zooming in on that and correct that
+
+Use a number facet
+Why is it not working?
+
+Because the data is considered as text
+Use Edit -> Common Transforms -> to number
+
+Now we see a numeric facet
+
+
+-------------------------------------------------
+ACTIVITY:
+- How would you fix the Altitude = 0?
+		Can filter or use facet and use blank down
+-------------------------------------------------
+
+
 	
 
 5. SAVE AND REUSE WORKFLOWS
@@ -290,6 +357,9 @@ Also it's not stored in a very user-friendly way/place. Best to export it once y
 
 Export menu
 	- Different formats
+	- Export project - saves the entire project including history - raw data plus edit history
+	- Export values saves the result of the work we've been doing
+
 
 -------------------------------------------------
 ACTIVITY:
@@ -307,6 +377,7 @@ ADVANCED:
 
 
 
+IF ENOUGH TIME
 
 7. RECONCILIATION AND APIs
 
@@ -314,35 +385,42 @@ How can we enrich our data?
 
 Can we retrieve data from URLs?
 
-First, let's filter a manageable part of the data
-ISSN column. Star one line + Facet by star. To select a single line. Faster.
+We have the latitude and longitude, can we get average precipitaiton
 
-Steps: on the ISSN column
+Using APIs - explanation about APIs
+Using Meteostat's free API for this example
+People willing to try it out should register and get their own API key at
+https://api.meteostat.net/
+
+
+
+First, let's filter a manageable part of the data
+Star a few lines - 3-4 then filter by star
+This will be faster for demo purposes
+
+
+
+Steps: on the gps_Longitude column
 1. Edit column -> Add column by fetching URL
 2. GREL expression to build URL
 
-	Expression: "http://api.crossref.org/journals/"+ escape(value,'url')
-	Check delay to not overwhelm server
-	Check display error instead of null
+	First we need to get the closest weather station
 	
-	NEW this now requires a user and password - apparently you need to have a Crossref subscription :(
-	
-	Try instead 
-	"http://www.journaltocs.ac.uk/api/journals/"+value.escape('url')+"?user=tom@timtom.ch"
-	Generates XML instead of JSON
+	Expression: "https://api.meteostat.net/v1/stations/nearby?lat="+cells['gps_Latitude'].value+"&lon="+cells['gps_Longitude'].value+"&limit=1&key=Q3dMcwI0"
 	
 
 To parse JSON
 Add another column
 
-	value.parseJson().message.title
+	value.parseJson().data[0].name
 	   ^-- keep existing JSON response
-	   
-To parse XML
 
-    value.parseHtml().select('item title')[0].htmlText()
+Or launch another query, for example to get historical weather data
 
-Also possible to Edit cells with Transform
+	Expression: "https://api.meteostat.net/v1/history/monthly?station="+value.parseJson().data[0].id+"&start=2018-01&end=2018-02&key=Q3dMcwI0"
+
+
+etc.
 
 
 
@@ -351,46 +429,34 @@ Also possible to Edit cells with Transform
 8. RECONCILIATION
 
 What is reconciliation:
+Reconciliation is a semi-automated process of matching text names to database IDs (keys)
 Christina Harlow: Compare values in my dataset with values in an external dataset, if deemed a match, link and pull in external datapoint information
 
 Reconciliation functions
-Even easier, people have implemented database interfaces that interact directly with OpenRefine.
-Of interest to librarians:
-- VIAF
-- LCSH
-- JournalTOCs
-- FundRef (e.g. to link publications to funding source)
-- FAST (Faceted Application of Subject Terminology)
+Even easier than querying APIs, people have implemented database interfaces that interact directly with OpenRefine.
 
-Add standard service: http://iphylo.org/~rpage/phyloinformatics/services/reconciliation_viaf.php
-
-
-
+Wikidata is built in, others can be added.
 
 Example:
-In the Publisher column, choose Reconcile->Start Reconciling
+In the province column, choose Reconcile->Start Reconciling
 
-Add standard service http://refine.codefork.com/reconcile/viaf
-	(if you plan to use this a lot, install your own instance instead)
-	
-	-> recongizes type of "entities"
-	
-	Pre-analyzes the dataset and selects type of data, this is why it displays "Corporate Name" in first column.
-	Try it on the Authors column too
-	
-	Can add additional columns to help narrow down search - leave blank for now
-	
-	Uncheck Auto-match (for now, we want to demonstrate how this works)
+We can see that it recognizes that it is a province in Mozambique
 
-	Create Text Facet on Publisher's column to demonstrate
-		Show International Union of Crystallography
-		MDPI
+Try reconciling.
+Blue text = exact match found
+Try clicking on it
+
+Get more data from it:
+Edit column -> Add column from reconciled values
+
+Not everything is available for that particular location
 
 
 
-Mention Extensions
-	See http://openrefine.org/download.html
-	e.g. RDF extension for exporting in RDF
+
+
+
+
 	
 Cross function
 	The ‘cross’ function takes a value from the OpenRefine project you are working on, 
@@ -400,27 +466,14 @@ Cross function
 
 
 
-
-Google Fusion example - ONLY WITH DATASET WiTH LOCATION
-- First filter by year to limit number of lines, e.g. 1852
-- Custom Tabular Exporter, limit columns but be sure to include place of publication
-- Upload to Google Fusion table
-- Go to https://drive.google.com/drive/recent open created table
-- Change Place of Publication type from text to location
-- Add map tab
-
-
 Resources:
-- https://data-lessons.github.io/library-openrefine/
+- https://datacarpentry.org/openrefine-socialsci/
 - http://arcadiafalcone.net/GoogleRefineCheatSheets.pdf
-- http://www.meanboyfriend.com/overdue_ideas/2014/11/working-with-data-using-openrefine/
-- NCompass Live, Using MarcEdit & Open Refine: http://nlc.nebraska.gov/scripts/calendar/eventshow.asp?ProgID=14290
 - http://enipedia.tudelft.nl/wiki/OpenRefine_Tutorial
 - GoogleRefine tutorials (YouTube)
 - OpenRefine book
-- https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources#librarians
-- http://www.datacarpentry.org/OpenRefine-ecology-lesson/00-getting-started.html
-- https://github.com/LODLAM/LODLAMTO16/tree/master/OpenRefine_Tutorial using the RDF extension. This tutorial requires some advanced knowledge of RDF/LOD. Also LODRefine and the RDF extension are no longer supported, very finicky re: Java version, etc. Not sure this is a good example for begninners.
+- https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources
+
 
 Install help & troubleshooting:
 - https://groups.google.com/forum/#!forum/openrefine
