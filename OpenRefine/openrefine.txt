@@ -410,8 +410,7 @@ Steps: on the ISSN column
 	Add your email: OpenRefine 3.2 [55c921a]; mailto:tom@timtom.ch but reflect your version information and email address.
 	
 	
-	
-	NEW this now requires a user and password - apparently you need to have a Crossref subscription :(
+	Alternate in case it doesn't work:
 	
 	Try instead 
 	"http://www.journaltocs.ac.uk/api/journals/"+value.escape('url')+"?user=tom@timtom.ch"
