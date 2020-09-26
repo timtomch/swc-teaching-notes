@@ -1,14 +1,32 @@
 OpenRefine
 - Based on Library Carpentry OR lesson
+- Updated 2020-09-26
 
 Used to be GoogleRefine, now maintained by team of independent OSS developers. Stable version is still called Google Refine, beta since 2013, relatively stable.
 
 Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
 There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
 
+
+Reasons to use OpenRefine:
+- EXPLORE data
+	- brief overview - large files load faster than excel
+	- more detailed stats 
+		- e.g. how many times does a particular value appear in a given column?
+		- e.g. how are values distributed
+	- think of facets in library search tool
+- NORMALIZE/CLEAN UP data
+	- inconsistent date formats
+	- typos, case mismatch, markup errors, e.g. London, london, London;, LONDOND, etc.
+	- Split unstructured data into structured, see online example
+	- Enrich data from an external source, e.g. Virtual International Authority File
+
+
+
 Pros re spreadsheets:
 - handles larger files (100'000 rows OK, does not scale to several millions)
 - supports variety of input/output formats (csv, tsv, excel, odt, json, xml, custom text...)
+- non-destructive: you are not editing original data
 - powerful filters, search & replace (regular expressions, etc.)
 - predictive algorithms for clustering
 - facets approach - a bit like discovery layers
@@ -26,15 +44,8 @@ Cons:
 - buggy and finicky, poor error reporting
 
 
-Reasons to use OpenRefine:
-- EXPLORE data
-	- e.g. how are values distributed
-	- think of facets in library search tool
-- NORMALIZE/CLEAN UP data
-	- inconsistent date formats
-	- typos, case mismatch, markup errors, e.g. London, london, London;, LONDOND, etc.
-	- Split unstructured data into structured, see online example
-	- Enrich data from an external source, e.g. Virtual International Authority File
+
+
 
 
 CONTENTS
@@ -54,17 +65,24 @@ CONTENTS
 1. HOW TO INSTALL AND RUN
 
 Download from openrefine.org
-	- Open Refine 2.8 STABLE
-	- Open Refine 3.0 BETA
-Requires JAVA.
+	- Use the latest. Currently 3.4.1 (Sep 2020)
+	- May require to install JAVA, follow the prompts.
+	- Mac users: if you get the "cannot open because unidentified developper" error, do control-click on the .dmg (and the app) and choose open. You will then get an "open" button.
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
 Internet Explorer is not supported. Use Chrome or Firefox.
+BUT you are working locally. Files are also saved locally. Export to collaborate.
+
+No need to save, it happens automatically. But be careful to shut down OR properly.
+
+
+
+
 
 
 2. IMPORT DATA & CREATE PROJECT
 
-Download sample file from http://bit.ly/libORsample
+Download sample file from https://librarycarpentry.org/lc-open-refine/setup.html
 OR
 Use "from URL" functionality - http:// has to be specified
 
@@ -72,6 +90,7 @@ Upload into Open Refine
 	- check headers
 	- remove rows if needed
 	- check encoding
+
 
 Very fast. Displays only the first rows, can be changed. This makes it faster.
 
@@ -87,6 +106,8 @@ ADVANCED:
 Please uncheck "treat dates as dates etc."
 UTF-8 encoding
 Once you're finished, create project.
+
+
 
 
 
@@ -108,7 +129,7 @@ Add more columns
 FACETS
 Facets are one of most used features. Similar to what you would find in modern OPACs.
 
-Ex. Language -> Text Facet
+Ex. Publisher -> Text Facet
 - we see data is messy, we can sort it out later
 
 -------------------------------------------------
@@ -150,7 +171,7 @@ ACTIVITY:
 	(hint: explore the different facets available, including the Customized facets)
 	(hint: facet by blank)
 - Remember the text facet we applied on Language? Look at the edit option. What do you think it does?
-  Can you clean up the languages (two-letter language codes only) that way?
+  Can you clean up the languages that way?
   What happens to the facets once the correction has been applied?
   Is there a way to get back?
 -------------------------------------------------
@@ -174,6 +195,10 @@ ACTIVITY:
   Instead of, say, multiple columns?
   
 -> Allows for uneven number of authors
+
+
+- Try separating the subjects in the subject column
+  Can you find a way to combine multiple rows again?
 -------------------------------------------------	
 
 To do it the other way around, use "join multi-value cells"
@@ -260,6 +285,7 @@ Do a Transform...
 	value.toTitleCase()
 
 
+(if enough time, otherwise jump to Undo/Redo)
 
 Remember we had issues applying a timeline facet to the Date column?
 We need to make sure the date is in the correct FORMAT
@@ -280,6 +306,7 @@ ACTIVITY:
 	(format YYYY-MM-DD HH:MM:SS)
 	- hint, look at the common transforms
 	ADVANCED: try doing this using GREL
+		value.toDate("dd/MM/yyyy")
 - Now try creating a Timeline facet on the Date
 
 - We need a new column where the date is displayed in the form dd MMMM yyyy
@@ -377,6 +404,13 @@ Steps: on the ISSN column
 	Check delay to not overwhelm server
 	Check display error instead of null
 	
+	Be nice - edit your User Agent information
+	Click ‘Show’ (next to ‘HTTP headers to be used when fetching URLs’).
+	
+	Add your email: OpenRefine 3.2 [55c921a]; mailto:tom@timtom.ch but reflect your version information and email address.
+	
+	
+	
 	NEW this now requires a user and password - apparently you need to have a Crossref subscription :(
 	
 	Try instead 
@@ -453,27 +487,3 @@ Cross function
 
 
 
-Google Fusion example - ONLY WITH DATASET WiTH LOCATION
-- First filter by year to limit number of lines, e.g. 1852
-- Custom Tabular Exporter, limit columns but be sure to include place of publication
-- Upload to Google Fusion table
-- Go to https://drive.google.com/drive/recent open created table
-- Change Place of Publication type from text to location
-- Add map tab
-
-
-Resources:
-- https://data-lessons.github.io/library-openrefine/
-- http://arcadiafalcone.net/GoogleRefineCheatSheets.pdf
-- http://www.meanboyfriend.com/overdue_ideas/2014/11/working-with-data-using-openrefine/
-- NCompass Live, Using MarcEdit & Open Refine: http://nlc.nebraska.gov/scripts/calendar/eventshow.asp?ProgID=14290
-- http://enipedia.tudelft.nl/wiki/OpenRefine_Tutorial
-- GoogleRefine tutorials (YouTube)
-- OpenRefine book
-- https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources#librarians
-- http://www.datacarpentry.org/OpenRefine-ecology-lesson/00-getting-started.html
-- https://github.com/LODLAM/LODLAMTO16/tree/master/OpenRefine_Tutorial using the RDF extension. This tutorial requires some advanced knowledge of RDF/LOD. Also LODRefine and the RDF extension are no longer supported, very finicky re: Java version, etc. Not sure this is a good example for begninners.
-
-Install help & troubleshooting:
-- https://groups.google.com/forum/#!forum/openrefine
-- https://summit.uwaterloo.ca/p389l6kkluv/ (webinar)
