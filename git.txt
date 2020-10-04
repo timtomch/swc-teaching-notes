@@ -481,6 +481,9 @@ Q5 - Nested files   [[ SLIDE ]]
 (( BREAK ))
 During the break, ask that people who don't yet have a GitHub account create one.
 
+During the break, ask workshop host to pair attendees into groups of 2-3
+Record result on a slide.
+
 
 
 
@@ -507,23 +510,39 @@ Now we have an empty repo on GitHub. Same situation as if we did
 		on GitHub server.
 
 
+
+QQQ - Which of the options displayed by GitHub after creation do you think is the right one?
+
 To connect the two repositories:
 
-$ git remote add origin https://github.com/vlad/planets
+$ git remote add origin https://github.com/timtomch/planets.git
 
-	- Switch from SSH to HTTPS
+You can use the box on top to easily copy this string
+--> Careful to switch from SSH to HTTPS
 		SSH more secure but requires some more config.
-	- Use copy button
+
 
 Check:
 $ git remote -v
 
 ‘origin’ is a nickname for your remote repo. Can use another, but this is most common. Can have multiple (useful when dealing with local forks).
 
+
+Aparte about what GitHub suggests
+$ git branch -M main
+
+--> This renames the default branch to main.
+	Used to be default master. Using the master/slave names is discouraged, as these are very racially charged terms.
+	GitHub now uses "main" instead of master.
+	
+	We'll get to branches in a moment.
+
+
+
 We haven’t uploaded any files yet. To put the local changes on server: PUSH
 
-$ git push origin master
-		    ^-- this is the name of the branch. We’ll get to that.
+$ git push origin main 
+		           ^-- this is the name of the branch. We’ll get to that.
 
 	Most systems now use password managers. 
 	Should have recognised your email address and password. 
@@ -532,7 +551,11 @@ $ git push origin master
 
 
 
-QQQ	- Create GitHub account.
+ACTIVITY  **************************************************************************
+
+Push your local repo to GitHub
+
+  	- Create GitHub account.
 	- Create repository there.
 	- Push your local data there
 	- Look at results on GitHub
@@ -541,11 +564,25 @@ QQQ	- Create GitHub account.
 		- Notice timestamps?
 
 
+What's the difference between git commit and git push?
+
+	- commit is local
+	- push, we push the local commits to remote
+
+
+
+************************************************************************************
+
+
+
 
 What if I want to get data from remote to local, e.g. I’m syncing with work done by my team in the morning:
-$ git pull origin master
+$ git pull origin main
 
 In this case, nothing changes because up to date.
+
+
+
 
 
 
@@ -553,40 +590,55 @@ In this case, nothing changes because up to date.
 6 - COLLABORATING (if enough time)
 OBJECTIVES:	- Collaborate by pushing to a common repository.
 
-We’re going to use two different versions of same repo as example.
-Same user, different copies. Case of syncing between computers.
-Works the same if there were two different people.
-
-CLONING a repo
- = creating a local copy of a remote
-
-- Open another terminal window
-- Create new directory and cd to it
-- Look for clone URL on GitHub
-$ git clone https://github.com/vlad/planets.git
-
-Let’s make some changes in that copy
-
-$ cd planets
-$ nano pluto.txt
-
-$ git add pluto.txt
-$ git commit -m "Some notes about Pluto"
-
-$ git status
-
-Oh, and do we need to setup the remote?
-$ git remote -v
--> already there! Taking over info when cloning, creating “origin” by default.
-
-$ git push origin master
-
-QQQ	- Which version is now the latest on the server?
-	- On the right terminal? (other collaborator)
-	- How do I get the new version on the right terminal?
 
 
-		$ git pull origin master
+
+
+
+
+
+
+
+
+
+
+
+ALTERNATIVE - Without participants collaborating 
+
+	We’re going to use two different versions of same repo as example.
+	Same user, different copies. Case of syncing between computers.
+	Works the same if there were two different people.
+
+	CLONING a repo
+	 = creating a local copy of a remote
+
+	- Open another terminal window
+	- Create new directory and cd to it
+	- Look for clone URL on GitHub
+	$ git clone https://github.com/vlad/planets.git
+
+	Let’s make some changes in that copy
+
+	$ cd planets
+	$ nano pluto.txt
+
+	$ git add pluto.txt
+	$ git commit -m "Some notes about Pluto"
+
+	$ git status
+
+	Oh, and do we need to setup the remote?
+	$ git remote -v
+	-> already there! Taking over info when cloning, creating “origin” by default.
+
+	$ git push origin master
+
+	QQQ	- Which version is now the latest on the server?
+		- On the right terminal? (other collaborator)
+		- How do I get the new version on the right terminal?
+
+
+			$ git pull origin master
 
 
 
