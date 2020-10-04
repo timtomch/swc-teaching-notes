@@ -11,7 +11,7 @@ Check Unix knowledge.
 Good handout: https://training.github.com/downloads/github-git-cheat-sheet/
               https://training.github.com/downloads/github-git-cheat-sheet.pdf
 
-WHY use version control? PHDcomics image: http://phdcomics.com/comics/archive_print.php?comicid=1531
+WHY use version control? PHDcomics image: http://phdcomics.com/comics/archive_print.php?comicid=1531     [[ SLIDE ]]
 
 Who uses "undo" in their editor? undo = simplest form of version control.
 
@@ -37,13 +37,13 @@ It doesn’t require a server, unless sync and share are desired. Free GitHub pr
 
 
 FEATURES
-- changes are saved sequentially
+- changes are saved sequentially                                     [[ SLIDE ]]
 	- start with a basic version of document
 	- record changes you make each step of the way
 	- like a recording of your progress
 	- YOU DECIDE WHEN to save
-- forking: different versions can be saved separately
-- merging: different versions can be merged - conflict resolution
+- forking: different versions can be saved separately                [[ SLIDE ]]
+- merging: different versions can be merged - conflict resolution    [[ SLIDE ]]
 
 TERMINOLOGY
 - COMMIT 
@@ -156,6 +156,10 @@ Let’s create a file inside our repository:
 
 $ nano mars.txt
 
+-> I'm using nano as my editor here, so you can see what I'm doing by staying in the command line window, but if you prefer, you can use another editor.
+   Also, it does not need to be the one we setup for git earlier.
+
+
 Write some text
 
 $ ls
@@ -170,7 +174,7 @@ $ git status
 
 --> new file
 
-Now git know it’s supposed to keep track of mars.txt but HASN’T RECORDED CHANGES YET.
+Now git knows it’s supposed to keep track of mars.txt but HASN’T RECORDED CHANGES YET.
 
 $ git commit -m "Start notes on Mars"
 
@@ -194,6 +198,11 @@ $ git status
 $ git diff
 to get summary of changes
 
+	-> Note the ids of the two versions being compared
+	-> File names (here it's the same, but we could have changed the file name)
+
+
+
 So now if I do
 $ git commit -m “More notes on Mars.”
 
@@ -214,7 +223,7 @@ To add AND commit at the same time.
 
 Up to you.
 
-STAGING AREA -> use git add to put stuff in the staging area - equiv. who goes on a group picture
+STAGING AREA -> use git add to put stuff in the staging area - equiv. who goes on a group picture     [[ SLIDE ]]
 COMMIT 	     -> use git commit to actually take a snapshot   - equiv. taking the picture
 COMMIT -A    -> take snapshot of everything		     - equiv. take picture with other ppl
 
@@ -233,10 +242,52 @@ $ git add mars.txt
 $ git commit -m “More changes”
 
 $ git log
+You can page through the log using the spacebar. Hit q to exit.
 
-QQQ -	Try to do some changes on your file, stage, and commit.
-		Display changes
-	Create a second file in the same repository, and include it as a tracked file.
+
+
+Note that git doesn't track repositories unless there are files in them:
+$ mkdir spaceships
+$ git status
+$ git add spaceships
+$ git status
+
+--> git status is still saying that everything is fine, because there are no files in that directory.
+
+Let's add some files
+$ touch spaceships/apollo-11 spaceships/sputnik-1
+
+$ git status
+Now we're talking
+
+Note that you can git add a whole directory without listing each file:
+$ git add spaceships
+$ git status
+
+$ git commit -m "Started thinking about spaceships"
+
+
+
+ACTIVITY  **************************************************************************
+
+Q1 - Which commit   [[ SLIDE ]]
+
+  Would only create a commit if files have already been staged.
+  Would try to create a new repository.
+  Is correct: first add the file to the staging area, then commit.
+  Would try to commit a file “my recent changes” with the message myfile.txt.
+  
+
+
+Q2 - Work on several files  [[ SLIDE ]]
+	Make some more changes to Mars
+	Add a file on Venus and start editing
+	
+	Then add both to the staging area and commit.
+	
+	Remember that git status can be quite helpful
+
+************************************************************************************
 
 
 
@@ -264,6 +315,12 @@ $ git diff HEAD~1 mars.txt
 
 HEAD points to current commit. HEAD~1 is “head minus one”. HEAD~2 is “head minus two” etc.
 
+
+To get more details:
+$ git show HEAD~2 mars.txt
+
+
+
 So to compare the last two changes we can use
 $ git diff HEAD~1 HEAD~2
 
@@ -286,6 +343,17 @@ We can use commit identifiers instead of HEAD to go even further back.
 
 $ git checkout f22b25e mars.txt
 
+
+If you use checkout <older version> wihtout a file name, you will end up in "DETACHED HEAD" state
+	--> "look don't touch situation"
+		This brings entire repository back to older situation. Git thinks it's extreme, so it suggests creating a branch if you want to do this.
+		
+	git checkout master brings everything back to latest stable situation
+	
+
+Why checkout? Imagine git as a checkout window  [[ SLIDE ]]
+
+
 WARNING - we must use identifier of state BEFORE we made the change we’re trying to undo.
 
 git status gives hints:
@@ -295,17 +363,28 @@ Changes not staged for commit:
   (use "git checkout -- <file>..." to discard changes in working directory)
 
 
-QQQ -	Make some changes.
-	How can I revert to previous status?
-		$ git checkout HEAD
-		$ git checkout HEAD mars.txt
-		$ git checkout HEAD~1 mars.txt
-		$ git checkout 2ddbf mars.txt
-	(answer 2 and 4)
+(check for time - we want to keep enough time after the break for GitHub - at least 1h30)
 
-	Delete your file. Get it back.
-	Get back to your first version.
-	Get back to latest version.
+ACTIVITY  **************************************************************************
+
+Q3 - Reverting changes   [[ SLIDE ]]
+
+  
+  	Both 2 and 4 will work
+	3 wants to revert changes before HEAD (so 2 steps back instead of 1)
+	1 is dangerous as it will bring her entire repo back to where it was when she last commited.
+		--> it's the detached HEAD state we saw before
+
+
+Q4 - Understand history  [[ SLIDE ]]
+
+	Solution is 2. Because the second change was made after git add.
+	Git checkout replaces the current version of the file with that commited one.
+
+************************************************************************************
+
+
+
 
 
 
@@ -324,6 +403,8 @@ $ git status
 We can see all those new files. Other danger of keeping track of results files. Say you have large list of data files. Easy to overlook some other more important changes in git status.
 So good practice not to keep track of them.
 
+
+
 We can specify what stuff git should ignore by using special file:
 $ nano .gitignore
 
@@ -331,6 +412,13 @@ In it, every line is something that needs to be ignored.
 - Can be file names
 - Or directories (trailing slash)
 - Or patterns, e.g. *.dat
+
+So let's put
+*dat
+results/
+
+in it.
+
 
 Now, let’s try again
 $ git status
@@ -342,7 +430,7 @@ QQQ	- What shall we do?
 		- add .gitignore to .gitignore
 	- Good idea? Why?
 		Not necessarily. Usually a good thing to keep track of .gitignore.
-		Useful when creating new copies of repository.
+		Useful when creating new copies of repository. Or when collaborating.
 
 So:
 $ git add .gitignore
@@ -360,10 +448,40 @@ $ git add -f
 Or see status of ignored files:
 $ git status --ignored
 
-QQQ	- If not done already, add data files and ignore them.
+
+
+What if there's a .dat file that I still want to track?
+Can use ! to negate previous rules, e.g.
+
+*dat
+results/
+!overriden.dat
+
+
+
+ACTIVITY  **************************************************************************
+
+Q5 - Nested files   [[ SLIDE ]]
+
+	1 - Ignore everything in results except results/data
+	
+		results/*               # ignore everything in results folder
+		!results/data/          # do not ignore results/data/ contents
+
+	2 - Ignore all .dat files (and only them) in the results/data/position/gps folder
+	
+		results/data/position/gps/*.dat
+
+************************************************************************************
+
+
+
 
 
 (( BREAK ))
+During the break, ask that people who don't yet have a GitHub account create one.
+
+
 
 
 5 - Adding a remote repo / GitHub
@@ -380,6 +498,7 @@ Git is not GitHub. Git is software, GitHub is a service, a company.
 - Login to GitHub
 - Create new repo
 - Name repo --> CAN BE A DIFFERENT NAME than local
+  BUT needs to be empty because we're going to link it to existing local repo so UNCHECK "initialize with README and license"
 
 Now we have an empty repo on GitHub. Same situation as if we did
 	$ mkdir planets
