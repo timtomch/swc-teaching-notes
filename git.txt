@@ -482,7 +482,7 @@ Q5 - Nested files   [[ SLIDE ]]
 During the break, ask that people who don't yet have a GitHub account create one.
 
 During the break, ask workshop host to pair attendees into groups of 2-3
-Record result on a slide.
+Record result on the Etherpad
 
 
 
@@ -590,16 +590,32 @@ In this case, nothing changes because up to date.
 6 - COLLABORATING (if enough time)
 OBJECTIVES:	- Collaborate by pushing to a common repository.
 
+This part is interactive.
+
+Get into groups. Add your GitHub user name in the Etherpad
+
+Steps
+- Add your team mates to your "planets" repository as collaborators
+
+- CLONE your team mate's repo (demonstrate how to do that)
+
+	$ git clone https://github.com/vlad/planets.git (copy the repo URL from GitHub) ~/Desktop/vlad-planets
+	
+- Make changes to their repo
+- Commit them
+- Push your changes
+
+
+Q: Now that someone else made a change to your repo, how can you update your local copy?
+	$ git pull origin main
+Q: How can you get info about what edits your team mate made?
+	Check the commit history (git log  -  git diff  or on GitHub)
+	You can also add comments on GitHub
 
 
 
-
-
-
-
-
-
-
+Advanced - Forking and pull-requests
+If enough time, have people try forking each other's repos, making changes and issuing pull-requests.
 
 
 
@@ -647,34 +663,51 @@ OBJECTIVES:	- What are conflicts? When do they occur?
 		- How to resolve conflicts. MERGE
 
 
-
-Previous example no conflict since 2nd collaborator created new file that wasn’t there in previous copy.
-
-Let’s make a conflict by editing the mars.txt file
-
-$ nano mars.txt
-Make some changes.
-
-Display mars.txt in both terminals to show difference.
-
-Then push to GitHub:
-$ git add mars.txt
-$ git commit -m "Adding a line in LEFT copy”
-$ git push origin master
+Can someone volunteer to add me as a collaborator to their own repo?
+(or ask a helper)
 
 
-Now let’s have the other partner make a change AT THE SAME TIME (without first pulling)
+- Clone attendee's repo
+
+- Make some changes in mars.txt
+
+While I'm doing this, can you make some changes on your end, and then push?
+
+- Try to commit and push
 
 
-$ nano mars.txt
-Make some changes.
 
-Display mars.txt in both terminals to show difference.
+ALTERNATIVE - Without participants collaborating 
 
-Then push to GitHub:
-$ git add mars.txt
-$ git commit -m "Adding a line in RIGHT copy”
-$ git push origin master
+	Previous example no conflict since 2nd collaborator created new file that wasn’t there in previous copy.
+
+	Let’s make a conflict by editing the mars.txt file
+
+	$ nano mars.txt
+	Make some changes.
+
+	Display mars.txt in both terminals to show difference.
+
+	Then push to GitHub:
+	$ git add mars.txt
+	$ git commit -m "Adding a line in LEFT copy”
+	$ git push origin master
+
+
+	Now let’s have the other partner make a change AT THE SAME TIME (without first pulling)
+
+
+	$ nano mars.txt
+	Make some changes.
+
+	Display mars.txt in both terminals to show difference.
+
+	Then push to GitHub:
+	$ git add mars.txt
+	$ git commit -m "Adding a line in RIGHT copy”
+	$ git push origin master
+
+
 
 
 UH OH
@@ -683,7 +716,7 @@ Git detects conflict. Not letting us overwrite previous version on server.
 
 What we have to do is pull the changes from GitHub, MERGE and then push:
 
-$ git pull origin master
+$ git pull origin main
 
 Git warns us that there is a conflict. See what it has done to mars.txt:
 
@@ -698,18 +731,12 @@ $ git status
 -> Git says conflicts are resolved but still need to MERGE.
 
 $ git commit -m "Merging changes from GitHub"
-$ git push origin master
+$ git push origin main
 
 Try doing 
-$ git pull origin master
-from other terminal window
+$ git pull origin main
+from other terminal window  // or ask other attendees to do it
 
-We get the updated, corrected file. We don’t need to merge again, git knows someone’s already done it.
-
-QQQ	- When working collaboratively, why is it a good idea to start pulling
-	  before starting a new work session?
-	- Try resolving conflicts using 2 copies. If enough time. Collaborate in pairs. Add collaborators in GitHub
-	- What happens if you have a conflict on an image file? How can we resolve?
 
 	Also possible to discard either version:
 	$ git checkout --ours file.txt
@@ -720,24 +747,17 @@ QQQ	- When working collaboratively, why is it a good idea to start pulling
 
 8 - EXTRAS
 
-- GUI tools. Show GitHub for Mac
-	- List of repositories
-	- Checkboxes --> staging
-	- Commit and Sync at the same time
-	- Editor shows changes
-	- History tab --> equiv. git status
-
-	To be used with GitHub (not really for local only)
-	Can be used to create forks, branches, and pull requests
-
 - Version control and GitHub as TOOLS FOR OPEN SCIENCE
-	- Get feedback on code and data
-	- Documents work, can resolve paternity issues
+	- Get feedback on code and data during research
+	- Documents work, can resolve paternity issues (who did which step)
 	- Other scientists can use same work
 		(esp if paper also published in Open Access)
 	- Others can check if results are reproducible
-	- Code can be cited. GitHub can create DOIs for code.
+	- Code can be cited. GitHub can create DOIs for code when connecting a "release" to Zenodo, see https://guides.github.com/activities/citable-code/.
+	- Data can be shared in repository such as figshare or Zenodo, and also get a DOI
 	- Studies show, the more open work is, the more widely it is cited and reused.
+	- See more on http://swcarpentry.github.io/git-novice/10-open/index.html
+
 
 - Good practices for sharing code
 	- Include good README file
@@ -765,6 +785,21 @@ QQQ	- When working collaboratively, why is it a good idea to start pulling
 	- Hosting on public GitHub might not be a good idea depending on your research
 		CHECK WITH INSTITUTION
 
+
+- GUI tools. Show GitHub for Mac
+	- List of repositories
+	- Checkboxes --> staging
+	- Commit and Sync at the same time
+	- Editor shows changes
+	- History tab --> equiv. git status
+
+	To be used with GitHub (not really for local only)
+	Can be used to create forks, branches, and pull requests
+	
+	Integrates also with TextMate
+	
+	And RStudio
+
+
 - Mention branches
-	See advanced Git lesson on Software Carpentry
 
