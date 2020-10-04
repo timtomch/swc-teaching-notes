@@ -1,8 +1,17 @@
 GIT
 
-Good handout: https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf
+Intro into SWC if necessary
+Introduce instructors & helpers
+Give timeline, link to workshop page
 
-WHY use version control? PHDcomics image
+Check Unix knowledge.
+- Is everyone able to navigate to a particular folder using the command line and list the contents of this directory?
+- When you are in a command line window, how do you know where in your files hierarchy you are?
+
+Good handout: https://training.github.com/downloads/github-git-cheat-sheet/
+              https://training.github.com/downloads/github-git-cheat-sheet.pdf
+
+WHY use version control? PHDcomics image: http://phdcomics.com/comics/archive_print.php?comicid=1531
 
 Who uses "undo" in their editor? undo = simplest form of version control.
 
@@ -13,8 +22,8 @@ Single user
 
 Multiple users
 - share latest version on a server - YOU decide on which version you want to work. Possible to work on a particular version while others work on other version, then merge.
-- record of who made what change when
-- conflict resolution
+- record of who made what change when: As we have this record of who made what changes when, we know who to ask if we have questions later on, and, if needed, revert to a previous version, much like the “undo” feature in an editor.
+- conflict resolution: When several people collaborate in the same project, it’s possible to accidentally overlook or overwrite someone’s changes. The version control system automatically notifies users whenever there’s a conflict between one person’s work and another’s.
 
 
 - mostly used for coding, but not only. Works with every kind of file, although things like file comparison works better with TEXT. LaTeX other good example. Data (small sets), etc.
@@ -29,12 +38,28 @@ It doesn’t require a server, unless sync and share are desired. Free GitHub pr
 
 FEATURES
 - changes are saved sequentially
+	- start with a basic version of document
+	- record changes you make each step of the way
+	- like a recording of your progress
+	- YOU DECIDE WHEN to save
 - forking: different versions can be saved separately
 - merging: different versions can be merged - conflict resolution
 
 TERMINOLOGY
-- COMMIT -> user decides what changes make next version. NOT AUTOMATED
-- REPOSITORY -> complete history of commits for particular project
+- COMMIT 
+	-> Each record of changes is called a COMMIT
+	-> user decides what changes make next version. NOT AUTOMATED
+- REPOSITORY
+	-> complete history of commits for particular project
+
+
+
+0 - Tech check
+
+Can everyone type $ git --version?
+
+
+
 
 
 1 - SETTING UP
@@ -42,9 +67,29 @@ Objectives:	- Configure git for the first time on a computer
 		- Create a new repository
 
 
+All git commands are written like     git verb options
+
 
 $ git config --global user.name “Thomas Guignard”
-$ git config --global user.email “tom”@timtom.ch”   <- email will likt to GitHub
+$ git config --global user.email “tom”@timtom.ch”   <- email will link to GitHub - use the same you've used to sign up with GitHub
+													   Note that your email is stored for each commit and can be read by anyone.
+													   GitHub provides a way to keep your actual email address private, if preferred.
+													   
+													   
+Line endings are different on Windows - might cause issues when collaborating with people on different systems.
+We recommend doing
+
+macOS & Linux:
+$ git config --global core.autocrlf input
+
+Windows:													   
+$ git config --global core.autocrlf true
+
+													   
+													   
+Config your favourite editor:
+(see http://swcarpentry.github.io/git-novice/02-setup/index.html for other examples)								   
+													   
 $ git config --global color.ui "auto"
 $ git config --global core.editor "nano -w"  <-- -w: disables word-wrapping
 
@@ -55,16 +100,30 @@ Explain what each of these are doing.
 Check
 
 $ git config -l
+or
+$ git config --list
+
+
+If you're unsure about how to use a command, use the -h flag, e.g.
+
+$ git config -h
+
+
 
 
 Create a repository
 
 We’re going to start a project about planets.
 
+
+Start by cd into the place where you want to work. I have a folder for SWC workshops, but if you want you can put it on your desktop.
+
 $ mkdir planets
 $ cd planets
 
 planets is going to be the root dir of our project. Let’s make it into a REPOSITORY
+
+Make sure you are inside the repository! pwd if unsure
 
 $ git init
 
@@ -74,8 +133,17 @@ $ ls -a
 
 .git subdirectory contains everything git. Deleting it deletes all git data for that repo. Makes it easy to copy, replace, etc. or revert to simple directory.
 
+Also note that git will include all subdirectories in the planet directory. No need to make them into repositories.
+
+
 Check status:
 $ git status
+
+
+
+
+
+
 
 
 2 - TRACKING CHANGES

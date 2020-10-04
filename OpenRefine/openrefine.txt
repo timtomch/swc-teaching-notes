@@ -2,7 +2,7 @@ OpenRefine
 - Based on Library Carpentry OR lesson
 - Updated 2020-09-26
 
-Used to be GoogleRefine, now maintained by team of independent OSS developers. Stable version is still called Google Refine, beta since 2013, relatively stable.
+Used to be GoogleRefine, now maintained by team of independent OSS developers.
 
 Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
 There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
