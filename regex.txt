@@ -1,0 +1,158 @@
+Regular expressions
+
+= a method of using a sequence of characters to define a search to match strings.
+For use in "find and replace" operations.
+
+For example:
+- Find a particular word
+- Find something that looks like a date
+- Find something that looks like an email address or a phone number
+etc.
+
+Think about the wild card character you may be using in searches.
+It exists in regular expressions too, with many more features to specify exactly what you are looking for.
+
+Steps of a regular expression
+- match on exact string of characters (text or number) or certain type of characters (eg upper case letters, digits, spaces)
+- match patterns that repeat a given number of times
+- capture (and possibly replace) the parts that match the pattern
+
+Small demo
+on https://regex101.com/
+
+
+On text
+1-888-924-8924
+(888) 924 8924
+888-924-8924
+888 924 8924
+8889248924
+
+508-944-123
+978-3-16-148410-0
+Thomas (he/him)
+regex101.com
+
+We are looking for phone numbers. We could look for digits  \d or \d* , but there are times people write their number
+with parentheses or dashes. Looking for parentheses  \(   isn't enough.
+
+With regular expressions, we can start building queries that exactly match what we're looking for.
+
+For example, I can type something like
+\d to look for a digit (a number)
+\d* for a digit repeated several times
+\d{3} for a digit repeated exactely 3 times
+\d{3}-\d{3}-\d{4} etc.
+
+or
+Thomas
+or
+a range of characters: [a-h]
+[a-h]{2}
+[a-z]{3}\)
+
+Don't worry to much about writing any of this down, we'll go through all of them today.
+
+What's interesting to note here, is that a regex is composed of
+
+- literal characters
+    character that mean what they usually mean - an a is the letter a etc.
+- meta characters or tokens
+    characters that have special meaning, e.g. "repeat this many times" or "any character within this range" or "any digit"
+    Note that if you want meta characters to be litteral, you have to ESCAPE them
+    e.g. \)
+    
+    Confusingly, some meta characters need to be escaped to be treated as meta characters, e.g. \d ...
+    
+Please take a minute to locate the back slash on your keyboard, you're going to need it.
+
+
+
+Let's look at the quick reference on regex101.com/
+It lists the tokens we can use
+
+    [ABC] matches A or B or C.
+    [A-Z] matches any upper case letter.
+    
+        To illustrate the difference, search for
+            - ho
+            - [ho]
+            - [h-o]
+    
+    [A-Za-z] matches any upper or lower case letter.
+    [A-Za-z0-9] matches any upper or lower case letter or any digit.
+
+    . matches any character.
+    \d matches any single digit.
+    \w matches any part of word character (equivalent to [A-Za-z0-9]).
+    \s matches any space, tab, or newline.
+    \S matches anything that ISN'T a space, tab or newline
+    \D matches anything that ISN'T a digit
+    
+    \ to escape e.g. \.com (because . is any character)
+    
+    
+Then we have meta characters to specify boundaries
+
+    ^ = start of the line anchor
+    $ = end of the line anchor
+    \b a word boundary
+    
+        e.g. mark will match
+            market
+            marketing
+            remarkable
+            mark
+        vs \bmark
+           \bmark\b
+
+
+**** QUESTION *****************************
+
+What will
+
+^[Oo]rgani.e\b
+
+match?
+
+*******************************************
+
+
+Explain the elements
+
+
+https://regexper.com --> to visually explain what a regex does
+
+
+
+Some more tokens (quantifier section on regex101)
+
+* matches the preceding element zero or more times. For example, ab*c matches “ac”, “abc”, “abbbc”, etc.
++ matches the preceding element one or more times. For example, ab+c matches “abc”, “abbbc” but not “ac”.
+? matches when the preceding character appears zero or one time.
+{VALUE}
+
+| = or
+/i case-insensitive
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Final thoughts
+
+There are local variants of regex. If you are using regex within a programming language, eg python, perl, and it's not working,
+look at the doc.
+    Comparison of regex dialects: https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816
+See the "flavor" tab at the left of regex101.com
+
+Also check the Regex Library tab
