@@ -17,6 +17,11 @@ Steps of a regular expression
 - match patterns that repeat a given number of times
 - capture (and possibly replace) the parts that match the pattern
 
+
+
+1 - INTRO
+
+
 Small demo
 on https://regex101.com/
 
@@ -65,6 +70,13 @@ What's interesting to note here, is that a regex is composed of
     Confusingly, some meta characters need to be escaped to be treated as meta characters, e.g. \d ...
     
 Please take a minute to locate the back slash on your keyboard, you're going to need it.
+
+
+
+
+2 - SYNTAX ELEMENTS
+
+
 
 
 
@@ -137,6 +149,100 @@ Some more tokens (quantifier section on regex101)
 
 
 
+**** EXERCICE ****************************************
+Using pen and paper for now, try figuring out the 
+following before testing them on regex101
+
+1. What will the regular expression Fr[ea]nc[eh] match?
+
+    French
+    France
+    Frence
+    Franch
+
+2. How do you match the whole words colour and color (case insensitive)?
+
+    \b[Cc]olou?r\b|\bCOLOU?R\b
+    /colou?r/i
+    
+3. How would you match the date format dd-MM-yyyy?
+
+    \b\d{2}-\d{2}-\d{4}\b
+    
+4. How would you match publication formats such as British Library : London, 2015 and Manchester University Press: Manchester, 1999?
+
+    .* ?: .*, \d{4}
+    
+*******************************************************
+
+
+
+
+
+3 - MATCHING AND EXTRACTING STRINGS
+
+
+We're going to use the Carpentries Code of Conduct as a sample text to work on.
+Copy and paste https://github.com/LibraryCarpentry/lc-data-intro/blob/gh-pages/data/swcCoC.md into regex101
+
+(not the actual CoC - we have made a few changes for this exercice)
+
+
+- community
+    we get 6 matches
+    
+- community (with a space at the end)
+    why do we get fewer matches?
+    excluding community-led
+    
+- Are we sure there are only 6 times community? What could we change?
+    Does it match Community? How can we match it?
+    
+- If I shorten it to [Cc]ommuni  I get more matches, why?
+    Matches communication, etc.
+    
+
+Let's try more complex stuff now.
+
+**** EXERCICE 1 ****************************************
+Using the CoC, see if you can extract all email addresses
+
+Hint: go step by step
+- start with what all emails have in common (@)
+- think about what an email should always contain
+
+Solution:
+[\w.-]+@[\w.-]+\.[\w]{2,3}
+(although there are now TLDs with more than 3 characters...)
+
+*********************************************************
+
+
+**** EXERCICE 2 ****************************************
+Using the CoC, see if you can extract all phone numbers
+
+- start without area code
+- include area code, with dash, with parentheses
+- try to add a country code (+1) as well
+    Hint, country codes can be up to 3 digits
+
+Solution:
+(\+?\d{1,3}( |-))?\(?\d{3}\)?(\s|-)?\d{3}-\d{4}
+
+*********************************************************
+
+
+
+
+
+4 - QUIZ
+
+If enough time, try going through https://librarycarpentry.org/lc-data-intro/03-quiz/index.html
+
+- Check answers
+- Note your correct answers
+
+Are there any answers you don't understand?
 
 
 
@@ -144,15 +250,39 @@ Some more tokens (quantifier section on regex101)
 
 
 
+5- CONCLUSION
+
+Regex used in several programming langages and software.
+
+In Google Sheets, can be used using the REGEXEXTRACT function
+
+    If enough time, extra exercice
+        - Download
+        https://github.com/LibraryCarpentry/lc-data-intro/blob/gh-pages/files/PLS_FY17.zip (2017 public library survey)
+        - Open it in Google Sheets
+        - Create a new column and extract the latitude and longitude in the ADDRESS column using a regex
+        
+    Solution: =REGEXEXTRACT(G2,"\d+\.\d+, -?\d+\.\d+")
+    
+    
+In OpenRefine, see the OR lesson
 
 
+Some real life library examples
+https://acrl.ala.org/techconnect/post/fear-no-longer-regular-expressions/
 
 
-Final thoughts
+Library of common examples
+- Check the library tab to the left of regex101
+- O'Reilly: Regular Expressions Cookbook [show ebook]
+- https://www.pgdp.net/wiki/Regex_Cookbook
+- Google search
+
 
 There are local variants of regex. If you are using regex within a programming language, eg python, perl, and it's not working,
 look at the doc.
     Comparison of regex dialects: https://gist.github.com/CMCDragonkai/6c933f4a7d713ef712145c5eb94a1816
 See the "flavor" tab at the left of regex101.com
 
-Also check the Regex Library tab
+
+Want to test yourself? https://regexcrossword.com/
