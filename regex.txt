@@ -17,6 +17,7 @@ Steps of a regular expression
 - match patterns that repeat a given number of times
 - capture (and possibly replace) the parts that match the pattern
 
+xkcd - RegEx saves the day: https://xkcd.com/208/
 
 
 1 - INTRO
@@ -46,7 +47,7 @@ With regular expressions, we can start building queries that exactly match what 
 For example, I can type something like
 \d to look for a digit (a number)
 \d* for a digit repeated several times
-\d{3} for a digit repeated exactely 3 times
+\d{3} for a digit repeated exactly 3 times
 \d{3}-\d{3}-\d{4} etc.
 
 or
@@ -56,7 +57,7 @@ a range of characters: [a-h]
 [a-h]{2}
 [a-z]{3}\)
 
-Don't worry to much about writing any of this down, we'll go through all of them today.
+Don't worry too much about writing any of this down, we'll go through all of them today.
 
 What's interesting to note here, is that a regex is composed of
 
@@ -64,7 +65,7 @@ What's interesting to note here, is that a regex is composed of
     character that mean what they usually mean - an a is the letter a etc.
 - meta characters or tokens
     characters that have special meaning, e.g. "repeat this many times" or "any character within this range" or "any digit"
-    Note that if you want meta characters to be litteral, you have to ESCAPE them
+    Note that if you want meta characters to be literal, you have to ESCAPE them
     e.g. \)
     
     Confusingly, some meta characters need to be escaped to be treated as meta characters, e.g. \d ...
@@ -244,6 +245,24 @@ If enough time, try going through https://librarycarpentry.org/lc-data-intro/03-
 
 Are there any answers you don't understand?
 
+
+
+
+APARTE - greedy vs lazy
+
+Lazy expressions will match as few times as possible
+Greedy expression will match as many times as possible
+
+Example
+
+
+<em>Hello World</em>
+
+Greedy:
+<.+>
+
+Lazy:
+<.+?>
 
 
 
