@@ -1,26 +1,47 @@
+Updated 02-2021 with new lesson content
+
+PREP - if online teaching
+- Have a terminal window in present online mode open 
+- Have a finder window ready
+- add both too mmhmm if using
+
+
+
+If using tmux, see https://github.com/rgaiacs/swc-shell-split-window
+    - Explain that their screen will look different - that's OK, I'm using this setup so they can see what were the last commands I typed
+
 IF REQ'D - WHO I AM
 INTRODUCE HELPERS
 HOW STICKIES WORK
 CONFIRM SCHEDULE
 
-Have people download the nelle folder https://timtomch.github.io/files/nelle.zip / bit.ly/swcbash
+Have people download the test data folder http://swcarpentry.github.io/shell-novice/data/data-shell.zip
 
 Question: using the terminal, who among you can navigate to your home directory and list the files it contains?
-Handout: linux_cheat_sheet.pdf
+Handout: https://github.com/timtomch/swc-teaching-notes/raw/master/bash/linux_cheat_sheet.pdf
 
 
 
 
 WHAT IS THE SHELL AND WHY IT IS IMPORTANT
-- keyboard, mouse & GUI great way to interact with computer, very intuitive
+- keyboard, mouse & graphical user interface (GUI) great way to interact with computer, very intuitive
 - not great for repetitive stuff -> takes time, causes (human) errors
 
 - CLI still very much used to do exactly that, tell computers to do stuff over and over again. 
-- Work on a bunch of files. Be able to do the very same thing on other files 6 months from now.
+- Example: imagine you have to copy the 3rd line on hundreds of files. Doing it by hand is tedious and could lead to errors. Also if you find out it was the 4th line you had to copy, you have to start over. Same if you have to start again in 6 months on a new set of files.
+The commands we will learn today should provide ways to do this.
 	-> repetitive
 	-> reproducible
 
 	---> PROGRAM
+
+The other advantage of knowing how to use a command-line interface is controlling remote computers. If you ever have to run a very large program that has to run on dedicated machines, this is typically used.
+
+
+In both cases, we are giving instructions to the computer
+- through mouse clicks on menus etc.
+- through text
+
 
 - a "shell" is a computer programm that interprets what we type, tells the computer what to do in computer-speak, then prints the result of the action:
 R ead
@@ -29,10 +50,10 @@ P print
 L oop
 
 - there are different shells, although they share a large set of commands. The most common nowadays is bash.
-- by default, the Mac Terminal uses bash
+- technically, newer Macs now use tcsh but most of what we're doing today should still apply.
 - most Linux distros do too
  	how to be sure? type echo $SHELL
-					  or ps
+
 - the command prompt in Windows is also a shell, although it doesn't share the same command base as most UNIX shells
 	to get a proper shell in Windows, use a 3rd-party like git-bash (comes with git)
 	
@@ -41,42 +62,51 @@ L oop
 HOW TO USE A SHELL
 - shell prompt ($ in bash)
 - we type in commands
-	- e.g. whoami
+	- e.g. ls
 
 	- what the shell does is
-		- it finds the whoami program
+		- it finds the ls program
 		- runs it
-		- prints its output
+		- prints its output (in this case a list of files at the current location)
 		- displays a new prompt -> we can type new stuff
 
 
 - files are organised in folders on your computer (or at least they should be)
 - we can navigate those folders using Windows Explorer or the Finder
-	- example to sample data
+	- SHOW example to sample data
 
 - now if I want to act on those files, I need to open the folder they're in in the Finder
-	- example
+    - eg rename files
 - if I want to act on them using CLI, I also need to navigate to that folder
-- how do I know?
-- we can try whereami
-- doesn't work
-- most commands are shortcuts - PROGRAMMERS ARE LAZY PEOPLE
 
-- we use pwd instead - PRINT WORKING DIRECTORY
+
+We'll start our lesson by learning some commands to move around in our files and do simple operations on them.
+
+
+In the GUI, there are some cues where we are located. How about in the shell?
+Let's start by figuring out where we are 
+
+pwd - PRINT WORKING DIRECTORY
+
 - prints the whole path, from the root of the filesystem
 - on a Mac, it's often something like /User/yourname/Documents etc.
 - slashes separate folders and subfolders
 - first slash tells it's the root
 
+EXPLAIN using the Finder
+- Macintosh HD is the root
+- Navigate to Users/thomas
 
-
-- CD to CHANGE DIRECTORY
 
 - LS to list what's in a directory
 	- filename conventions
 	- extensions (can be hidden in the Finder but should always be here)
 	- spaces and accented characters are bad news (but there are ways to get around)
-	
+
+
+- CD to CHANGE DIRECTORY
+
+
 - Examples use of CD to navigate up and down, relative vs absolute paths
 - cd .. to go "up"
 - cd to home dir
