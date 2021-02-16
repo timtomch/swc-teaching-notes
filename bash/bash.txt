@@ -14,12 +14,16 @@ If using tmux, see https://github.com/rgaiacs/swc-shell-split-window
     In mouse mode, to copy text: hold the fn key when selecting (selects in pale green) - command-c will then work
     
     
+While I introduce myself, if everyone can type echo $SHELL and plop the result in the chat/Discord
+
 
 
 IF REQ'D - WHO I AM
 INTRODUCE HELPERS
 HOW STICKIES WORK
 CONFIRM SCHEDULE
+    - 3h
+    - Couple of breaks
 
 Have people download the test data folder https://swcarpentry.github.io/shell-novice/data/data-shell.zip
 
