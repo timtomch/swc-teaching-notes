@@ -4,18 +4,24 @@ PREP - if online teaching
 - Have a terminal window in present online mode open 
 - Have a finder window ready
 - add both too mmhmm if using
+    - also add exercice images to mmhmm
 
 
 
 If using tmux, see https://github.com/rgaiacs/swc-shell-split-window
     - Explain that their screen will look different - that's OK, I'm using this setup so they can see what were the last commands I typed
+    
+    In mouse mode, to copy text: hold the fn key when selecting (selects in pale green) - command-c will then work
+    
+    
+
 
 IF REQ'D - WHO I AM
 INTRODUCE HELPERS
 HOW STICKIES WORK
 CONFIRM SCHEDULE
 
-Have people download the test data folder http://swcarpentry.github.io/shell-novice/data/data-shell.zip
+Have people download the test data folder https://swcarpentry.github.io/shell-novice/data/data-shell.zip
 
 Question: using the terminal, who among you can navigate to your home directory and list the files it contains?
 Handout: https://github.com/timtomch/swc-teaching-notes/raw/master/bash/linux_cheat_sheet.pdf
@@ -121,21 +127,24 @@ AUTOCOMPLETE & HISTORY
 
 
 
-CHALLENGE
-- Please download the nelle directory if not already done so
-- Preferably save it into somewhere in your files where you will be able to find it - DESKTOP NOT ALWAYS A GOOD IDEA
+** CHALLENGE ****************************************************
+- Please download the data-shell directory if not already done so
+- Preferably save it into somewhere in your files where you will be able to find it - DESKTOP NOT ALWAYS A GOOD IDEA but for today is fine
 - navigate to this folder and list its contents
 - try using autocomplete
 should be
-Desktop			molecules		pizza.cfg
-creatures		north-pacific-gyre	solar.pdf
-data			notes.txt		writing
+creatures               north-pacific-gyre      solar.pdf
+data                    notes.txt               writing
+molecules               pizza.cfg
+*****************************************************************
+
+
 
 
 ARGUMENTS
 - I can run programms either with or without arguments
 
-	- cd nelles
+	- cd data-shell
 			^ this is an argument
 	- no arguments: some sort of default
 		- ls : lists the current dir, but you can specify e.g. ls data
@@ -149,10 +158,55 @@ ARGUMENTS
 	- ls -a (list ALL)
 	- ls -F (identifies directories)
 		 -r (reverse order)
+         -G colorizes output
+    They can be combined: ls -lhG
+         
+    Watch out: capitalization is important
+        -s displays the size
+        -S sorts by size
+    
+    Also watch for spaces
+    
 
-- mention MANPAGES
+- ways to get help 
+    
+    MANPAGES: eg man ls
+        Sadly this won't work for Windows
+    GitBash has --help
+        ls --help will work on Windows, not Mac
+
+
 	or search the web - man pages not on all Windows installs
 	http://explainshell.com/ - great resources, explains commands bit by bit
+
+
+
+
+** CHALLENGE ****************************************************
+- List the files in the data-shell folder ordered by size in reverse order (smallest first)
+    Use man ls or ls --help to see list of options
+    hint: ls -S to list by size
+    ls -r to reverse order
+should be
+total 64
+-rw-r--r--@  1 thomas  staff     32  8 Aug  2019 pizza.cfg
+-rw-r--r--@  1 thomas  staff     86  8 Aug  2019 notes.txt
+drwxr-xr-x@  3 thomas  staff     96  8 Aug  2019 north-pacific-gyre
+drwxr-xr-x@  5 thomas  staff    160  8 Aug  2019 creatures
+drwxr-xr-x@  6 thomas  staff    192  8 Aug  2019 writing
+drwxr-xr-x@  8 thomas  staff    256  8 Aug  2019 molecules
+drwxr-xr-x@ 11 thomas  staff    352  8 Aug  2019 data
+-rw-r--r--@  1 thomas  staff  21583  8 Aug  2019 solar.pdf
+*****************************************************************
+
+
+
+
+ASK if navigation clear, or if they want one more exercice?
+If so, use path-exercice-1.png 
+
+
+
 
 
 
@@ -186,6 +240,63 @@ nano draft.txt
 check that the file is there using ls
 
 
+Aparte on file names
+    - Try to avoid spaces or special characters if you plan to interact with your files using CLI or code
+    - Use filename extensions for clarity
+
+
+
+
+RENAME AND MOVE
+
+- mv
+	- rename
+
+        mv thesis/draft.txt thesis/quotes.txt
+
+
+	- move
+
+        mv thesis/quotes.txt .
+
+
+
+
+
+COPY
+
+- cp
+
+    cp quotes.txt thesis/quotations.txt
+
+
+- how to copy a directory?
+	- use -r
+	
+        cp -r thesis thesis_backup
+    
+    
+	WHAT'S THE DIFFERENCE OF
+	- cp -r data/ thesis       <--- copies *the contents* of the data folder
+	and
+	- cp -r data thesis        <--- copies the data folder
+	
+	I like to write
+	- cp -r data thesis/.
+	WHY?
+	
+
+. - this dir
+.. - parent dir
+/ - root
+
+
+
+* wildcard
+
+
+
+
 DELETING FILES
 
 - rm
@@ -201,44 +312,18 @@ SAFETY NETS
 
 - rm -r allows to delete recursively ---> DANGER
 
+- rm -i     <--- interactive mode - useful when you're not sure, will ask before each action.
 
 
-RENAME AND MOVE
-
-- mv
-	- rename
-	- move
 
 
-COPY
-
-- cp
-
-- how to copy a directory?
-	- use -r
-	
-	WHAT'S THE DIFFERENCE OF
-	- cp -r data/ thesis
-	and
-	- cp -r data thesis
-	
-	I like to write
-	- cp -r data thesis/.
-	WHY?
-	
-
-. - this dir
-.. - parent dir
-/ - root
-
-* wildcard
-
-
-CHALLENGE
-- move the molecules folder under data
-- create a folder called backup under nelles
+** CHALLENGE *************************************************
+- move the molecules folder inside data
+- create a folder called backup 
 - create a subdirectory with today's date under backup
 - copy the contents of the data folder there
+**************************************************************
+
 
 
 
@@ -248,12 +333,12 @@ BREAK ?
 
 
 
+
+
 PIPES
 
-Process results into a file with >
-Read a file instead of keyboard input
+So far we have learned how to interact with files using the shell. Let's move on to more powerful things.
 
-Join them directly with PIPES
 
 Let's switch to the molecules folder
 
@@ -267,29 +352,48 @@ Let's switch to the molecules folder
 	- wc -l -> only lines
 
 - save into a file
-- wc -l *.pdb > lengths.txt
-	- what will happen?
+    - wc -l *.pdb > lengths.txt
+
+    
 	- does it matter if the file lengths.txt already exists or not?
 		- create file
-		- overwrites it
-- cat lengths.txt
+		- overwrites it (!)
+        
+        If you want to append instead of overwriting, use >>
+        
+        
+- cat lengths.txt  vs less lengths.txt
+
+
+
 
 - sort -n lengths.txt
 	- n -> numerical sort instead of alphabetic
 
 - save this into a file
-- sort -n lengths > sorted-lengths
+- sort -n lengths.txt > sorted-lengths.txt
 
-- how would I get shortest and longest molecule?
-- get first and last line of that file
-	- head -1 sorted-lengths (-1 just first line)
+
+- how would I get shortest molecule?
+- get first line of that file
+	- head -1 sorted-lengths.txt (-1 just first line)
 	
+    
+    
 Do we need to create files for every step?
 We can use pipes instead
 
 - sort -n lengths | head -1
 
 - wc -l *.pdb | sort -n | head -1
+
+
+
+Show redirects and pipes graph to clarify.
+
+
+
+
 
 
 Explanation of standard in stdin and standard out stdout
@@ -300,7 +404,10 @@ RECAP/GENERALLY
 - good way to "grow" a program
 
 
-CHALLENGES
+
+
+
+* CHALLENGES ********************************************************
 I've shown you how to get the shortest molecule. How would you go about to get the longest?
 - two options:
 	- tail instead of head
@@ -316,11 +423,13 @@ What if I want to remove the name of the file and only get the word count?
 e.g. wc -l *.pdb | sort | tr -s ' ' | cut -d ' ' -f2
 
                            ^- trim         ^- cut with delimiter
+***********************************************************************
 
 
 What if instead of the number of lines I was interested in the number of bytes in every molecule file?
 - hint: use man wc
 - wc -c ...
+
 
  (( BREAK ))
 
@@ -330,28 +439,19 @@ LOOPS
 
 
 Let's change into the creatures directory
-Imagine there were more than two files there. How would you create a duplicate of each of those files, say backup-nameoffile?
+We'd like to print out the classification (second line) for each species.
 
-Can you do?
-cp *.dat backup-*.dat ?
+Let's do it on one file
 
-Why not?
-try using echo
-That expands into
-	cp basilisk.dat unicorn.dat backup-basilisk.dat backup-unicorn.dat
-	-> error, cp doesn't know what to do with more than two files
-	Depending on your shell, it might even try to copy basilisk into unicorn...
+    head -n 2 basilisk.dat | tail -n 1
 
-Instead, we have to use loops.
 
-For example, we want to display the first 3 lines of each files. Remember head?
-
-$ for filename in basilisk.dat unicorn.dat
+$ for filename in basilisk.dat unicorn.dat minautor.dat
 > do     <---------------- notice how the prompt changes? we're inside the for loop
->    head -3 $filename
+>    head -n 2 $filename | tail -n 1
 > done
 
-What happened here?
+What's happening here?
 
 for
 
@@ -365,19 +465,38 @@ I can add several lines inside the for loop
 $ for filename in *.dat
 > do
 > echo $filename
-> head -3 $filename
+> head -n 2 $filename | tail -n 1
 > done
 
 Try to do an arrow up - for filename in *.dat; do head -3 $filename; done
 
 
-CHALLENGES
-- Now try to solve the initial problem
+Explain *.dat
+     it expands into basilisk.dat unicorn.dat minautor.dat
+     Can use echo to find out
+
+
+
+
+* CHALLENGE **************************************
+
+I'd like to create a backup copy of each creature file.
+
+If I try
+    cp *.dat backup-*.dat
+    it won't work
+    (use echo to demonstrate)
+
+So I have to use a for loop instead. Can you find out what it is?
 
 $ for filename in *.dat
 > do
 > cp $filename backup-$filename
 > done
+
+****************************************************
+
+
 
 - What would happen if we had a file with a space in its name?
 
@@ -393,7 +512,11 @@ $ for filename in *.dat
 > echo cp $filename backup-$filename
 > done
 
+
 Other challenges if time allows on lesson material.
+
+Check if everyone understands for loop - use schema in slide if necessary.
+
 
 
 
@@ -419,15 +542,11 @@ or use -i when using rm (interactive, asks for confirmation)
 Let's go back to the molecules folder
 
 Refresh our memories about content
-less cubane.pdb
+less octane.pdb
 
-Say I'm interested in getting only the line with the author's name, how would I do that?
+Say I'm interested in getting only lines 11-15 of a file. Going back to pipes:
 
-I can start with
-- head -2 cubane.pdb
-
-Then
-- head -2 cubane.pdb | tail -1
+head -n 15 octane.pdb | tail -n 5
 
 
 Hurray. And then what if I want to run it on another molecule?
@@ -440,17 +559,16 @@ I create a shell script
 Create shell script using nano
 	-> a-parte on text editors
 
-nano getauthor.sh
+nano middle.sh
+
+    echo "yeah!"
 
 
-echo "yeah!"
-
-
-bash getauthor.sh  <- we tell bash to run this script
+    bash middle.sh  <- we tell bash to run this script
 
 
 Then we can try
-head -2 cubane.pdb | tail -1
+head -n 15 octane.pdb | tail -n 5
 
 
 OK, so what do I do now if I want to run it on another molecule?
@@ -458,47 +576,45 @@ OK, so what do I do now if I want to run it on another molecule?
 Remember variables?
 There are special variables that give us arguments passed when running a script
 
-head -2 $1 | tail -1
+head -n 15 "$1" | tail -n 5
 
 $1 -> first argument
 $2 -> second argument
 etc.
 
+I'm putting it in " " so that it would work even if there are spaces in the filename
+
 Let's try to run it on two different files. Yeah!
 
 
 
-CHALLENGE
-OK, now what if I want to run it on all the molecules?
-Let's try
-bash getauthor.sh *.pdb
+We can now make our little script take even more parameters:
 
-uh oh, what's happening here?
+head -n "$2" "$1" | tail -n "$3"
 
-we can try putting echo in front
-
-passing all the filenames at once
-but our script only looks at the first argument -> $1
-so how do we get our script to work recursively on all arguments?
-
-Hint: the variable $* returns all arguments
 
 
 Are we happy with our script? Is that your first computer program? Good job!
+
 Now imagine someone else has to use your script in a few years. Or it can be you in a few years. How do you determine how it works?
 
 ADD COMMENTS!
 
-# takes one or more files as arguments and outputs the 2nd line of each of those files
-# Usage: getauthor.sh file1 file2...
+# Select lines from the middle of a file.               <-- add some comments so you remember later what this is doing
+# Usage: bash middle.sh filename end_line num_lines
+head -n "$2" "$1" | tail -n "$3"
+
 
 
 NEAT TRICK
 Use history to save your workin into a shell script!
 
 
+    history | tail -n 5 > redo-figure-3.sh
 
-CHALLENGE
+
+
+* CHALLENGE ***********************************************************************
 Write a script that takes two arguments
 - the name of a directory
 - a file extension
@@ -506,6 +622,7 @@ and outputs the longest file (the one with the most lines) in that directory wit
 
 
 wc -l $1*$2 | sort | tail -2 | head -1
+***********************************************************************************
 
 
 
@@ -523,16 +640,33 @@ Find the lines that contain "not"
 - grep "not" haiku.txt
 not necessary to put quotes
 
-- grep day haiku.txt
-also returns Yesterday
+    APARTE: grep is contraction of global/regular expression/print - sequence of operations to do the same thing
+        Came to be shorthand for searching (like "to google" for searching the web) - so the find program is named like this
+        
+        
+- grep The haiku.txt
+also returns Thesis
 
--w to restrict matches to word boundaries
+-w to restrict matches to word boundaries (including start and end of line, not just spaces):
+
+    grep -w The haiku.txt
+    
+Use " " to look for phrases:
+
+    grep -w "is not" haiku.txt
 
 -n prints line numbers
 
 
 -i case insensitive
 -v inverts
+
+-r recursive, eg inside a directory:
+
+    grep -r Yesterday .
+    
+
+
 
 
 Pattern is in form of REGULAR EXPRESSIONS   <-- very powerful, also rather complex
@@ -562,6 +696,7 @@ grep -E '^(.)* it' haiku.txt
 
 
 
+
 GREP finds stuff inside files
 FIND finds files
 
@@ -574,13 +709,16 @@ find . -type d
 
 	 start in current dir (.)
 	 find -type d directories
+     
+     consider piping to less if too long a list:
+         find . | less
 
 find . -type f to look for files
 
 -maxdepth
 -mindepth
 
-find . -name one.txt
+find . -name haiku.txt
 
 What if I try to look for all .txt files
 find . -name *.txt
@@ -602,18 +740,29 @@ wc -l $(find . -name '*.txt')
 whatever is in $() gets executed first
 
 
-CHALLENGE
-cd back to the root of the nelle directory
+* Capstone CHALLENGE **************************************************
+data-shell/writing/data/LittleWomen.txt has full text of the Little Women novel
 
-There are .pdb files in multiple places under nelles' home directory
-Find the one .pdb that describes a compound that includes an iron atom
-(it will have FE in it)
-Do so by combining GREP and FIND
+Write a script that counts how many time each of the characters is mentioned?
+Jo
+Meg
+Beth
+Amy
 
-grep FE $(find . -name '*.pdb')
+Hint:
+    - use grep
+    - use a for loop
+    - there are several ways to solve this
+    
+*************************************************************************
 
+Solution:
 
-
+for sis in Jo Meg Beth Amy
+do
+	echo $sis:
+	grep -ow $sis LittleWomen.txt | wc -l
+done
 
 
 
