@@ -1,7 +1,7 @@
 OpenRefine - Short version
-- Developed for OLA Education Institute webinar in April 2019
+- First developed for OLA Education Institute webinar in April 2019
 - Based on Library Carpentry OR lesson
-
+- Updated April 2021
 
 
 
@@ -22,6 +22,27 @@ CONTENTS
 - Discussion and Q&A
 	Answer any questions you might have
 	Discuss any real life data cleanup use cases you might have
+
+
+
+FOLLOW ALONG
+
+We have about 1.5 hours today, so this won't be a fully interactive session.
+I will try to give you a taste of the app by showing a few operations
+Not comprehensive but a good overview
+
+If you want, you can follow along as I go
+    Paste link to data set https://github.com/LibraryCarpentry/lc-open-refine/raw/gh-pages/data/doaj-article-sample.csv
+
+Or try on your own after
+
+Companion document if need to get back to after (feel free to edit, add your own notes)
+Has my contact info and links to more details
+This roughly follows the Library Carpentry OR lesson, link in the document, can use it for self-teaching
+https://docs.google.com/document/d/1S4WL8iEKpGa-9zjizdDlFYZ2Fv_Lv-oE40m4Q7Y9-po/edit?usp=sharing
+
+
+Also all links in slides
 
 
 
@@ -57,7 +78,7 @@ Reasons to use OpenRefine:
 - NORMALIZE/CLEAN UP data
 	- inconsistent date formats
 	- typos, case mismatch, markup errors, e.g. London, london, London;, LONDOND, etc.
-	- Split unstructured data into structured, see online example
+	- Split unstructured data into structured, e.g. address all in one field split into street, city, postal code...
 	- Enrich data from an external source, e.g. Virtual International Authority File
 
 
@@ -65,23 +86,19 @@ Reasons to use OpenRefine:
 HOW TO INSTALL AND RUN
 
 Download from openrefine.org
-	- Version 3.1 is STABLE
-	- 3.2 BETA
+	- Version 3.4.1
 Requires JAVA
 	- Oracle discontinuing support for free Java, but still available
-	- Can use Amazon Corretto also
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
 Internet Explorer is not supported. Use Chrome or Firefox.
 
-More details in companion document
 
 
 
 
+IMPORT DATA & CREATE PROJECT                      -           FIRST STEP in workflow: IMPORT
 
-
-IMPORT DATA & CREATE PROJECT
 
 You can also open previous project
 
@@ -103,9 +120,6 @@ Upload into Open Refine
 
 Very fast. Displays only the first rows, can be changed. This makes it faster.
 
-Reorder columns, hide, etc.
-
-
 Uncheck "treat dates as dates etc."
 
 
@@ -115,7 +129,8 @@ Uncheck "treat dates as dates etc."
 
 
 
-3. EXPLORE DATA: SORT, FILTER, FACETS, CLUSTER
+3. EXPLORE DATA: SORT, FILTER, FACETS, CLUSTER  - 2:15    -           SECOND STEP in workflow: ANALYZE
+
 See how data is displayed. Similar to spreadsheet.
 Not all rows (or records) are displayed -> preview, faster. Adjustable
 
@@ -170,7 +185,7 @@ Reset All  and Remove All buttons
 
 
 
-IF time permits
+IF time permits (next section at 2:30)
 Other types of facets, e.g.
 - Numeric
 - Timeline
@@ -179,8 +194,13 @@ Other types of facets, e.g.
 	- Word facet - this breaks down text into words and counts the number of records each word appears in
 		For example, filter by language-English then Word facet by author
 			-> rudimentary author facet, we'll see how to do this better
+            --> click "change" to change the character used for splitting from space to |
+            --> note that it says GREL - hint that there is a language to do more detailed operations, 
+                we'll talk more about it later
 	- Text length facet
-		Can be used to check data, e.g. Language more than 2 characters
+		Can be used to quickly see the distribution of title lenghts (Title -> text length facet)
+        Or can be used to check data, e.g. Language more than 2 characters
+        
 
 
 
@@ -190,7 +210,7 @@ Other types of facets, e.g.
 
 
 
-4. CLEANING UP DATA
+4. CLEANING UP DATA  - 2:30                      -                       THIRD STEP in workflow: CLEANUP
 
 
 Let's get back to our language facet.
@@ -201,18 +221,6 @@ Edit the English facet
 	Undo function - see temporary message on top
 	Also Undo/Redo history
 
-
-Can't edit a blank facet
-	Instead use Edit Cells -> Transform and input text with ""
-
-	This function supports more complex transformations, using a syntax called GREL: General Refine Expression Language.
-	This is beyond the scope of this short introduction, but I've provided links to learn how to use GREL to do more complex transforms.
-
-	It's a little like the formulas in Excel but more powerful.
-
-	Also supports Python and Clojure.
-
-	If you just want to replace text, remember to use "". Check preview before hitting OK.
 
 
 
@@ -225,6 +233,7 @@ It works, but what happened to the rows?
 	OR didn't just create new rows and loose the relationship between authors.
 	Show as records instead of rows
 		Notice that "rows" belonging to the same records are grouped together (See numbering)
+
 
 
 
@@ -248,21 +257,50 @@ As usual with OpenRefine, it starts with previewing data changes only. You can d
 
 
 
-If time permits
+If time permits (next section at 3:00)
 TRANSFORMS
 
-We have a bit of time, so let's look at Transforms more in detail. You don't need to know GREL to use the most common ones.
+We have a bit of time, so let's look at Transforms more in detail. 
+
+
+Let's look at the Title column and use Edit Cells -> Transform
+
+    The window that opens now has a prompt on top, expecting expressions in a syntax called 
+    GREL: General Refine Expression Language.
+
+	    It's a little like the formulas in Excel but more powerful.
+
+	    Also supports Python and Clojure.
+
+	I won't go very deep into GREL for this short introduction, but will show a few functions.
+    In the companion document I've linked to a few GREL reference documents
+    
+    For example value.toUppercase()
+    
+    Preview window -> you can see what you're doing before applying it to large dataset
+    
+        See History, Starred, Help tabs
+        
+
+You don't need to know GREL to use the most common ones. 
+Actually the one we just used (toUppercase) can be applied through Common Transforms
+
+
+Some examples of common transforms:
+
+Facet by publisher, select Askhantala + Technocrats
+	include option to select more than 1
+Have a look at the title - all uppercase
+Do a Transform...
+	value.toTitleCase()
 
 
 
 Look at the date column
-	Do a text facet, look for the different formats
+	
 	Try a timeline facet - looks weird because not recognized as times
-	Star them so we can look at them after editing
 
 	Use Edit Cells -> Common Transforms -> To Date
-
-	Check the ones we had starred (Filter by star)
 
 	Check the timeline facet again!
 
@@ -272,23 +310,6 @@ Look at the date column
 
 
 
-Create a text facet on publishers.
-Look at MDPI AG
-	why is it appearing twice? probably some whitespace?
-	We could clean it up using the same method as for the languages, but what if there were many instances in a long list of
-	publishers?
-Publisher -> Edit cells -> Common Transforms -> Trim whitespace
-	See what happened in your facet?
-
-The transforms in the Common Transforms submenu are the most common ones. But we can write our own using the Transform... option.
-
-
-
-Facet by publisher, select Askhantala + Technocrats
-	include option to select more than 1
-Have a look at the title - all uppercase
-Do a Transform...
-	value.toTitleCase()
 
 
 
@@ -300,8 +321,13 @@ Can easily travel back to earlier stage.
 Can also export a series of operations to be "played back"
 
 
+(short break if enough time - check for questions)
 
-EXPORTING DATA
+
+
+
+
+EXPORTING DATA - 3:00                     -                       LAST STEP in workflow: EXPORT
 
 Say we are now happy with how we cleaned up our data. 
 The typical workflow is loading data in a particular format, working on it, exporting it in the same format
@@ -320,6 +346,9 @@ Export menu
 Most common is CSV, TSV or Excel format
 
 Custom tabular allows to select which columns you want to export, etc.
+    Look at Download -> could export to exotic formats if needed
+    Look at Upload -> could export to a Google Spreadsheet (heritage of when this was a Google product)
+    You can even save your export option set (in JSON)
 
 Templating for more advanced output. Also for JSON output.
 
@@ -327,25 +356,20 @@ Templating for more advanced output. Also for JSON output.
 
 If time permits
 
-MARC
-MarcEdit 
-Built-in tool in the most recent versions
+What if you need to work on MARC files?
 
-Transform MARC file in TSV or JSON
-Load into OpenRefine
-	WARNING: check that there are no "" around empty values - it will mess up MarcEdit when importing
-
+Use MarcEdit to convert to TSV (best for larger files) or JSON and load in OpenRefine
 
 Different mindset with MARC files - instead of one record per row, there's one row per MARC tag.
-Use facet to select all tags, e.g. 856
-Use another facet to select indicators, e.g. 40
+Still pretty crude, subfields are mixed with Content
+Also need to move the Indicators to the left, otherwise it breaks the output...
 
-Eg use text transform
-value.replace("?utm_source=marc","?org=algonquincollege.com")
+Blank line to separate records
+
+Use facet to select all tags, e.g. 250
 
 
-Export into TSV (MarcEdit only supports that format for importing)
-
+When exporting back to MarcEdit, choose TSV
 
 
 
@@ -353,6 +377,7 @@ Export into TSV (MarcEdit only supports that format for importing)
 
 If time permits
 Going further
+    
 - Reconciliation
 
 What is reconciliation:
@@ -370,25 +395,48 @@ Use cases:
 	Multiple sources available, Wikidata enabled by default
 
 
-	If enough time, show the Gases example
+	If enough time, reconcile Publishers via VIAF
+    
+    - Do a text facet on Publishers
+    - Select International Union of Crystallography
+    
+    Clicking on blue links brings you to VIAF page, can check if it's the right one.
+    
+    One tick: accept for this record only
+    Two ticks: accept for all identical values
+    
+    If you're confident, can also do ‘Reconcile->Actions->Match each cell to its best candidate’
+    
+    To extract VIAF ID (it's hidden by default)
+        - Add column based on this column
+        - GREL: cell.recon.match.id
+
+    
+    
+- API calls
+
+    See Add column by fetching URLs, for example on ISSN
+    "https://api.crossref.org/journals/"+value
+    
+    If you want to run this live, filter by a couple of records only
+    See https://librarycarpentry.org/lc-open-refine/13-looking-up-data/index.html for more details
+    
+    Returns as JSON, needs to be parsed first.
 
 
 
+
+Last 15 minutes -- 3:15
 
 WRAP UP
+
+Anyone has an example of a dataset they'd like to use OpenRefine on?
+Discussion of use cases
+
 
 Point to companion document again
 
 Mention that they can get back to me anytime
 
 Resources - check out tutorials
-
-If you are in Toronto
-code4lib Toronto - informal meetings for people interested in technology and libraries, we meet about 4/5 times a year
-Next meeting is April 24 on web accessibility at Gerstein
-Then one on July 18 on demistifying the library stack
-...
-
-code4lib North in Hamilton on May 30-31
-Free, open to all
 
