@@ -395,7 +395,7 @@ Use cases:
 	Multiple sources available, Wikidata enabled by default
 
 
-	If enough time, reconcile Publishers via VIAF
+	If enough time, reconcile Publishers via VIAF - Virtual International Authority File
     
     - Do a text facet on Publishers
     - Select International Union of Crystallography

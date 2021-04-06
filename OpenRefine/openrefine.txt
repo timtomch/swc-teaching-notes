@@ -441,7 +441,7 @@ Christina Harlow: Compare values in my dataset with values in an external datase
 Reconciliation functions
 Even easier, people have implemented database interfaces that interact directly with OpenRefine.
 Of interest to librarians:
-- VIAF
+- VIAF - Virtual International Authority File
 - LCSH
 - JournalTOCs
 - FundRef (e.g. to link publications to funding source)
