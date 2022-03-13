@@ -1,9 +1,14 @@
 OpenRefine - Short version
 - First developed for OLA Education Institute webinar in April 2019
 - Based on Library Carpentry OR lesson
-- Updated April 2021
+- Updated Nov 2021
 
+(SLIDE 1)
+Welcome
+Timeframe - 1h30
 
+(SLIDE 2)
+Who I am
 
 CONTENTS
 - Introduction
@@ -20,11 +25,13 @@ CONTENTS
 - Resources
 	Some pointers on how to go further
 - Discussion and Q&A
-	Answer any questions you might have
+	Answer any questions you might have - as I go along, pleae put any questions in the chat.
+		I will try to answer as many as I can on the go, we'll address any remaining ones
+		at the end!
 	Discuss any real life data cleanup use cases you might have
 
 
-
+(SLIDE 3)
 FOLLOW ALONG
 
 We have about 1.5 hours today, so this won't be a fully interactive session.
@@ -39,20 +46,17 @@ Or try on your own after
 Companion document if need to get back to after (feel free to edit, add your own notes)
 Has my contact info and links to more details
 This roughly follows the Library Carpentry OR lesson, link in the document, can use it for self-teaching
-https://docs.google.com/document/d/1S4WL8iEKpGa-9zjizdDlFYZ2Fv_Lv-oE40m4Q7Y9-po/edit?usp=sharing
+https://docs.google.com/document/d/1a_UTudOcKHd9Y5BDAz-_6Eb-1cD74xOxNokkCyCNaS8/edit?usp=sharing
 
 
 Also all links in slides
 
 
 
-
+(SLIDE 4)
 INTRO
 
 Used to be GoogleRefine, now maintained by team of independent OSS developers.
-
-Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
-There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
 
 Pros re spreadsheets:
 - handles larger files (100'000 rows OK, does not scale to several millions)
@@ -71,6 +75,7 @@ Cons:
 - non transparent saved files
 
 
+(SLIDE 5)
 Reasons to use OpenRefine:
 - EXPLORE data
 	- e.g. how are values distributed
@@ -82,6 +87,20 @@ Reasons to use OpenRefine:
 	- Enrich data from an external source, e.g. Virtual International Authority File
 
 
+(SLIDE 6)
+OpenRefine Workflow
+Typical steps when working with data in OpenRefine:
+	- Import
+	- Analyze
+	- Cleanup
+	- Export
+
+We'll go through each today.
+
+
+
+
+(Interactive)
 
 HOW TO INSTALL AND RUN
 
@@ -89,6 +108,10 @@ Download from openrefine.org
 	- Version 3.4.1
 Requires JAVA
 	- Oracle discontinuing support for free Java, but still available
+
+Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
+There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
+
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
 Internet Explorer is not supported. Use Chrome or Firefox.
@@ -150,7 +173,7 @@ Facets are one of most used features. Similar to what you would find in modern O
 Ex. Language -> Text Facet
 - we see data is messy, we can sort it out later
 
-Can be combined with other facets.
+Can be combined with other facets (e.g. Publisher)
 
 Invert option
 
@@ -192,7 +215,7 @@ Other types of facets, e.g.
 	- This looks weird, we'll get back to it
 - Customized 
 	- Word facet - this breaks down text into words and counts the number of records each word appears in
-		For example, filter by language-English then Word facet by author
+		For example, filter by language-ES then Word facet by author
 			-> rudimentary author facet, we'll see how to do this better
             --> click "change" to change the character used for splitting from space to |
             --> note that it says GREL - hint that there is a language to do more detailed operations, 
@@ -393,21 +416,27 @@ Use cases:
 	...
 
 	Multiple sources available, Wikidata enabled by default
+	Other sources: https://reconciliation-api.github.io/testbench/
+	and https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources
 
 
 	If enough time, reconcile Publishers via VIAF - Virtual International Authority File
     
-    - Do a text facet on Publishers
-    - Select International Union of Crystallography
+    		- Do a text facet on Publishers
+    		- Select International Union of Crystallography
+
+	
+	OR reconcile Authors via ORCID (go back to before joining them, select a subset - e.g. Aurel Vlacu publisher
+
     
-    Clicking on blue links brings you to VIAF page, can check if it's the right one.
+    Clicking on blue links brings you to VIAF/ORCID/Wikidata page, can check if it's the right one.
     
     One tick: accept for this record only
     Two ticks: accept for all identical values
     
     If you're confident, can also do ‘Reconcile->Actions->Match each cell to its best candidate’
     
-    To extract VIAF ID (it's hidden by default)
+    To extract VIAF ID or ORCID ID (it's hidden by default)
         - Add column based on this column
         - GREL: cell.recon.match.id
 

@@ -19,6 +19,7 @@ Single user
 - nothing is lost, can get back to earlier stage - e.g. useful to get back to previously working version of code.
 - what version of code was used on day x to generate those results?
 - sync multiple copies over different machines
+- ability to "branch" - try out something, then decide if you want to incorporate it into your project (merge)
 
 Multiple users
 - share latest version on a server - YOU decide on which version you want to work. Possible to work on a particular version while others work on other version, then merge.
@@ -34,6 +35,9 @@ On its own, DOES NOT REPLACE BACKUP
 
 It doesn’t require a server, unless sync and share are desired. Free GitHub provides server, no need to set one up. Community. Features for collaborative projects. Sharing.
 
+Today we're using the command-line version of git, to make sure we understand what the process behind it is.
+After that, there are many ways to use it daily. I use the GitHub client, there are other graphical tools. Or you can continue using the command-line. When working on a server, I rhave to use the command line, so it's good that I have learned to use it.
+
 
 
 FEATURES
@@ -42,8 +46,8 @@ FEATURES
 	- record changes you make each step of the way
 	- like a recording of your progress
 	- YOU DECIDE WHEN to save
-- forking: different versions can be saved separately                [[ SLIDE ]]
-- merging: different versions can be merged - conflict resolution    [[ SLIDE ]]
+- forking: different versions can be saved separately                
+- merging: different versions can be merged - conflict resolution    
 
 TERMINOLOGY
 - COMMIT 
@@ -64,7 +68,7 @@ Can everyone type $ git --version?
 
 1 - SETTING UP
 Objectives:	- Configure git for the first time on a computer
-		- Create a new repository
+		    - Create a new repository
 
 
 All git commands are written like     git verb options
@@ -73,7 +77,8 @@ All git commands are written like     git verb options
 $ git config --global user.name “Thomas Guignard”
 $ git config --global user.email “tom”@timtom.ch”   <- email will link to GitHub - use the same you've used to sign up with GitHub
 													   Note that your email is stored for each commit and can be read by anyone.
-													   GitHub provides a way to keep your actual email address private, if preferred.
+													   GitHub provides a way to keep your actual email address private, if preferred:
+                                                       username@users.noreply.github.com
 													   
 													   
 Line endings are different on Windows - might cause issues when collaborating with people on different systems.
@@ -95,6 +100,22 @@ $ git config --global core.editor "nano -w"  <-- -w: disables word-wrapping
 
 Explain what each of these are doing.
 --global flag --> for every project on this computer. Also possible to have different settings for each directory (--local flag), etc. Type git config to get list of possible arguments.
+
+
+
+Change the outdated practice of calling the default branch "master". This is the default now for GitHub, GitLab, etc. but git
+hasn't yet made it the default practice.
+
+git config --global init.defaultBranch main
+
+
+--> DOES ANYONE HAVE A VERSION OLDER THAN 2.28 WHEN TYPING
+git --version
+?
+
+If so, you will need to manually change the branch name in the repository
+
+
 
 
 Check
@@ -133,7 +154,12 @@ $ ls -a
 
 .git subdirectory contains everything git. Deleting it deletes all git data for that repo. Makes it easy to copy, replace, etc. or revert to simple directory.
 
-Also note that git will include all subdirectories in the planet directory. No need to make them into repositories.
+Also note that git will include all subdirectories in the planet directory IF THEY HAVE FILES IN THEM. Empty dirs will be ignored.
+No need to make them into repositories.
+
+
+    IF ANYONE HAS AN OLDER VERSION OF GIT, MANUALLY CHANGE BRANCH NAME TO main
+    git checkout -b main
 
 
 Check status:
@@ -148,8 +174,8 @@ $ git status
 
 2 - TRACKING CHANGES
 Objectives:	- Go through modify-add-commit cycle for files
-		- Explain commit workflow. Where is information stored.
-
+		    - Explain commit workflow. Where is information stored.
+            - Distinguish between descriptive and non-descriptive commit messages.
 
 
 Let’s create a file inside our repository:
@@ -179,6 +205,13 @@ Now git knows it’s supposed to keep track of mars.txt but HASN’T RECORDED CH
 $ git commit -m "Start notes on Mars"
 
 --> messages are REQUIRED. If omitted, editor will be launched.
+
+    What are good commit messages?
+    They should complete the sentence "if applied, this commit will..."
+    
+    Message start with a REQUIRED brief statement (< 50 chars)
+    Optionally, can be followed by a longer message if needed. Add a blank line between the brief message and the longer one.
+
 
 Note unique idenfier.
 
@@ -225,7 +258,7 @@ Up to you.
 
 STAGING AREA -> use git add to put stuff in the staging area - equiv. who goes on a group picture     [[ SLIDE ]]
 COMMIT 	     -> use git commit to actually take a snapshot   - equiv. taking the picture
-COMMIT -A    -> take snapshot of everything		     - equiv. take picture with other ppl
+COMMIT -A    -> take snapshot of everything		             - equiv. take picture with everyone in the room
 
 
 To illustrate differences
@@ -270,7 +303,7 @@ $ git commit -m "Started thinking about spaceships"
 
 ACTIVITY  **************************************************************************
 
-Q1 - Which commit   [[ SLIDE ]]
+Q1 - Which commit                                                        [[ SLIDE ]]
 
   Would only create a commit if files have already been staged.
   Would try to create a new repository.
@@ -279,7 +312,7 @@ Q1 - Which commit   [[ SLIDE ]]
   
 
 
-Q2 - Work on several files  [[ SLIDE ]]
+Q2 - Work on several files                                               
 	Make some more changes to Mars
 	Add a file on Venus and start editing
 	
@@ -294,8 +327,8 @@ Q2 - Work on several files  [[ SLIDE ]]
 
 3 - WORKING WITH HISTORY
 Objectives:	- Use those commit numbers we’ve seen
-		- Compare various versions
-		- Restore old versions
+		    - Compare various versions
+		    - Restore old versions
 
 
 Remember commit numbers?
@@ -348,7 +381,7 @@ If you use checkout <older version> wihtout a file name, you will end up in "DET
 	--> "look don't touch situation"
 		This brings entire repository back to older situation. Git thinks it's extreme, so it suggests creating a branch if you want to do this.
 		
-	git checkout master brings everything back to latest stable situation
+	git checkout main brings everything back to latest stable situation
 	
 
 Why checkout? Imagine git as a checkout window  [[ SLIDE ]]
@@ -390,7 +423,7 @@ Q4 - Understand history  [[ SLIDE ]]
 
 4 - IGNORING THINGS
 OBJECTIVES	- Configure git to ignore specific files
-		- Why ignore files?
+		    - Why ignore files?
 
 Your project will typically contain code AND data. Eg. results of your code. You typically don’t want to keep that -> waste of disk space (want to keep a copy every time you run your code??)
 
@@ -474,7 +507,7 @@ Q5 - Nested files   [[ SLIDE ]]
 
 ************************************************************************************
 
-
+(there are plenty of other exercises on the online lesson)
 
 
 
