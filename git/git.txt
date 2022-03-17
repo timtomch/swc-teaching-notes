@@ -522,8 +522,8 @@ Record result on the Etherpad
 
 5 - Adding a remote repo / GitHub
 OBJECTIVES:	- What’s a remote repo? Why is it useful?
-		- Clone remote repo
-		- Push and Pull
+		    - Clone remote repo
+		    - Push and Pull
 
 How can we collaborate with others on repo? We could technically email each other files and add them to our own repos, etc. Much easier to have a central copy, keep it on the web, and sync with it. Useful for 1 person (backup, multiple computers, sharing) or for a team (collaboration).
 
@@ -553,22 +553,15 @@ $ git remote add origin https://github.com/timtomch/planets.git
 You can use the box on top to easily copy this string
 --> Careful to switch from SSH to HTTPS
 		SSH more secure but requires some more config.
+        It's a good thing to use SSH going forward, not enough time to go through it now, but check
+        the lesson for a good step by step guide:
+        https://swcarpentry.github.io/git-novice/07-github/index.html
 
 
 Check:
 $ git remote -v
 
 ‘origin’ is a nickname for your remote repo. Can use another, but this is most common. Can have multiple (useful when dealing with local forks).
-
-
-Aparte about what GitHub suggests
-$ git branch -M main
-
---> This renames the default branch to main.
-	Used to be default master. Using the master/slave names is discouraged, as these are very racially charged terms.
-	GitHub now uses "main" instead of master.
-	
-	We'll get to branches in a moment.
 
 
 
@@ -693,7 +686,7 @@ ALTERNATIVE - Without participants collaborating
 
 7 - RESOLVING CONFLICTS
 OBJECTIVES:	- What are conflicts? When do they occur?
-		- How to resolve conflicts. MERGE
+		    - How to resolve conflicts. MERGE
 
 
 Can someone volunteer to add me as a collaborator to their own repo?
