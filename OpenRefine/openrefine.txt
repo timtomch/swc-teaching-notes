@@ -1,12 +1,13 @@
 OpenRefine
 - Based on Library Carpentry OR lesson
-- Updated 2020-09-26
+- Updated 2022-04-05
 
 Used to be GoogleRefine, now maintained by team of independent OSS developers.
 
 Interface in browser (http://127.0.0.1:3333) but RUNNING LOCALLY - data NOT IN THE CLOUD.
 There is also a (paid) cloud service based on OpenRefine: http://refinepro.com/
 
+GREL chatsheet: https://github.com/timtomch/swc-teaching-notes/raw/master/OpenRefine/GoogleRefineCheatSheets.pdf
 
 Reasons to use OpenRefine:
 - EXPLORE data
@@ -65,8 +66,8 @@ CONTENTS
 1. HOW TO INSTALL AND RUN
 
 Download from openrefine.org
-	- Use the latest. Currently 3.4.1 (Sep 2020)
-	- May require to install JAVA, follow the prompts.
+	- Use the latest. Currently 3.5.2 (Feb 2022)
+	- Older version used to require installing JAVA, should no longer be the case. If so, follow the prompts.
 	- Mac users: if you get the "cannot open because unidentified developper" error, do control-click on the .dmg (and the app) and choose open. You will then get an "open" button.
 
 Should open browser window when launched. If not, navigate to http://127.0.0.1:3333
@@ -134,7 +135,7 @@ Ex. Publisher -> Text Facet
 
 -------------------------------------------------
 ACTIVITY:
-- Which licences are used for articles in this file? Which is the one used the msot? How many articles for each license?
+- Which licences are used for articles in this file? Which is the one used the most? How many articles for each license?
 - Can you isolate articles for which no license has been assigned?
 - Try creating other facets and combining.
 
@@ -407,7 +408,7 @@ Steps: on the ISSN column
 	Be nice - edit your User Agent information
 	Click ‘Show’ (next to ‘HTTP headers to be used when fetching URLs’).
 	
-	Add your email: OpenRefine 3.2 [55c921a]; mailto:tom@timtom.ch but reflect your version information and email address.
+	Add your email: OpenRefine 3.5.2 [55c921a]; mailto:tom@timtom.ch but reflect your version information and email address.
 	
 	
 	Alternate in case it doesn't work:
@@ -446,10 +447,11 @@ Of interest to librarians:
 - JournalTOCs
 - FundRef (e.g. to link publications to funding source)
 - FAST (Faceted Application of Subject Terminology)
+- Wikidata (now included by default in OpenRefine)
 
-Add standard service: http://iphylo.org/~rpage/phyloinformatics/services/reconciliation_viaf.php
-
-
+List of available reconciliation services: 
+https://github.com/OpenRefine/OpenRefine/wiki/Reconcilable-Data-Sources
+https://reconciliation-api.github.io/testbench/ (via Wikidata)
 
 
 Example:

@@ -31,15 +31,6 @@ Multiple users
 EVERYTHING THAT CHANGES OVER TIME or NEEDS TO BE SHARED.
 
 
-On its own, DOES NOT REPLACE BACKUP
-
-It doesn’t require a server, unless sync and share are desired. Free GitHub provides server, no need to set one up. Community. Features for collaborative projects. Sharing.
-
-Today we're using the command-line version of git, to make sure we understand what the process behind it is.
-After that, there are many ways to use it daily. I use the GitHub client, there are other graphical tools. Or you can continue using the command-line. When working on a server, I rhave to use the command line, so it's good that I have learned to use it.
-
-
-
 FEATURES
 - changes are saved sequentially                                     [[ SLIDE ]]
 	- start with a basic version of document
@@ -56,6 +47,13 @@ TERMINOLOGY
 - REPOSITORY
 	-> complete history of commits for particular project
 
+
+On its own, DOES NOT REPLACE BACKUP
+
+It doesn’t require a server, unless sync and share are desired. Free GitHub provides server, no need to set one up. Community. Features for collaborative projects. Sharing.
+
+Today we're using the command-line version of git, to make sure we understand what the process behind it is.
+After that, there are many ways to use it daily. I use the GitHub client, there are other graphical tools. Or you can continue using the command-line. When working on a server, I rhave to use the command line, so it's good that I have learned to use it.
 
 
 0 - Tech check
@@ -169,7 +167,7 @@ $ git status
 
 
 
-
+16:00
 
 
 2 - TRACKING CHANGES
@@ -322,7 +320,7 @@ Q2 - Work on several files
 
 ************************************************************************************
 
-
+16:30
 
 
 3 - WORKING WITH HISTORY
@@ -418,7 +416,7 @@ Q4 - Understand history  [[ SLIDE ]]
 
 
 
-
+17:00
 
 
 4 - IGNORING THINGS
