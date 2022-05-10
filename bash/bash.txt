@@ -29,7 +29,7 @@ Have people download the test data folder https://swcarpentry.github.io/shell-no
 
 Question: using the terminal, who among you can navigate to your home directory and list the files it contains?
 Handout: https://github.com/timtomch/swc-teaching-notes/raw/master/bash/linux_cheat_sheet.pdf
-
+Also great list of advanced tricks: https://onceupon.github.io/Bash-Oneliner/
 
 
 
@@ -777,3 +777,6 @@ NEAT STUFF
 - !123 to rerun command on line 123
 - history | tail | colrm 1 7 > some-script.sh
 
+
+RESOURCES
+https://onceupon.github.io/Bash-Oneliner/

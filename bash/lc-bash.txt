@@ -386,3 +386,7 @@ NEAT STUFF
 - !123 to rerun command on line 123
 - history | tail | colrm 1 7 > some-script.sh
 
+
+RESOURCES
+https://onceupon.github.io/Bash-Oneliner/
+
