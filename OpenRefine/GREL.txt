@@ -1,0 +1,216 @@
+OpenRefine GREL special training
+- Based on Library Carpentry OR lesson
+- Updated 2024-02-19
+
+Official reference: https://openrefine.org/docs/manual/grelfunctions
+(old) GREL chatsheet: https://github.com/timtomch/swc-teaching-notes/raw/master/OpenRefine/GoogleRefineCheatSheets.pdf
+
+
+When I teach OpenRefine, I don't insist too much on GREL vs Jython or the GREL concepts discussed today.
+I usually make the parallel with Excel formulas - GREL is the way that OR does formulas
+
+
+
+GREL = General Refine Expression Language (backronymed from the original Google Refine Expression Language)
+
+GREL is not the only language supported by OpenRefine (can also use a variant of Python, and Clojure)
+    - I believe those other languages have been added over time to provide some added capabilities
+    - GREL is still the "default" language
+    - Designed to look like JavaScript (dot notation, similar function names, + for concatenation, etc.)
+    - Advantages of GREL
+            - Limited list of available functions geared towards usual tasks done in OpenRefine
+            - Fewer concepts to master for users not familiar with Python/Jython
+            - Compact: expressions usually last on one line - compare with Jython where you have to import libraries, declare variables, etc.
+    - Disadvantages
+            - Syntax gets unwieldy for more complex operations, e.g. with with() function to store values in temporary variables
+            - Limited functionality
+
+
+Can be used in multiple places:
+- Transforms (most used)
+- Custom text facet
+- To build URLs for API calls (add column by fetching URLs)
+- Add column from this column
+- In the template editor
+
+
+Core concepts
+
+- Each GREL function expects at least one ARGUMENT
+    the argument is the input, what we "feed" the function
+    
+- GREL supports DOT NOTATION
+    There are two ways of passing the first argument
+        - within parentheses: toUppercase(value)
+        - or with the dot notation: value.toUppercase()
+        
+    Still need to put the parentheses at the end to indicate it's a function call
+    
+    Can be confusing since the dot notation is also how you navigate through an object e.g. cells.ColumnName.value
+    
+    If there are more than one argument, the others are passed in parentheses:
+        contains(value, "food")
+        value.contains("food")
+        
+    Which one you use is a MATTER OF PREFERENCE
+    - Dot notation can be easier to chain - less of an issue with multi-level parentheses like in Excel formulas
+    - I find it more intuitive : value.contains("food") is closer to a natural language expression than contains(value, "food")
+
+- Dot notation is also used to access fields inside objects (or attributes)
+
+
+    
+- Be mindful of data types (reference will tell you which type is expected)
+    s : string
+    b : boolean (True or False)
+    n : number
+    d : date
+    a : array
+    p : regex pattern
+    o : object (any data type)
+    
+    + special "null" and "error" data types can be returned
+    
+    Use conversion functions to make sure you are using the right type.
+    To input a literal string, use apostrophes:
+    
+        "food".contains("oo")
+        food.contains("oo") will not work (GREL will look for an object, function called food...)
+
+- Variables available within a GREL expression
+    (chek if everyone is familiar with the concept of rows, columns and cells)
+    
+    More details: https://openrefine.org/docs/manual/expressions#variables
+    
+    value : content of the cell currently evaluated - most common
+    row   : refers to the entire row that contains the cell currently evaluated
+        row.index      : row number (zero-based)
+        row.cells      : cells contained in the current row
+        
+            -> useful way to get data out of other columns if needed
+            e.g. row.cells['URL'].value
+        
+        row.columnNames: column names in the dataset
+        row.starred    : indicates if the row is starred
+        row.flagged    : indicates if the row is flagged
+    cells : 
+
+
+
+Most useful functions
+
+
+
+How to "grow" a GREL expression
+
+
+
+
+Examples
+
+
+
+
+
+
+
+
+Questions from participants
+
+- Why does OpenRefine have its own scripting language?
+    I believe it started with GREL before support for more complex scripting was added with Jython.
+    It's a design choice, could also have used SQL, etc.
+    In the end, GREL is pretty efficient at applying operations that resolve most of the use cases
+    
+- Is it related to other languages
+    It was designed to be similar to JavaScript
+    
+- Advantages over Jython/Python
+    See above.
+    More compact, easier to learn because it's more limited
+
+- What's the difference between GREL and Regular Expressions
+    RegEx is a syntax specific for matching text (find text patterns, extract certain information, search and replace) used within
+    a variety of systems and programming languages. Can be used in GREL, eg with value.match(/regex/). Also used in Python, etc.
+    
+    https://regex101.com/ -> select the right "flavor" OpenRefine is written in Java, so this is the flavor to select.
+    See also https://docs.oracle.com/javase/tutorial/essential/regex/
+    
+- Pedagogics - what do you typically teach to a group of OpenRefine learners about GREL
+    It depends on the level of comfort learners have with the software, experience with other tools
+    Usually there's not much time to go very deep with GREL on a session on OpenRefine
+    I personally believe that by teaching a tool, we want to show how it works, but also give a sense of its capability beyond what we can show.
+    If learners see what can be done in GREL and we give them tools on how to get started (some examples, cheatsheet, link to doc), they
+    can learn more to resolve their own problems.
+    
+    I show them some string manipulation functions. I show how to use the preview to check if the expression is working.
+    I show how to grow an expression: start with a step, check the output, add the next step, etc.
+    I show where to find help, use the in-app reference, use history, star expression they want to reuse
+
+- Guidelines on when GREL is more powerful than built-in functions
+    GREL can be a way to go beyond those pre-existing functions
+    Faster to daisy-chain GREL functions than to do it in steps with built-in operations.
+    Can be a matter of preference
+    Some operations are not possible outside of scripting, e.g. parsing JSON
+
+
+
+
+
+
+Make sure Authors are separated
+Authors -> Custom Text Facet
+Type GREL formula value.contains(",")
+
+
+It creates a boolean facet
+What's happening with those authors? They are separating family name and given name differently.
+What if we wanted to bring them all to First name Last name? (here I'm assuming I'm a context where that's how names are organized, not always the case)
+
+Select only those with a comma
+Authors -> Edit cells -> Transform...
+
+value.match(/(.*),(.*)/)
+            ^ these   ^  indicate that that's a Regular Expression inside a GREL expression
+			
+Look at the result. What's that? These are arrays.
+We could stop there and do the next bit in a different colum or a different step.
+Or we can continue to type the formula:
+
+value.match(/(.*),(.*)/).reverse().join(" ")
+
+
+
+Steps: on the ISSN column
+1. Edit column -> Add column by fetching URL
+2. GREL expression to build URL
+
+	Expression: "http://api.crossref.org/journals/"+ escape(value,'url')
+	Check delay to not overwhelm server
+	Check display error instead of null
+	
+	Be nice - edit your User Agent information
+	Click ‘Show’ (next to ‘HTTP headers to be used when fetching URLs’).
+	
+	Add your email: OpenRefine 3.5.2 [55c921a]; mailto:tom@timtom.ch but reflect your version information and email address.
+	
+	
+	Alternate in case it doesn't work:
+	
+	Try instead 
+	"http://www.journaltocs.ac.uk/api/journals/"+value.escape('url')+"?user=tom@timtom.ch"
+	Generates XML instead of JSON
+	
+
+To parse JSON
+Add another column
+
+	value.parseJson().message.title
+	   ^-- keep existing JSON response
+	   
+To parse XML
+
+    value.parseHtml().select('item title')[0].htmlText()
+
+Also possible to Edit cells with Transform
+
