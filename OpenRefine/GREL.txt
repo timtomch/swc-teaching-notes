@@ -6,6 +6,12 @@ Official reference: https://openrefine.org/docs/manual/grelfunctions
 (old) GREL chatsheet: https://github.com/timtomch/swc-teaching-notes/raw/master/OpenRefine/GoogleRefineCheatSheets.pdf
 
 
+Sample data:
+- Bechdel list: http://bechdeltest.com/api/v1/getAllMovies
+- Movie data to cross with Bechdel list: https://github.com/Natassha/Bechdel-Test/blob/master/movielatest.csv
+- Alternative from fivethirtyeight: https://github.com/fivethirtyeight/data/tree/master/bechdel
+- Alternative movie dataset: https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies
+
 When I teach OpenRefine, I don't insist too much on GREL vs Jython or the GREL concepts discussed today.
 I usually make the parallel with Excel formulas - GREL is the way that OR does formulas
 
@@ -93,26 +99,128 @@ Core concepts
         row.columnNames: column names in the dataset
         row.starred    : indicates if the row is starred
         row.flagged    : indicates if the row is flagged
-    cells : 
+    cells : shortcut to row.cells (I think)
+    cell  : the current cell
 
 
 
-Most useful functions
+How to "grow" a GREL expression - Examples
+
+Use the preview to check
+
+In the GREL Movies List project
+
+Create a column with the month in which the movie was released
+
+    value.split('-')[1]
+    
+        -> I can see how the split function works in the preview
+        -> Square brackets mean it's returning an array
+        
+        
+    Say I wanted to further filter by movies released in the summer
+        I can do another column with a test
+        Or combine with the previous one
+
+        ["06","07","08"].inArray(value.split('-')[1])
 
 
-
-How to "grow" a GREL expression
-
+    I don't need to create a column with this, the same formula can be used to create a custom facet
 
 
+Create a facet by decade
 
-Examples
+    Try doing value / 10 -> not a number
+
+    value.toNumber()/10  -> treated as integer
+
+    value.toNumber() * 1.0 / 10 -> now it's a float
+
+    We can use the fact that GREL defaults to integer:
+    
+    value.toNumber()/10 * 10    -> facet by decade
 
 
+Use a regular expression
+
+    Say we want to find all movies that have the word "girl" or "woman" in their title
+    
+    Use Regex101 to build the RegEx
+    
+        Sample data:
+        
+        Little Women
+        Showgirls
+        Gone Girl
+        Another Woman
+        When a Man Loves a Woman
+    
+    .*(girls?|woman|women).*   -> use the "i" flag
+    
+    value.match(/.*(girls?|woman|women).*/i)[0].toTitlecase()
 
 
+Create a column with ROI (revenue / budget)
+
+    (filter by "Girl" first -> there are some with budget = 0.0)
+
+    if(value.toNumber() > 0, round(cells.gross.value.toNumber() / value.toNumber()), "N/A")
+    
+    (Or convert the whole columns to numbers first)
+    
+    Check values, needs a condition to check that budget is not null
+    
+    Woops, I did it on the Girls movies only -> undo + use the history function to retrieve the working GREL
 
 
+Cross this list with data downloaded from Bechdel list
+
+    Add column based on title column
+    
+    cell.cross("GREL Bechdel List","title").cells.rating.value[0]
+    
+    Show how to grow this function.
+    Identify when we have objects, arrays, etc.
+
+
+Navigate reconciliation objects
+
+    (in GREL movie list, titles released in February have already been reconciled with Wikidata)
+
+    e.g. cell.recon.candidates.length()
+         cell.recon.candidates[0].id
+         ...
+         
+         To access specific values within an array:
+         forEach(cell.recon.candidates,c,c.id)
+
+Navigate API response
+
+    Star a few names and facet by star
+    or filter by genre and select Romance
+    
+    Add column by fetching URLs
+    "https://api.genderize.io?name=" + value.split(' ')[0]
+    
+    Then add another column based on this column
+    
+    value.parseJson().gender
+
+    only retrieve this value when the probablility is higher than 0.99
+    
+    with(value.parseJson(),v,if(v.probability.toNumber() > 0.99,v.gender, NULL))
+    
+    -> with allows you to set a variable and reuse it
+    
+    Or try  https://api.agify.io
+    
+    Other example
+    
+    Star and facet by star a few of the reconciled values
+    Add IMDB ID from reconciled values
+    Use it to query
+    
+    "http://bechdeltest.com/api/v1/getMovieByImdbId?imdbid=" + value.substring(2)
 
 
 Questions from participants
