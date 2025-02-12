@@ -1,6 +1,6 @@
 OpenRefine GREL special training
-- Based on Library Carpentry OR lesson
-- Updated 2024-02-19
+Developed for Wikidata train-the-trainer program
+- Updated 2024-02-21
 
 Official reference: https://openrefine.org/docs/manual/grelfunctions
 (old) GREL chatsheet: https://github.com/timtomch/swc-teaching-notes/raw/master/OpenRefine/GoogleRefineCheatSheets.pdf
@@ -22,6 +22,7 @@ GREL = General Refine Expression Language (backronymed from the original Google 
 GREL is not the only language supported by OpenRefine (can also use a variant of Python, and Clojure)
     - I believe those other languages have been added over time to provide some added capabilities
     - GREL is still the "default" language
+    - It's what's done in the background when applying a common transform (function used will show up in info message)
     - Designed to look like JavaScript (dot notation, similar function names, + for concatenation, etc.)
     - Advantages of GREL
             - Limited list of available functions geared towards usual tasks done in OpenRefine
@@ -33,10 +34,9 @@ GREL is not the only language supported by OpenRefine (can also use a variant of
 
 
 Can be used in multiple places:
-- Transforms (most used)
-- Custom text facet
+- Transforms and add column from this column (most used)
 - To build URLs for API calls (add column by fetching URLs)
-- Add column from this column
+- Custom text facets
 - In the template editor
 
 
@@ -61,10 +61,6 @@ Core concepts
     Which one you use is a MATTER OF PREFERENCE
     - Dot notation can be easier to chain - less of an issue with multi-level parentheses like in Excel formulas
     - I find it more intuitive : value.contains("food") is closer to a natural language expression than contains(value, "food")
-
-- Dot notation is also used to access fields inside objects (or attributes)
-
-
     
 - Be mindful of data types (reference will tell you which type is expected)
     s : string
@@ -158,6 +154,15 @@ Use a regular expression
     .*(girls?|woman|women).*   -> use the "i" flag
     
     value.match(/.*(girls?|woman|women).*/i)[0].toTitlecase()
+    
+    ATTENTION: match() only returns the first instance of a pattern. You cannot add the /g modifier...
+        When there are multiple instances, use find() instead.
+    
+        find() can match against a regex, but you only have to specify the capturing group:
+            value.find(/girls?|woman|women/i)[0] works but not value.find(/.*(girls?|woman|women).*/i)[0]
+    
+        I think this is due to a limitation in the Java built-in function that OpenRefine uses for this.
+        When using a complex regex is the only option, it's better to use the re library in Jython.
 
 
 Create a column with ROI (revenue / budget)
@@ -223,6 +228,9 @@ Navigate API response
     "http://bechdeltest.com/api/v1/getMovieByImdbId?imdbid=" + value.substring(2)
 
 
+Demonstrate editing fields in the template editor
+
+
 Questions from participants
 
 - Why does OpenRefine have its own scripting language?
@@ -236,13 +244,13 @@ Questions from participants
 - Advantages over Jython/Python
     See above.
     More compact, easier to learn because it's more limited
+    Doesn't require installing libraries, etc.
 
 - What's the difference between GREL and Regular Expressions
     RegEx is a syntax specific for matching text (find text patterns, extract certain information, search and replace) used within
     a variety of systems and programming languages. Can be used in GREL, eg with value.match(/regex/). Also used in Python, etc.
     
     https://regex101.com/ -> select the right "flavor" OpenRefine is written in Java, so this is the flavor to select.
-    See also https://docs.oracle.com/javase/tutorial/essential/regex/
     
 - Pedagogics - what do you typically teach to a group of OpenRefine learners about GREL
     It depends on the level of comfort learners have with the software, experience with other tools
@@ -254,71 +262,29 @@ Questions from participants
     I show them some string manipulation functions. I show how to use the preview to check if the expression is working.
     I show how to grow an expression: start with a step, check the output, add the next step, etc.
     I show where to find help, use the in-app reference, use history, star expression they want to reuse
+    
+    When I have time I always do practical exercices. Have people try to work things out by themselves. Check results.
 
 - Guidelines on when GREL is more powerful than built-in functions
     GREL can be a way to go beyond those pre-existing functions
     Faster to daisy-chain GREL functions than to do it in steps with built-in operations.
     Can be a matter of preference
     Some operations are not possible outside of scripting, e.g. parsing JSON
-
-
-
-
-
-
-Make sure Authors are separated
-Authors -> Custom Text Facet
-Type GREL formula value.contains(",")
-
-
-It creates a boolean facet
-What's happening with those authors? They are separating family name and given name differently.
-What if we wanted to bring them all to First name Last name? (here I'm assuming I'm a context where that's how names are organized, not always the case)
-
-Select only those with a comma
-Authors -> Edit cells -> Transform...
-
-value.match(/(.*),(.*)/)
-            ^ these   ^  indicate that that's a Regular Expression inside a GREL expression
-			
-Look at the result. What's that? These are arrays.
-We could stop there and do the next bit in a different colum or a different step.
-Or we can continue to type the formula:
-
-value.match(/(.*),(.*)/).reverse().join(" ")
-
-
-
-Steps: on the ISSN column
-1. Edit column -> Add column by fetching URL
-2. GREL expression to build URL
-
-	Expression: "http://api.crossref.org/journals/"+ escape(value,'url')
-	Check delay to not overwhelm server
-	Check display error instead of null
-	
-	Be nice - edit your User Agent information
-	Click ‘Show’ (next to ‘HTTP headers to be used when fetching URLs’).
-	
-	Add your email: OpenRefine 3.5.2 [55c921a]; mailto:tom@timtom.ch but reflect your version information and email address.
-	
-	
-	Alternate in case it doesn't work:
-	
-	Try instead 
-	"http://www.journaltocs.ac.uk/api/journals/"+value.escape('url')+"?user=tom@timtom.ch"
-	Generates XML instead of JSON
-	
-
-To parse JSON
-Add another column
-
-	value.parseJson().message.title
-	   ^-- keep existing JSON response
-	   
-To parse XML
-
-    value.parseHtml().select('item title')[0].htmlText()
-
-Also possible to Edit cells with Transform
-
+    
+- Tricks for describing GREL for people for whom invoking Jython/python/GREL might invoke fear or panic
+    - Acknowledge that learning something new is hard. It's OK to feel overwhelmed at first.
+    - Compare GREL to Excel formulas : people are usually familiar with them
+        Check with them how they feel. If they are struggling with dot notation, use parentheses instead, closer to Excel formulas.
+    - I don't complicate by going into jython - I mention that it's an option for more complex queries
+    - I show them some simple transforms, where to find help
+    - Many transforms are available as common transforms with no coding required - you can use the power of OpenRefine without using GREL
+    - Use the preview to quickly see how expressions are working
+    - Start with something you need, the next time you'll remember it
+    - It's another tool. You're familiar with Excel because you spent time using it, it will come with practice with OR and GREL too.
+    - Usually after a session on Open Refine, people are excited about what OR can do that Excel cannot do and it's worth the effort
+    - If you can use Excel to do what you need to do, then use Excel!
+    
+    - Big difference with Excel formulas: GREL transforms are not dynamic. Evaluated at time of creation only, 
+      will not update when a value is updated. THIS INCLUDES CUSTOM FACETS
+    - Also there are no functions to do sums, averages etc across a whole column.
+      -> Use case for Excel and OpenRefine is not the same.
