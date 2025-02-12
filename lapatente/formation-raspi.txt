@@ -1,0 +1,388 @@
+Séance 1: Découverte et configuration du Raspberry Pi (premiers pas avec Linux).
+Séance 2: Montage du circuit électronique et connectivité avec le Raspberry Pi.
+Séance 3: Développement d’un programme pour surveiller l’humidité d’une plante verte (initiation à la programmation et projet final).
+
+
+
+SEANCE 1 - DECOUVERTE DU RASPBERRY PI ET PREMIERS PAS SUR LINUX
+
+
+Tour de table
+    - Quelles attentes?
+    - Quel niveau de compétence?
+    - Projets particulier en tête?
+    - Plutôt intéressés par Raspberry Pi, Linux, programmation?
+
+
+C'est la première fois que je donne la formation -> commentaires bienvenus!
+
+
+
+
+Etapes:
+- Présentation générale
+- Flasher l'OS sur une carte SD
+- Brancher le Pi, insérer la carte et démarrer
+- Finir la config (raspi-config)
+- Introduction à la ligne de commande
+    - Ouvrir un terminal
+    - Navigation, gestionnaire de fichiers
+    - Sudo
+    - Mise à jour + installation autres logiciels avec apt-get
+
+Premier modèle sorti en 2012.
+Développé au départ à l'université de Cambridge, maintenant par une fondation
+
+Il y a des clones (Orange Pi, Rock, etc.) - montés en popularité depuis les problèmes d'approvisionnement durant la COVID.
+En général un petit peu moins chers à performance égale, pas la même taille, moins biens documentés.
+
+
+Présenter la carte, connecteurs et composants principaux.
+On utilise ici le Pi 5.
+
+- Processeur Broadcomm
+    - CPU (4x A76 @ 2.4 GHz)
+    - GPU (Dual-monitor 4K)
+- Contrôleur I/O (input-output)
+    - 2 contrôleurs USB2
+    - 2 contrôleurs USB3
+    - Ethernet
+    - GPIO
+- Contrôleur d'alimenttion (PMIC)
+    - Optimise la consommation d'énergie (y-compris des périphériques USB)
+    - Inclut une horloge temps-réel (RTC) utile p.ex. pour "réveiller" le Pi à intervalles réguliers, pour un moniteur de données à travers le temps, etc. Besoin d'une batterie externe (rechargeable) en option, on ne l'utilise pas cette fois-ci.
+- Mémoire vive
+    - Voir la résistance soudée à côté pour déterminer la capacité
+- Module WiFi et Bluetooth
+    - Plus de connecteur SMC (coax) pour antenne externe. Si le signal est trop faible, il faut un module externe.
+
+Autres connecteurs
+- UART - port série pour le debug (avant on pouvait implémenter un port série dans le GPIO)
+- Connecteur PCI-Express (nouveau, utilisé pour connecter certains HATs de manière plus rapide que via les GPIO)
+- Connecteur pour alimentation de l'horloge temps réél (batterie, pour utilisation mobile)
+- Pads à souder pour sortie vidéo analogique (au besoin)
+- Pas de sortie son depuis le 5 (il faut utiliser HDMI, ou un HAT comme HiFiBerry)
+
+Parler des différentes générations. Voir https://www.raspberrypi.com/documentation/computers/raspberry-pi.html
+En gros:
+- Plus la génération est récente, plus le processeur est rapide.
+- WiFi et Bluetooth depuis la version 3
+- Zero n'est pas plus ancien que 1, c'est un modèle plus compact
+- Pico est très différent, c'est un microcontrôleur comme un Arduino
+- Modèle A : sans port Ethernet / Modèle B : avec port Ethernet
+- Micro-SD depuis les modèles +, plus rapide depuis le 5
+
+Alimentation
+Attention à fournir assez de courant. Surtout si on utilise des périphériques (clavier, etc). L'idéal est d'utiliser un adaptateur dédié.
+
+Zéro - 3 : minimum 5V 2.5A (micro-USB)
+4 Modèle B : minimum 5V 3A (USB-C)
+5 :          minimum 5V 5A (USB-C) - si 3A, va limiter le courant vers les périphériques à 600mA   
+
+
+Carte SD (micro SD sur les modèles récents) = "disque dur"
+Choisir une carte de bonne qualité car il y a beaucoup d'opérations de lecture/écriture. Une carte cheap a tendance à corrompre le contenu avec le temps. Eviter les cartes sans nom hyper cheap, souvent elles sont configurées pour paraître plus grandes qu'elle le sont vraiment.
+Vitesse de lecture/écriture aussi très importante.
+
+Si le Pi est super lent et fait des erreurs dès le début -> carte de mauvaise qualité.
+
+Je recommande Samsung EVO+ ou SanDisk Extreme.
+Voir https://pibenchmarks.com/sd/ pour plus de détails.
+
+Minimum 32GB (ou 16GB pour OS Lite - sans desktop)
+Maximum 2TB (256GB sur le Zéro, 1 et certains 2)
+
+Techniquement possible d'utiliser un disque externe via USB, stockage réseau ou SSD sur une extension (HAT) - dépend des modèles. Pour certaines applications, on recommande un NVMe SSD sur un hat, plus fiable, plus rapide (SSD utilise un bus PCIexpress, a un meilleur cache, etc.)
+
+
+Raspberry OS
+Version de Linux Debian (Bookworm, avant Bullseye) spécifiquement compilée pour le processeur du Pi.
+D'autres versions sont aussi disponibles, Android, etc. Distributions spécialisées selon les projets, p.ex. Retropie, HifiBerry
+Il était même possible de faire tourner une version de Windows 10 (IOT Core) sur les modèles 2 et 3, mais le support a été arrêté en 2018.
+
+Parler brièvement de Linux
+
+- Système d'exploitation libre et gratuit (certaines distributions sont payantes)
+- Première version écrite en 1991 par Linus Torvald (informaticien finlandais)
+- Noyau (Linux) + logiciels connexes, surtout environnement graphique (KDE, GNOME)
+- Distributions
+    Solutions prête à être installée
+        - Noyau
+        - Logiciels connexes (gestion des périphériques, etc.)
+        - Configuration par défaut
+        - Système de mise à jour
+        - Interface graphique (optionelle)
+    Il y en a plein, ont souvent des origines communes, montrer
+    https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg?uselang=fr
+    Les plus courantes
+        - Debian -> Raspbian -> Raspberry OS qu'on va utiliser aujourd'hui
+            -> Ubuntu
+        - RedHat -> distributions commerciales (serveurs web, etc.), e.g. Fedora
+        - ArchLinux -> Manjaro (qui est sur les PC de la Patente)
+        - Android
+    Techniquement la plupart des distributions Linux utilisent GNU. Linux n'est que le noyau, les puristes insistent donc
+    pour qu'on parle de "GNU/Linux". En pratique, on dit juste Linux.
+    
+    On peut souvent choisir quelle distribution on veut! Même sur le Pi, il y a plusieurs distros disponibles.
+    
+- Lien avec UNIX
+        - Non-libre, développé à la base par AT&T
+        - La plupart des OS modernes (sauf Windows) sont basés sur UNIX, notamment macOS, iOS
+            - Windows est basé sur WindowsNT depuis XP - avant MS-DOS
+        - Linux peut être considéré come un clone de UNIX, partage certains logiciels mais surtout fonctionne 
+          de manière similaire. A été créé pour ressembler le plus possible à UNIX.
+        - En gros, optimisé pour multi-tâche, multi-utilisateur
+        - Système "ouvert" -> repose sur une foultitude de mini-programmes que l'on peut combiner
+        - Interface texte (ligne de commande) disponible en plus de l'interface graphique
+            - Commune (petites différences) dans tous les systèmes UNIX/Linux
+            - Différente de MS-DOS et Powershell
+
+
+
+
+Installation du OS
+
+Utiliser l'imageur officiel: https://www.raspberrypi.com/software/
+ 
+Certains modèles ont la possibilité d'installer directement l'OS depuis le réseau (en princpie possible avec le 5 mais pas testé), démarrer avec la touche SHIFT. Uniquement via Ethernet, pas WiFi. Si quelqu'un veut tester, c'est volontiers.
+
+Choisir le modèle
+
+Choisir l'OS - passer un moment à regarder les options et la taille - on va prendre l'OS avec interface graphique 64bit
+    - Mentionner configuration headless
+    - Montrer les autres options, ex LibreELEC 
+
+Avant de flasher, cliquer réglages avancés
+- Choisir un nom (pour pas que tout le monde ait le même)
+- Nom d'usager et mot de passe - utile pour opérations admin (installer des logiciels) et SSH
+- Si on veut on peut configurer le WiFi à ce moment-là - très utile lors de la config en headless
+- Réglages locaux (utile pour claviers)
+- SSH (surtout si on veut faire du headless - on peut y mettre sa clef publique si on sait faire)
+
+Faire OK. C'est normal si le système vous demande votre mot de passe car les opérations de formattage requièrent les permissions root.
+
+Premier démarrage peut prendre du temps.
+
+Tour d'horizon de l'interface graphique
+- Mise à jour des logiciels
+- Réglages (changement de langue, clavier, etc.)
+
+
+Installation des programmes utiles
+(devraient déjà être là, sauf si installation minimale)
+- sudo apt-get install python3-pip
+- sudo apt-get install git
+
+Deux approches:
+- Installeur graphique
+- Avec apt-get - surtout utile si headless, voir en fonction du niveau de confort des participants
+
+Expliquer
+Essayer d'installer Inkscape
+
+Expliquer les différents gestionnaires de fenêtres (KDE, )
+
+Ouvrir le terminal (ctrl-alt-T)
+Expliquer comment utiliser le terminal, se référer à la formation ligne de commande
+
+
+
+Pour aller plus loin
+- Installation headless
+    Utiliser sudo arp-scan --localnet (sur mon mac) pour faire la liste des appareils connectés au réseau local
+- Lire la consommation d'énergie
+    vcgencmd pmic_read_adc
+    
+
+Idées d'application pour le Raspberry Pi
+- Serveur web - pas forcément intéressant en soi, mais permet de développer des apps web pour contrôler un setup à distance
+- Station météo
+- Surveillance vidéo
+    - Avec p.ex un hat avec un chip IA pour reconnaissance d'image
+- Ruche connectée?
+- Ecrans d'affichage
+- TV intelligente
+- Kiosques d'information
+- Serveur média
+- NAS / serveur de fichier local
+- Console de jeu
+- Robotique
+- Domotique
+- Ordinateur portable custom (voir cyberdeck)
+
+Naviguer le site de pishop.ca pour montrer et parler des différents hats
+
+Encourager les participants à tester des choses, installer des logiciels.
+
+Videos de Jeff Geerling (en anglais) -> plein d'inspirations
+
+
+La semaine prochaine:
+- Si nécessaire, finir la config et la prise en main
+- On regardera comment interagir avec les ports GPIO
+- On verra comment contrôler des DELs depuis le Pi
+- On verra comment connecter le convertisseur analogique-numérique
+    Si les gens sont intéressés, on pourra le souder nous même!
+- On verra comment lire des signaux analogiques
+
+
+
+
+
+SEANCE 2 - CIRCUIT ELECTRONIQUE ET PORTS GPIO
+
+Apporter
+- breadboards
+- jumpers
+- convertisseurs analogique-digital
+- sondes humidité
+- DELs
+- Autres senseurs si on en a
+    - Cellules photoélectriques
+    - Thermistances
+    - Détecteurs de distance ultrason
+    - etc.
+
+
+
+
+Petit recap de la première séance.
+Est-ce que les gens ont essayé de jouer avec leur Raspi?
+
+S'assurer que tout le monde a réussi à démarrer son pi et est en mesure de le contrôler, soit en direct, soit via SSH.
+
+
+Ev souder les convertisseurs analogique-digital
+
+
+Commencer par installer
+git clone https://github.com/timtomch/formation-raspi.git
+
+
+
+Introduction aux ports GPIO
+Connecteur générique, on peut faire ce qu'on veut avec.
+La plupart des pins sont des ports que l'on peut utiliser soit comme entrée (input) soit comme sortie (output). On peut facilement commuter d'un statut vers un autre.
+
+Les autres ports sont
+- Source 3.3V  (tension utilisée par Arduino et certains circuits)
+- Sources 5V (tension native du Raspberry Pi)
+- Mise à terre (référentiel 0V, "ground")
+
+Tous les autres ports sont des GPIO. Certains sont préconfigurés pour certaines fonctions (communication sérielle etc.) mais on peut quand même les utiliser si on veut.
+Les ports 0 et 1 sont en principe réservés à la communication avec des cartes d'extension, mais peuvent être utilisés comme GPIO si nécessaire.
+
+Ce sont des ports digitaux uniquement! 1 (3.3V) ou 0 (0V) (contrairement au Arduino qui dispose de ports analogiques).
+Pour lire un signal analogique, on a besoin d'un convertisseur.
+
+
+Tester avec une LED
+Attention à monter une petite résistance en série pour limiter le courant.
+
+Utiliser la commande pinout pour voir le schéma de branchement.
+Afficher schéma de branchement à l'écran
+
+Utiliser les commandes 
+raspi-gpio get 	        Liste le statut de chaque broche GPIO.
+raspi-gpio get X 	    Lit le statut de la broche X.
+raspi-gpio set X op 	Définit la broche X comme une sortie (output).
+raspi-gpio set X op 	Définit la broche X comme une entrée (input).
+raspi-gpio set X dh 	Envoie le signal "ALLUMÉ" (3.3 V) sur la broche X (drive high).
+raspi-gpio set X dl 	Envoie le signal "ÉTEINT" (0 V) sur la broche X (drive low).
+
+On peut les combiner: raspi-gpio set 18 op dh
+
+Tester avec des LEDs. Utiliser une résistance en série pour limiter le courant.
+
+
+
+
+Interface sérielle I2C
+Cette interface permet de connecter plusieurs circuits entre eux grâce à un protocole de communication en série.
+
+On va l'utiliser pour communiquer avec le convertisseur analogique digital.
+
+Faire le câblage. Expliquer les ports SDA et SCL.
+
+
+Pour l'activer, aller dans l'interface de configuration
+Visuel ou avec raspi-config (si headless)
+
+sudo raspi-config
+
+puis naviguer vers Interface Options et I2C. Activer et valider.
+
+
+
+S'il reste du temps, tester les autres canaux du convertisseur analogique-digital, par exemple avec une cellule photoélectrique.
+
+Fonctionne comme une résistance, varie avec la lumière. On la met en série avec une autre résistance pour faire un diviseur de tension
+et on mesure la tension à travers la cellule.
+
+On peut aussi utiliser un potentiomètre.
+
+
+
+
+
+
+    Optionnel: installer les outils i2c-tools pour pouvoir utiliser cette interface depuis la ligne de commande:
+    (si on a fait une install complète de Raspberry Pi OS, peut-être pas besoin d'installer)
+
+    sudo apt-get install i2c-tools
+
+    Une fois l'installation terminée, on peut commencer à examiner l'interface.
+
+    i2cdetect -y 1
+
+        -y pour désactiver le mode interactif - il demande vérification pour éviter une possible interférence dans la communication
+                                                (pas de risque en ce moment car on ne risque rien)
+        1 : numéro du bus à scanner           - par défaut seul 1 bus I2C est activé, mais il est possible d'en définir d'autres au besoin
+    
+
+    Retourne quelque chose comme
+
+         0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+    00:                         -- -- -- -- -- -- -- -- 
+    10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    40: -- -- -- -- -- -- -- -- 48 -- -- -- -- -- -- -- 
+    50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    70: -- -- -- -- -- -- -- --   
+
+    On voit qu'un circuit a été détecté à l'adresse 0x48 (notation hexadécimale), il s'agit de notre convertisseur a/d.
+
+
+
+
+
+
+
+SEANCE 3 - INTRO A LA PROGRAMMATION ET CAPSTONE
+
+Apporter / préparer
+- Pots de terre
+- Récipients d'eau
+
+
+
+Introduction à Python
+Avec Thonny - IDE déjà installé dans le Pi
+Ev avec VSCode en mode remote
+
+- Introduction à Python
+    Voir Software Carpentry
+- Libraries
+    Librairies GPIO du Pi
+    - Allumer et éteindre une DEL
+    Librairie Adafruit pour le contrôleur analogique
+    - Lire le taux d'humidité
+- Programmer un script qui allume la DEL quand il n'y a pas assez d'eau
+- Si on a le temps, application web avec Flask pour afficher le statut et la variation du taux d'humidité avec le temps
+    Voir
+        https://projects.raspberrypi.org/en/projects/python-web-server-with-flask/2
+        https://github.com/etcyl/rpi_dashboard
+        https://github.com/chrisx8/pidash
+- Utiliser PiTunnel pour voir l'application depuis n'importe où
