@@ -6,18 +6,17 @@ Séance 3: Développement d’un programme pour surveiller l’humidité d’une
 
 SEANCE 1 - DECOUVERTE DU RASPBERRY PI ET PREMIERS PAS SUR LINUX
 
+Apporter
+- Les Pis que les participants ont commandé + cartes SD
+- LECTEURS DE CARTE SD
+- Collection de Pis de générations différentes + hats
+
 
 Tour de table
     - Quelles attentes?
     - Quel niveau de compétence?
     - Projets particulier en tête?
     - Plutôt intéressés par Raspberry Pi, Linux, programmation?
-
-
-C'est la première fois que je donne la formation -> commentaires bienvenus!
-
-
-
 
 Etapes:
 - Présentation générale
@@ -29,6 +28,11 @@ Etapes:
     - Navigation, gestionnaire de fichiers
     - Sudo
     - Mise à jour + installation autres logiciels avec apt-get
+
+
+COMMENCER A FLASHER LES CARTES PENDANT LA PARTIE THEORIQUE
+
+
 
 Premier modèle sorti en 2012.
 Développé au départ à l'université de Cambridge, maintenant par une fondation
@@ -252,10 +256,13 @@ Est-ce que les gens ont essayé de jouer avec leur Raspi?
 S'assurer que tout le monde a réussi à démarrer son pi et est en mesure de le contrôler, soit en direct, soit via SSH.
 
 
-Ev souder les convertisseurs analogique-digital
+Vérifier que python3, pip et git sont installés, sinon le faire avec apt-get:
 
+python --version
+pip --version
+git --version
 
-Commencer par installer
+Installer le petit script
 git clone https://github.com/timtomch/formation-raspi.git
 
 
@@ -313,19 +320,6 @@ sudo raspi-config
 puis naviguer vers Interface Options et I2C. Activer et valider.
 
 
-
-S'il reste du temps, tester les autres canaux du convertisseur analogique-digital, par exemple avec une cellule photoélectrique.
-
-Fonctionne comme une résistance, varie avec la lumière. On la met en série avec une autre résistance pour faire un diviseur de tension
-et on mesure la tension à travers la cellule.
-
-On peut aussi utiliser un potentiomètre.
-
-
-
-
-
-
     Optionnel: installer les outils i2c-tools pour pouvoir utiliser cette interface depuis la ligne de commande:
     (si on a fait une install complète de Raspberry Pi OS, peut-être pas besoin d'installer)
 
@@ -354,6 +348,18 @@ On peut aussi utiliser un potentiomètre.
 
     On voit qu'un circuit a été détecté à l'adresse 0x48 (notation hexadécimale), il s'agit de notre convertisseur a/d.
 
+
+Si on a le temps, démontrer comment se connecter au Pi via SSH.
+
+
+
+
+S'il reste du temps, tester les autres canaux du convertisseur analogique-digital, par exemple avec une cellule photoélectrique.
+
+Fonctionne comme une résistance, varie avec la lumière. On la met en série avec une autre résistance pour faire un diviseur de tension
+et on mesure la tension à travers la cellule.
+
+On peut aussi utiliser un potentiomètre.
 
 
 
