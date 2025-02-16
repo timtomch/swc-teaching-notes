@@ -262,8 +262,7 @@ python --version
 pip --version
 git --version
 
-Installer le petit script
-git clone https://github.com/timtomch/formation-raspi.git
+
 
 
 
@@ -290,16 +289,19 @@ Utiliser la commande pinout pour voir le schéma de branchement.
 Afficher schéma de branchement à l'écran
 
 Utiliser les commandes 
-raspi-gpio get 	        Liste le statut de chaque broche GPIO.
-raspi-gpio get X 	    Lit le statut de la broche X.
-raspi-gpio set X op 	Définit la broche X comme une sortie (output).
-raspi-gpio set X op 	Définit la broche X comme une entrée (input).
-raspi-gpio set X dh 	Envoie le signal "ALLUMÉ" (3.3 V) sur la broche X (drive high).
-raspi-gpio set X dl 	Envoie le signal "ÉTEINT" (0 V) sur la broche X (drive low).
+(on utilisait avant raspi-gpio)
+pinctrl -p 	        Liste le statut de chaque broche GPIO.
+pinctrl get X 	    Lit le statut de la broche X.
+pinctrl set X op 	Définit la broche X comme une sortie (output).
+pinctrl set X op 	Définit la broche X comme une entrée (input).
+pinctrl set X dh 	Envoie le signal "ALLUMÉ" (3.3 V) sur la broche X (drive high).
+pinctrl set X dl 	Envoie le signal "ÉTEINT" (0 V) sur la broche X (drive low).
 
-On peut les combiner: raspi-gpio set 18 op dh
+On peut les combiner: pinctrl set 18 op dh
 
-Tester avec des LEDs. Utiliser une résistance en série pour limiter le courant.
+(get et set sont facultatifs)
+
+Tester avec des LEDs. Utiliser une résistance en série pour limiter le courant. Montrer le schéma sur le wiki.
 
 
 
@@ -320,12 +322,9 @@ sudo raspi-config
 puis naviguer vers Interface Options et I2C. Activer et valider.
 
 
-    Optionnel: installer les outils i2c-tools pour pouvoir utiliser cette interface depuis la ligne de commande:
-    (si on a fait une install complète de Raspberry Pi OS, peut-être pas besoin d'installer)
+Vérifier que le convertisseur analogique-digital est bien détecté au port Ox48
 
-    sudo apt-get install i2c-tools
-
-    Une fois l'installation terminée, on peut commencer à examiner l'interface.
+        sudo apt-get install i2c-tools   si pas présent - en principe inclus dans installation complète
 
     i2cdetect -y 1
 
@@ -347,6 +346,38 @@ puis naviguer vers Interface Options et I2C. Activer et valider.
     70: -- -- -- -- -- -- -- --   
 
     On voit qu'un circuit a été détecté à l'adresse 0x48 (notation hexadécimale), il s'agit de notre convertisseur a/d.
+    
+    Par défaut (si on laisse le pin ADDR ouvert), le convertisseur est à l'adresse 0x48. 
+    On pourrait changer l'adresse en connectant ce pin à VDD (0x49), SDA (0x4A) ou SCL(0x4B).
+
+
+
+
+Utiliser mon petit script pour lire les valeurs
+
+Il faut désormais créer un environnement Python virtuel d'abord:
+
+python -m venv mesure-humidite
+
+Ensuite on active cet environnement
+source mesure-humidite/bin/activate
+    (il faudra se rappeler de le faire si on redémarre le Pi)
+
+Puis on peut installer la librairie nécessaire DANS L'ENVIRONNEMENT QU'ON A CREE
+    pip install adafruit-circuitpython-ads1x15
+
+Installer le petit script
+git clone https://github.com/timtomch/formation-raspi.git
+
+Puis on le fait tourner DANS L'ENVIRONNEMENT QU'ON A CREE
+cd formation-raspi
+python adctest.py
+
+On devrait voir un truc du genre
+   A0	   A1	   A2	   A3
+0.002	0.924	0.938	0.912
+0.940	0.922	0.932	0.918
+
 
 
 Si on a le temps, démontrer comment se connecter au Pi via SSH.
