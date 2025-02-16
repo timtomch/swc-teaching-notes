@@ -236,18 +236,17 @@ La semaine prochaine:
 SEANCE 2 - CIRCUIT ELECTRONIQUE ET PORTS GPIO
 
 Apporter
-- breadboards
-- jumpers
+- breadboards (1 par personne)
+- jumpers (min 5 mâle-mâle et 6 mâle-femelle par personne)
+- résistances (2x 1kOhm par personne)
 - convertisseurs analogique-digital
 - sondes humidité
-- DELs
+- DELs (1 rouge 1 verte par personne)
 - Autres senseurs si on en a
     - Cellules photoélectriques
     - Thermistances
     - Détecteurs de distance ultrason
     - etc.
-
-
 
 
 Petit recap de la première séance.
@@ -256,12 +255,16 @@ Est-ce que les gens ont essayé de jouer avec leur Raspi?
 S'assurer que tout le monde a réussi à démarrer son pi et est en mesure de le contrôler, soit en direct, soit via SSH.
 
 
+Démontrer comment se connecter au Pi via SSH.
+
+
+
+
 Vérifier que python3, pip et git sont installés, sinon le faire avec apt-get:
 
 python --version
 pip --version
 git --version
-
 
 
 
@@ -379,16 +382,11 @@ On devrait voir un truc du genre
 0.940	0.922	0.932	0.918
 
 
-
-Si on a le temps, démontrer comment se connecter au Pi via SSH.
-
-
-
+Lorsqu'on a fini, on peut ressortir de l'environnement virtuel:
+deactivate
 
 S'il reste du temps, tester les autres canaux du convertisseur analogique-digital, par exemple avec une cellule photoélectrique.
-
-Fonctionne comme une résistance, varie avec la lumière. On la met en série avec une autre résistance pour faire un diviseur de tension
-et on mesure la tension à travers la cellule.
+Fonctionne comme une résistance, varie avec la lumière. On la met en série avec une autre résistance pour faire un diviseur de tension et on mesure la tension à travers la cellule.
 
 On peut aussi utiliser un potentiomètre.
 
@@ -404,6 +402,9 @@ Apporter / préparer
 - Récipients d'eau
 
 
+
+Vérifier que tout le monde a son Pi, est capable de le contrôler.
+Tout le monde a son montage? Sinon, prendre le temps de le refaire. Vérifier qu'on peut allumer et éteindre les LEDs et recevoir des données analogiques.
 
 Introduction à Python
 Avec Thonny - IDE déjà installé dans le Pi
@@ -423,3 +424,157 @@ Ev avec VSCode en mode remote
         https://github.com/etcyl/rpi_dashboard
         https://github.com/chrisx8/pidash
 - Utiliser PiTunnel pour voir l'application depuis n'importe où
+
+
+B.A.-BA de la programmation Python
+
+Utiliser Thonny
+Différence entre console et éditeur.
+
+Opérations simples
+3 + 5 * 4
+
+Variables
+var1 = 3
+var2 = 5
+
+var1 + var2
+
+var3 = var1 * var2
+
+Appel de fonction
+print(var3)
+print('Le résultat du calcul est ', var3)
+
+
+Listes
+maliste = [1, 3, 5, 7, 9]
+maliste[0]
+maliste[1]
+
+Attention à la base zéro!
+
+len(maliste)
+
+
+Opérations logiques
+if(var3 > 10):
+    print('Valeur importante')
+else:
+    print('Valeur faible')
+
+== pour vérifier si égal
+!= pour vérifier si différent
+
+Opérateurs booléens
+and / or
+
+2 < 3 and 3 < 4
+True
+
+2 < 3 and 3 > 4
+False
+
+2 < 3 or 3 < 4
+True
+
+2 < 3 or 3 > 4
+True
+
+
+Boucles
+for i in [0, 1, 2]:
+    print("valeur :", i)
+print("Fin")
+
+
+x = 1
+while x < 10:
+    print("x a pour valeur", x)
+    x = x * 2
+print("Fin")
+
+
+Instructions break et continue
+- break -> sort immédiatement de la boucle
+- continue -> passe au tour de boucle suivant
+
+Commentaire dans le code
+# Précédés du signe dièse
+
+Définir ses propres fonctions
+
+def compteur():
+    i = 0
+    while i < 3:
+        print(i)
+        i = i + 1
+
+compteur()
+
+
+Avec paramètre
+
+def compteur(stop):
+    i = 0
+    while i < stop:
+        print(i)
+        i = i + 1
+
+
+On peut avoir plusieurs paramètres
+
+def compteur_complet(start, stop, step):
+    i = start
+    while i < stop:
+        print(i)
+        i = i + step
+
+compteur_complet(1, 7, 2)
+
+
+Ces fonctions ne font qu'afficher des choses à l'écran, en pratique on veut généralement qu'une fonction "retourne" une valeur
+qui peut ensuite être utilisée ailleurs.
+
+def verif_temperature(temp, limite)
+    if temp > limite
+        return False
+    else return True
+
+Peut être utilisée ensuite, par exemple
+
+if verif_temperature(14,20):
+    print('Il ne fait pas trop chaud')
+    
+
+Librairies
+
+Il existe beaucoup de librairies qui permettent d'étendre les fonctionnalités de Python.
+On en a déjà installé une lorsqu'on a testé le ADC.
+
+Librairie très simple pour contrôler les GPIO
+
+from gpiozero import LED
+rouge = LED(23)
+verte = LED(24)
+
+rouge.on()
+rouge.off()
+verte.blink(1) # intervalle en secondes
+
+
+Ouvrir le script adctest.py et l'expliquer
+
+Boucle while True pour avoir un programme qui s'effectue en continu
+sleep pour définir la fréquence d'échantillonnage
+
+Mentionner les ressources possibles
+
+
+Laisser les participants s'essayer à programmer.
+Faire un programme qui mesure l'humidité avec le senseur
+
+Si dans une fourchette OK: allume la DEL verte
+Si trop sec: clignote rouge
+Si trop humide: allume la DEL rouge
+
