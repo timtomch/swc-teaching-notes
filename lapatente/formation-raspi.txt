@@ -200,6 +200,7 @@ Pour aller plus loin
 
 Idées d'application pour le Raspberry Pi
 - Serveur web - pas forcément intéressant en soi, mais permet de développer des apps web pour contrôler un setup à distance
+    Project Yunohost permet de faire ça facilement: https://yunohost.org/
 - Station météo
 - Surveillance vidéo
     - Avec p.ex un hat avec un chip IA pour reconnaissance d'image
@@ -360,7 +361,7 @@ Utiliser mon petit script pour lire les valeurs
 
 Il faut désormais créer un environnement Python virtuel d'abord:
 
-python -m venv mesure-humidite
+python -m venv --system-site-packages mesure-humidite
 
 Ensuite on active cet environnement
 source mesure-humidite/bin/activate
@@ -419,11 +420,7 @@ Ev avec VSCode en mode remote
     - Lire le taux d'humidité
 - Programmer un script qui allume la DEL quand il n'y a pas assez d'eau
 - Si on a le temps, application web avec Flask pour afficher le statut et la variation du taux d'humidité avec le temps
-    Voir
-        https://projects.raspberrypi.org/en/projects/python-web-server-with-flask/2
-        https://github.com/etcyl/rpi_dashboard
-        https://github.com/chrisx8/pidash
-- Utiliser PiTunnel pour voir l'application depuis n'importe où
+    - Utiliser PiTunnel pour voir l'application depuis n'importe où
 
 
 B.A.-BA de la programmation Python
@@ -465,6 +462,8 @@ else:
 
 == pour vérifier si égal
 != pour vérifier si différent
+
+Utiliser elif pour "else if"
 
 Opérateurs booléens
 and / or
@@ -547,6 +546,25 @@ if verif_temperature(14,20):
     print('Il ne fait pas trop chaud')
     
 
+---> Reprendre ICI
+
+Vérifier que les Pi sont fonctionnels. Utiliser l'interface graphique ou s'assurer que les participants ont un IDE (ex VSCode).
+Vérifier que les montages sont fonctionnels.
+Ouvrir la page du wiki dans Chromium.
+
+Mettre à jour le dossier formation-raspi avec Git. Vérifier que les participants n'ont rien mis dedans avant.
+
+Parler des fichiers invisibles avec l'exemple .git
+
+Refaire un environnement virtuel propre dans un nouveau dossier.
+Utiliser --system-site-packages
+
+mkdir mesure-humidite
+cd mesure-humidite
+python -m venv --system-site-packages .venv
+
+
+
 Librairies
 
 Il existe beaucoup de librairies qui permettent d'étendre les fonctionnalités de Python.
@@ -561,9 +579,26 @@ verte = LED(24)
 rouge.on()
 rouge.off()
 verte.blink(1) # intervalle en secondes
-
+rouge.blink(0.2,2)
 
 Ouvrir le script adctest.py et l'expliquer
+
+Librairies board et busio ont été installées avec celle du convertisseur Adafruit.
+Font partie de l'environnement CircuitPython développé par Adafruit.
+Permettent de dialoguer facilement avec d'autres circuits.
+
+
+
+Autres exemples de librairies:
+- pandas, matplotlib -> travail sur les données, visualisation, etc.
+- pytorch -> apprentissage machine
+etc.
+Pour le Pi:
+- gpiozero
+- time
+- picamera
+etc.
+
 
 Boucle while True pour avoir un programme qui s'effectue en continu
 sleep pour définir la fréquence d'échantillonnage
@@ -575,6 +610,36 @@ Laisser les participants s'essayer à programmer.
 Faire un programme qui mesure l'humidité avec le senseur
 
 Si dans une fourchette OK: allume la DEL verte
-Si trop sec: clignote rouge
-Si trop humide: allume la DEL rouge
+Si trop sec: allume la DEL rouge
+Si trop humide: clignote la DEL rouge
 
+
+Si fini trop vite, suggérer d'ajouter la mesure de la luminosité sur un autre canal.
+Faire un diviseur de tension avec cellule photo
+
+
+Vérifier que tout le monde a réussi.
+Utiliser le script mesure.py et l'expliquer.
+
+
+Ajouter une fonction pour logger la valeur mesurée et le statut.
+Ouvrir le script mesure_log.py et l'expliquer
+
+
+Si le temps le permet, expliquer Flask, suivre les indications dans le wiki.
+
+
+Pour conclure
+- Vérifier si les participants ont encore des questions
+- Le montage qu'on a fait est un exemple, pour démontrer le capacités.
+- Si on veut faire quelque chose de plus pérenne
+    - Utiliser cron pour faire les mesures
+    - Utiliser SQLite pour logger les données
+    - Utiliser quelque chose comme Redis pour passer des données entre les programmes
+    - Ajouter d'autres senseurs
+    - Améliorer le câblage
+    - Démarrer automatiquement l'application web
+    - etc.
+- Le but de la formation était de démystifier les concepts, chercher de l'info sur le web pour aller plus loin
+- Me contacter par courriel si vous avez des questions
+- Demander une rétroaction
