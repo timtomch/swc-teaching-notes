@@ -40,6 +40,10 @@ Développé au départ à l'université de Cambridge, maintenant par une fondati
 Il y a des clones (Orange Pi, Rock, etc.) - montés en popularité depuis les problèmes d'approvisionnement durant la COVID.
 En général un petit peu moins chers à performance égale, pas la même taille, moins biens documentés.
 
+Malheureusement devenus beaucoup plus chers depuis l'explosion des prix des circuits électroniques liés à la bulle IA... surtout la mémoire vive.
+84% d'augmentation du prix depuis la dernière fois que j'ai fait la formation... :(
+Vous avez des modèles 2GB
+
 
 Présenter la carte, connecteurs et composants principaux.
 On utilise ici le Pi 5.
@@ -90,7 +94,7 @@ Vitesse de lecture/écriture aussi très importante.
 
 Si le Pi est super lent et fait des erreurs dès le début -> carte de mauvaise qualité.
 
-Je recommande Samsung EVO+ ou SanDisk Extreme.
+Je recommande un carte de marque connue, comme Samsung EVO+ ou SanDisk Extreme.
 Voir https://pibenchmarks.com/sd/ pour plus de détails.
 
 Minimum 32GB (ou 16GB pour OS Lite - sans desktop)
@@ -204,7 +208,7 @@ Idées d'application pour le Raspberry Pi
 - Station météo
 - Surveillance vidéo
     - Avec p.ex un hat avec un chip IA pour reconnaissance d'image
-- Ruche connectée?
+- À la Patente: Octoprint, CNCjs, Restreamer, TV de l'accueil
 - Ecrans d'affichage
 - TV intelligente
 - Kiosques d'information
@@ -227,7 +231,6 @@ La semaine prochaine:
 - On regardera comment interagir avec les ports GPIO
 - On verra comment contrôler des DELs depuis le Pi
 - On verra comment connecter le convertisseur analogique-numérique
-    Si les gens sont intéressés, on pourra le souder nous même!
 - On verra comment lire des signaux analogiques
 
 
@@ -320,7 +323,7 @@ Faire le câblage. Expliquer les ports SDA et SCL.
 
 Pour l'activer, aller dans l'interface de configuration
 Visuel ou avec raspi-config (si headless)
-
+((89))
 sudo raspi-config
 
 puis naviguer vers Interface Options et I2C. Activer et valider.
@@ -546,7 +549,6 @@ if verif_temperature(14,20):
     print('Il ne fait pas trop chaud')
     
 
----> Reprendre ICI
 
 Vérifier que les Pi sont fonctionnels. Utiliser l'interface graphique ou s'assurer que les participants ont un IDE (ex VSCode).
 Vérifier que les montages sont fonctionnels.
